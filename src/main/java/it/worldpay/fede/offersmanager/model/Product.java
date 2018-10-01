@@ -33,8 +33,8 @@ public abstract class Product {
 	@Column(name = "PRODUCT_NAME")
 	private String productName;
 	
-	@Column(name = "VALIDITY_PERIOD")
-	private Date validityPeriod;
+	@Column(name = "DAYS_VALIDITY_PERIOD")
+	private int daysValidityPeriod;
 	
 
 	public Long getProductId() {
@@ -89,12 +89,12 @@ public abstract class Product {
 		this.productId = productId;
 	}
 	
-	public Date getValidityPeriod() {
-		return validityPeriod;
+	public int getDaysValidityPeriod() {
+		return daysValidityPeriod;
 	}
 
-	public void setValidityPeriod(Date validityPeriod) {
-		this.validityPeriod = validityPeriod;
+	public void setDaysValidityPeriod(int validityPeriod) {
+		this.daysValidityPeriod = validityPeriod;
 	}
 
 	public Product(){

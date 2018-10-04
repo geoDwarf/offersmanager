@@ -9,4 +9,6 @@ public interface DummyFactory {
 
 	public Product getDummyProduct(String product);
 	
+	public Product getBadRequestDummyProduct(String product);
+	
 }

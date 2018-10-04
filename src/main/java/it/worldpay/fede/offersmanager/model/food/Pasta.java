@@ -1,53 +1,51 @@
 package it.worldpay.fede.offersmanager.model.food;
 
-//@Entity
-public class Pasta {//extends Food
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
-//	@Id
-//	@NotNull
-//	@Column(unique = true,name="PASTA_ID")
-//	private long pastaId;
-//	
-//	@Column(name = "MINUTES_INTO_BOILING_WATER")
-//	private int minutesIntoBolingWater;
-//	
-//	@Column(name="DRESSING")
-//	private String dressing;
-//	
-//	@Column(name = "PASTA_TYPE")
-//	private String pastaType;
-//
-//	public long getPastaId() {
-//		return pastaId;
-//	}
-//
-//	public void setPastaId(long pastaId) {
-//		this.pastaId = pastaId;
-//	}
-//
-//	public int getMinutesIntoBolingWater() {
-//		return minutesIntoBolingWater;
-//	}
-//
-//	public void setMinutesIntoBolingWater(int minutesIntoBolingWater) {
-//		this.minutesIntoBolingWater = minutesIntoBolingWater;
-//	}
-//
-//	public String getDressing() {
-//		return dressing;
-//	}
-//
-//	public void setDressing(String dressing) {
-//		this.dressing = dressing;
-//	}
-//
-//	public String getPastaType() {
-//		return pastaType;
-//	}
-//
-//	public void setPastaType(String pastaType) {
-//		this.pastaType = pastaType;
-//	}
-//	
+import it.worldpay.fede.offersmanager.model.Food;
+
+@Entity
+@PrimaryKeyJoinColumn(name = "pastaId")
+public class Pasta extends Food{
+
 	
+	@Column(name = "COOKING_TIME")
+	private int cookingTime;
+	
+	@Column(name="DRESSING")
+	private String dressing;
+	
+	@Column(name = "PASTA_TYPE")
+	private String pastaType;
+
+	
+	public int getCookingTime() {
+		return cookingTime;
+	}
+
+	public void setCookingTime(int cookingTime) {
+		this.cookingTime = cookingTime;
+	}
+
+	public String getDressing() {
+		return dressing;
+	}
+
+	public void setDressing(String dressing) {
+		this.dressing = dressing;
+	}
+
+	public String getPastaType() {
+		return pastaType;
+	}
+
+	public void setPastaType(String pastaType) {
+		this.pastaType = pastaType;
+	}
+	
+	public Pasta(){
+		super();
+	}
 }

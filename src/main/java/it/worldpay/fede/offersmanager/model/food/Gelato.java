@@ -3,6 +3,7 @@ package it.worldpay.fede.offersmanager.model.food;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotNull;
 
 import it.worldpay.fede.offersmanager.model.Food;
 
@@ -10,7 +11,7 @@ import it.worldpay.fede.offersmanager.model.Food;
 @PrimaryKeyJoinColumn(name = "gelatoId")
 public class Gelato extends Food 
 {
-
+	
 	@Column(name = "FLAVOR_ONE")
 	private Flavor flavorOne;
 	

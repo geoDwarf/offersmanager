@@ -33,9 +33,20 @@ public abstract class Product {
 	@Column(name = "PRODUCT_NAME")
 	private String productName;
 	
+	@NotNull
 	@Column(name = "DAYS_VALIDITY_PERIOD")
 	private int daysValidityPeriod;
 	
+	@Column(name = "IS_EXPIRED")
+	private boolean isExpired;
+
+	public boolean isExpired() {
+		return isExpired;
+	}
+
+	public void setExpired(boolean isExpired) {
+		this.isExpired = isExpired;
+	}
 
 	public Long getProductId() {
 		return productId;

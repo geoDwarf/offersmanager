@@ -1,30 +1,19 @@
 package it.worldpay.fede.offersmanager.model.food;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
-//@Entity
-public class Pizza 
-//extends Food
-{
-	
-	@Id
-	@NotNull
-	@Column(unique = true,name="PIZZA_ID")
-	private long pizzaId;
-	
+import it.worldpay.fede.offersmanager.model.Food;
+
+@Entity
+@PrimaryKeyJoinColumn(name = "pizzaId")
+public class Pizza extends Food
+{	
 	@Column(name= "DRESSING")
 	private String dressing;
 
-	public long getPizzaId() {
-		return pizzaId;
-	}
-
-	public void setPizzaId(long pizzaId) {
-		this.pizzaId = pizzaId;
-	}
-
+	
 	public String getDressing() {
 		return dressing;
 	}
@@ -33,5 +22,7 @@ public class Pizza
 		this.dressing = dressing;
 	}
 	
-	
+	public Pizza(){
+		super();
+	}
 }

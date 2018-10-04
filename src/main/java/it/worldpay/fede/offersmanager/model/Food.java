@@ -6,15 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.validation.constraints.NotNull;
+import javax.persistence.PrimaryKeyJoinColumn;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name = "bookId")
 public abstract class Food extends Product{
-	
-	@NotNull 
-	@Column(unique = true, name ="FOOD_ID")
-	private long foodId;
 	
 	@Column(name ="ORIGIN")
 	private String origin;
@@ -25,15 +23,6 @@ public abstract class Food extends Product{
 	@Column(name= "EXPIRING_DATE")
 	private Date expiringDate;
 	
-	
-	public long getFoodId() {
-		return foodId;
-	}
-
-	public void setFoodId(long foodId) {
-		this.foodId = foodId;
-	}
-
 	public String getOrigin() {
 		return origin;
 	}
@@ -63,6 +52,6 @@ public abstract class Food extends Product{
 	}
 	
 	public Food(){
-	
+		super();
 	}
 }

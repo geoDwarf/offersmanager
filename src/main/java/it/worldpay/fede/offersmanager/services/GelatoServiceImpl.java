@@ -11,11 +11,11 @@ import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
 
 @Service
-public class GelatoServiceImpl implements GelatoService {
+public class GelatoServiceImpl extends BaseService implements GelatoService {
 
 	
 	@Autowired
-	 GelatoDao<Product> gelatoDao;
+	 GelatoDao gelatoDao;
 
 	
 	

@@ -76,15 +76,24 @@ public class DateTest {
 		
 		int validityPeriod =  5;
 		Date expectedDate = dateUtils.parseStringToDate("2018-10-06 00:11");
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(expectedDate);
-		expectedDate = calendar.getTime();
-		gelatoDummy.setDaysValidityPeriod(validityPeriod);
-		gelatoDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-10-01 00:11"));
-	
+		setGelatoDummyForDateTest(validityPeriod);
+		expectedDate = setDateAsCalendar(expectedDate);
 		Date startingDate = gelatoDummy.getOfferStartingDate();
 		Date expiringDate = dateUtils.addDates(startingDate,validityPeriod);
 		
 		assertEquals(expectedDate, expiringDate);
+	}
+	
+	private void setGelatoDummyForDateTest(int validityPeriod){
+		gelatoDummy.setDaysValidityPeriod(validityPeriod);
+		gelatoDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-10-01 00:11"));
+	}
+	
+	private Date setDateAsCalendar(Date date){
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		date = calendar.getTime();
+		return date;
 	}
 }

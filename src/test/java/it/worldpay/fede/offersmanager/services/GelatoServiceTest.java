@@ -28,12 +28,13 @@ public class GelatoServiceTest {
 	GelatoService gelatoService;	
 	
 	@Autowired
-	GelatoDao<Gelato> gelatoDao;
+	GelatoDao gelatoDao;
 	
 	@Before
 	public void initializeTestVariable(){
 		DummyFactory dummyFactory = new DummyFactoryImpl();
 		gelatoDummy = (Gelato)dummyFactory.getDummyProduct("GELATO");
+		gelatoDummy.setDaysValidityPeriod(5);
 	}
 	private Gelato gelatoDummy;
 

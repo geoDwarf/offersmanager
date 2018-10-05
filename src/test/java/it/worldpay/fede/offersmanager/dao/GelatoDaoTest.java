@@ -17,7 +17,7 @@ import it.worldpay.fede.offersmanager.model.food.Gelato.Flavor;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
-public class DaoTest {
+public class GelatoDaoTest {
 	
 	@Before
 	public void initializeTestVariable(){
@@ -28,7 +28,7 @@ public class DaoTest {
 	private DummyFactory dummyFactory;
 			
 	@Autowired
-	GelatoDao<Gelato> gelatoDao;
+	GelatoDao gelatoDao;
 	
 	Gelato gelatoDummy;
 	
@@ -59,18 +59,7 @@ public class DaoTest {
 	}
 	
 	
-//	@Test
-//	public void whenSaveGelato_thenItIsPossibleUpdateIt(){
-//		
-//		Gelato gelatoSaved = gelatoDao.save(gelatoDummy);
-//		
-//		gelatoSaved.setFlavorOne(Flavor.BANANA);
-//		gelatoSaved.setFlavorTwo(Flavor.CHOCOLATE);
-//		gelatoDao.save(gelatoSaved);
-//		
-//		assertEquals(Flavor.BANANA,gelatoSaved.getFlavorOne());
-//	}
-//	
+
 	@Test
 	public void whneGelatoIsSaved_thenItIspossibleToFetchItById(){
 		

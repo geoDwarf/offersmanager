@@ -7,7 +7,7 @@ import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
 
 @Repository
-public interface GelatoDao<T extends Product> extends BaseRepository<Gelato>
+public interface GelatoDao extends BaseRepository<Gelato>
 {
 		
 	

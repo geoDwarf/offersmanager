@@ -22,7 +22,13 @@ public class Pizza extends Food
 		this.dressing = dressing;
 	}
 	
+
 	public Pizza(){
 		super();
+	}
+	
+	public Pizza(Long productId){
+		super(productId);
+		
 	}
 }

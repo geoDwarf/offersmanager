@@ -1,5 +1,7 @@
 package it.worldpay.fede.offersmanager.services;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +9,6 @@ import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
-import it.worldpay.fede.offersmanager.exceptions.ProductNotFounException;
 import it.worldpay.fede.offersmanager.model.Product;
 
 
@@ -18,14 +19,16 @@ public class ProductServiceImpl extends BaseService implements ProductService {
 	@Autowired
 	ProductDao<Product> productDao;
 
+
 	@Override
 	public Product getProduct(Long id) throws ProductNotFoundException, ProductExpiredException{
 		
 		Product productFound = productDao.findOne(id);
 		
-			if (null == productFound)
-			throw new ProductNotFoundException();
-		
+		checkIfProductIsNotFound(productFound);
+			
+		chekIfExpiringDateIsBeforeGettingProductTime(productFound);
+			
 		checkIfProductIsExpired(productDao.findOne(id));
 		
 		return productFound;

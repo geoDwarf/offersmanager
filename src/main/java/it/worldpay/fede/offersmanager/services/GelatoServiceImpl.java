@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import it.worldpay.fede.offersmanager.dao.GelatoDao;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
-import it.worldpay.fede.offersmanager.exceptions.ProductNotFounException;
-import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
 
 @Service
@@ -23,8 +21,13 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 	public Gelato getGelato(Long id) throws ProductNotFoundException{
 		
 		Gelato gelatoFound = gelatoDao.findOne(id);
-		if (null == gelatoFound)
-			throw new ProductNotFoundException();
+		
+		checkIfProductIsNotFound(gelatoFound);
+		
+		chekIfExpiringDateIsBeforeGettingProductTime(gelatoFound);
+		
+		checkIfProductIsExpired(gelatoFound);
+		
 		return gelatoFound;
 		
 	}
@@ -32,11 +35,15 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 	@Override
 	public void saveGelato(Gelato gelato) throws DuplicateProductException{
 		
+		checkForValidityPeriodAndStartingDate(gelato);
+		
+		setExpiringDateByValidityPeriod(gelato, gelato.getDaysValidityPeriod());
+		
 		Gelato gelatoDuplicated = (Gelato)gelatoDao.findByProductId(gelato.getProductId());
 		
-		if(gelatoDuplicated != null)
-			throw new DuplicateProductException();
-		  gelatoDao.save(gelato);
+		checkIfProductIsDuplicated(gelatoDuplicated);
+		 
+		gelatoDao.save(gelato);
 		  
 	}
 	
@@ -45,9 +52,9 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 		
 		Gelato gelatoNotFound = (Gelato)gelatoDao.findByProductId(gelato.getProductId());
 		
-		if(gelatoNotFound == null)
-			throw new ProductNotFoundException();
-		  gelatoDao.delete(gelato);
+		checkIfProductIsNotFound(gelatoNotFound);
+		
+		gelatoDao.delete(gelato);
 		  
 	}
 	

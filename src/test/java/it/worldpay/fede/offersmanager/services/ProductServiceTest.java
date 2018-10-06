@@ -26,6 +26,7 @@ import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.exceptions.MissingParameterException;
 import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
+import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 
@@ -45,6 +46,9 @@ public class ProductServiceTest {
 
 	@Mock
 	DateUtils dateUtils;
+	
+	@Mock
+	DateTime dateTime;
 	
 	@Mock
 	ProductDao<Product> productDao;
@@ -72,6 +76,8 @@ public class ProductServiceTest {
 
 		given(productDao.findOne(anyLong())).willReturn(productDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
+		given(dateTime.getDate()).willReturn(new Date());
+		
 		productServiceImpl.saveProduct(productDummy);
 	
 		productFetched = productServiceImpl.getProduct(new Long(281));
@@ -125,6 +131,18 @@ public class ProductServiceTest {
 		
 		productServiceImpl.saveProduct(productDummy);
 	}
+	
+	@Test(expected = ProductExpiredException.class)
+	public void whenAnExpiredProductIsFound_ProductExpiredExceptionIsThrown()  throws ParseException{
+		
+		productDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
+		
+		given(productDao.findOne(anyLong())).willReturn(productDummy);
+		given(dateTime.getDate()).willReturn(new Date());
+		
+		productServiceImpl.getProduct(productDummy.getProductId());
+	}
+	
 	
 	@Test
 	public void whenProductIsDeleted_ItWillThorwoExceptionIfWeTryToFetchit(){

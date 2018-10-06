@@ -47,9 +47,18 @@ public Product getBadRequestDummyProduct(String product){
 private Gelato getBadRequestDummyGelato(){
 	
 	boolean isServedWithWippedCream = true;
-	Long productId =null ;
+	Long productId = null ;
 	
 	return new Gelato(isServedWithWippedCream, productId);
+	
+}
+
+
+private Pizza getBadRequestDummyPizza(){
+	
+	Long productId = null ;
+	
+	return new Pizza(productId);
 	
 }
 	

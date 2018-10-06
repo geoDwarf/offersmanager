@@ -68,6 +68,7 @@ public class PizzaServiceTest {
 
 		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
+		
 		pizzaServiceImpl.savePizza(pizzaDummy);
 	
 		pizzaFetched = pizzaServiceImpl.getPizza(new Long(281));
@@ -105,6 +106,7 @@ public class PizzaServiceTest {
 	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
 		
 		given(pizzaDao.findByProductId(anyLong())).willReturn(new Gelato());
+		
 		pizzaDummy.setDaysValidityPeriod(0);
 		
 		pizzaServiceImpl.savePizza(pizzaDummy);
@@ -118,8 +120,14 @@ public class PizzaServiceTest {
 		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		
 		pizzaServiceImpl.savePizza(pizzaDummy);
 	}
 	
+	@Test(expected= ProductNotFoundException.class)
+	public void whenTryingToGetADeletedGelato_ExceptionIsThrown()  throws ProductExpiredException{
+		 
+		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
+		
+		pizzaServiceImpl.deletePizza(pizzaDummy);
+	}
 }

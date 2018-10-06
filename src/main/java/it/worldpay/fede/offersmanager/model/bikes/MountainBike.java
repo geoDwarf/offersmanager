@@ -20,4 +20,7 @@ public class MountainBike extends Bike  {
 	public MountainBike(Long idProduct){
 		super(idProduct);
 	}
+	public MountainBike(){
+		super();
+	}
 }

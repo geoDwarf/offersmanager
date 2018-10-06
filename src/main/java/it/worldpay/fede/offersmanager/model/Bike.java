@@ -38,5 +38,8 @@ public abstract class Bike extends Product{
 	public Bike(Long idProduct){
 	super(idProduct);
 	}
+	public Bike(){
+		super();
+		}
 	
 }

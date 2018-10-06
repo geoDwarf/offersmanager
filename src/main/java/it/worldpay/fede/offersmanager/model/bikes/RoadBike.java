@@ -16,4 +16,8 @@ public class RoadBike extends Bike {
 	public RoadBike(Long idProduct){
 		super(idProduct);
 	}
+	
+	public RoadBike(){
+		super();
+	}
 }

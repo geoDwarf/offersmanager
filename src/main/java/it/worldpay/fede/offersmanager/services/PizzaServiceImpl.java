@@ -14,14 +14,17 @@ public class PizzaServiceImpl extends BaseService implements PizzaService{
 	@Autowired
 	 PizzaDao pizzaDao;
 
-	
-	
 	@Override
 	public Pizza getPizza(Long id) throws ProductNotFoundException{
 		
 		Pizza pizzaFound = pizzaDao.findOne(id);
-		if (null == pizzaFound)
-			throw new ProductNotFoundException();
+		
+		checkIfProductIsNotFound(pizzaFound);
+		
+		chekIfExpiringDateIsBeforeGettingProductTime(pizzaFound);
+		
+		checkIfProductIsExpired(pizzaDao.findOne(id));
+		
 		return pizzaFound;
 		
 	}
@@ -46,9 +49,7 @@ public class PizzaServiceImpl extends BaseService implements PizzaService{
 		
 		Pizza pizzaNotFound = (Pizza)pizzaDao.findByProductId(pizza.getProductId());
 		
-		if(pizzaNotFound == null)
-			throw new ProductNotFoundException();
-		 pizzaDao.delete(pizza);
+		checkIfProductIsNotFound(pizzaNotFound);
 		  
 	}
 

@@ -48,4 +48,9 @@ public class Pasta extends Food{
 	public Pasta(){
 		super();
 	}
+	
+	public Pasta(Long productId){
+		super(productId);
+		
+	}
 }

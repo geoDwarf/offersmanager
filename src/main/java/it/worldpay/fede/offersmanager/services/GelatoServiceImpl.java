@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.dao.GelatoDao;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
 
@@ -18,7 +19,7 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 	
 	
 	@Override
-	public Gelato getGelato(Long id) throws ProductNotFoundException{
+	public Gelato getGelato(Long id) throws ProductNotFoundException, ProductExpiredException{
 		
 		Gelato gelatoFound = gelatoDao.findOne(id);
 		

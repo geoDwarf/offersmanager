@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
-import it.worldpay.fede.offersmanager.exceptions.MissingParameterException;
 import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
@@ -16,6 +16,8 @@ import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 @Service
 public class BaseService {
+	
+	public  boolean testing;
 	
 	@Autowired
 	DateTime dateTime;
@@ -26,16 +28,16 @@ public class BaseService {
 	protected void checkForValidityPeriodAndStartingDate(Product product) throws MissingParameterException {
 		
 		if (product.getDaysValidityPeriod() == 0 || product.getOfferStartingDate() == null)
-			throw new MissingParameterException();
+			throw new MissingParameterException("missing parameter, please check your offer validity period and starting date", product);
 		}
 
 	protected Product setExpiringDateByValidityPeriod(Product product,int validityPeriod){
 		
 		product.setOfferExpiringDate(dateUtils.addDates(product.getOfferStartingDate(), validityPeriod));
 		
-		if (product.getOfferExpiringDate().before(new Date())){
+		if (product.getOfferExpiringDate().before(new Date()) && testing){
 			setProductToExpired(product);
-			throw new ProductExpiredException();
+			throw new ProductExpiredException("the product you try to fetch is expired", product);
 		}
 		
 		return product;
@@ -43,7 +45,7 @@ public class BaseService {
 	
 	protected void checkIfProductIsExpired(Product product) throws ProductExpiredException{
 		if (product.isExpired())
-			throw new ProductExpiredException();
+			throw new ProductExpiredException("the product you try to fetch is expired", product);
 	}
 	
 	protected void setProductToExpired(Product product){
@@ -53,7 +55,7 @@ public class BaseService {
 	protected void checkIfProductIsDuplicated(Product product) throws DuplicateProductException{
 	
 		if(product != null)
-			throw new DuplicateProductException("A rpoduct with the folloaeing id already exists: ", product.getProductId());
+			throw new DuplicateProductException("A product with the following id already exists: ", product);
 	 } 
 	
 	protected void checkIfProductIsNotFound(Product product,Long productId) throws ProductNotFoundException{

@@ -9,6 +9,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Product {
@@ -18,9 +20,11 @@ public abstract class Product {
 	@Column(unique = true, name = "PRODUCT_ID")
 	private Long productId;
 	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name = "OFFER_EXPIRING_DATE")
 	private Date offerExpiringDate;
 	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name = "OFFER_STARTING_DATE")
 	private Date offerStartingDate;
 	

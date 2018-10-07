@@ -21,9 +21,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
-import it.worldpay.fede.offersmanager.exceptions.MissingParameterException;
 import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
 import it.worldpay.fede.offersmanager.utils.DateTime;
@@ -39,6 +39,7 @@ public class ProductServiceTest {
 		productDummy = dummyFactory.getDummyProduct("GELATO");
 		productDummy.setOfferStartingDate(new Date());
 		productDummy.setDaysValidityPeriod(5);
+		productServiceImpl.testing = true;
 	}
 	
 	@InjectMocks

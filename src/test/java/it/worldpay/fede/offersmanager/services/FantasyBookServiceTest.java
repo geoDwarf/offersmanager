@@ -21,15 +21,15 @@ import org.mockito.junit.MockitoJUnitRunner;
 import it.worldpay.fede.offersmanager.dao.FantasyBookDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
-import it.worldpay.fede.offersmanager.exceptions.MissingParameterException;
 import it.worldpay.fede.offersmanager.model.books.FantasyBook;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class FantasyBookServiceTest {
+public class FantasyBookServiceTest  {
 	
 	@Before
 	public void initializeTestVariable(){
@@ -37,6 +37,7 @@ public class FantasyBookServiceTest {
 		fantasyBookDummy = (FantasyBook)dummyFactory.getDummyProduct("FANTASYBOOK");
 		fantasyBookDummy.setDaysValidityPeriod(5);
 		fantasyBookDummy.setOfferStartingDate(new Date());
+		fantasyBookServiceImpl.testing = true;
 	}
 	
 	@InjectMocks

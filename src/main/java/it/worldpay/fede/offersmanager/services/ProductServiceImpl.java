@@ -45,7 +45,7 @@ public class ProductServiceImpl extends BaseService implements ProductService {
 		Product productDuplicated = productDao.findByProductId(product.getProductId());
 		
 		if(productDuplicated != null)
-			throw new DuplicateProductException("A product with the following id already exists", productDuplicated.getProductId());
+			throw new DuplicateProductException("A product with the following id already exists", product);
 		 
 		  return  productDao.save(product);
 	}

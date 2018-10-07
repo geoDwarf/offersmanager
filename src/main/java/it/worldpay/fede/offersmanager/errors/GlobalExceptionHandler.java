@@ -8,25 +8,26 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler extends AbstractGlobalExceptionHandler {
 	
-
-
-    // HANDLING CUSTOM EXCEPTIONS
+	
 	@ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ExceptionResponse> productNotFound(ProductNotFoundException ex) {
-    	return buildAndSendErrorResponse(ex, "not found", HttpStatus.NOT_FOUND);
+    	return buildAndSendErrorResponse(ex, "not found",ex.getProductNotFound(), HttpStatus.NOT_FOUND);
    }
-//
+
 	@ExceptionHandler(DuplicateProductException.class)
 	public ResponseEntity<ExceptionResponse> productDuplicated(DuplicateProductException ex) {
-        return buildAndSendErrorResponse(ex, "duplicated", HttpStatus.NOT_FOUND);
+        return buildAndSendErrorResponse(ex, "duplicated",ex.getDuplicatedProduct(), HttpStatus.NOT_FOUND);
     }
-//
-//    @ExceptionHandler(DuplicateProductIdException.class)
-//    public ResponseEntity<ExceptionResponse> productIdDuplicated(DuplicateProductIdException ex) {
-//        return buildAndSendErrorResponse(ex, ERROR_CODE_DUPLICATE_PRODUCT_ID, HttpStatus.CONFLICT);
-//    }
-//
-//
+
+    @ExceptionHandler(MissingParameterException.class)
+    public ResponseEntity<ExceptionResponse> productIdDuplicated(MissingParameterException ex) {
+        return buildAndSendErrorResponse(ex, "missing, or wrong, mandatory parameter",ex.getMissingParameterProduct(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ProductExpiredException.class)
+    public ResponseEntity<ExceptionResponse> productIdDuplicated(ProductExpiredException ex) {
+        return buildAndSendErrorResponse(ex, "offer on the specific product is expired",ex.getExpiredProduct(), HttpStatus.CONFLICT);
+    }
 //    // HANDLING SOME NON-CUSTOM EXCEPTIONS
 //    @ExceptionHandler(ConstraintViolationException.class)
 //    public ResponseEntity<ExceptionResponse> constraintViolation(ConstraintViolationException ex) {

@@ -42,4 +42,8 @@ public class HandBook extends Book{
 	public HandBook(Long idProduct){
 		super(idProduct);	
 	}
+	
+	public HandBook(){
+		super();	
+	}
 }

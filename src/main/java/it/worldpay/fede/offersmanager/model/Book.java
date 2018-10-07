@@ -45,5 +45,9 @@ public Book(Long productId){
 	super(productId);
 	
 }
+
+public Book(){
+	super();
 	
+}
 }

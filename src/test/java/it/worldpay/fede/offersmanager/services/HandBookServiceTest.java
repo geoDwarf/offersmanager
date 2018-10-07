@@ -18,30 +18,30 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import it.worldpay.fede.offersmanager.dao.PizzaDao;
+import it.worldpay.fede.offersmanager.dao.HandBookDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.exceptions.MissingParameterException;
-import it.worldpay.fede.offersmanager.model.food.Pizza;
+import it.worldpay.fede.offersmanager.model.books.HandBook;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 
-@RunWith(MockitoJUnitRunner.Silent.class)
-public class PizzaServiceTest {
 
-	
+@RunWith(MockitoJUnitRunner.Silent.class)
+public class HandBookServiceTest {
+
 	@Before
 	public void initializeTestVariable(){
 		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
-		pizzaDummy = (Pizza)dummyFactory.getDummyProduct("PIZZA");
-		pizzaDummy.setDaysValidityPeriod(5);
-		pizzaDummy.setOfferStartingDate(new Date());
+		handBookDummy = (HandBook)dummyFactory.getDummyProduct("HANDBOOK");
+		handBookDummy.setDaysValidityPeriod(5);
+		handBookDummy.setOfferStartingDate(new Date());
 	}
 	
 	@InjectMocks
-    private PizzaServiceImpl pizzaServiceImpl ;
+    private HandBookServiceImpl handBookServiceImpl ;
 
 	@Mock
 	DateUtils dateUtils;
@@ -50,46 +50,46 @@ public class PizzaServiceTest {
 	DateTime dateTime;
 	
 	@Mock
-	PizzaDao pizzaDao;
+	HandBookDao handBookDao;
 	
-	private Pizza pizzaDummy;
+	private HandBook handBookDummy;
 		
-	private Pizza pizzaFetched;
+	private HandBook handBookFetched;
 	
 	 @Test(expected = DuplicateProductException.class)
-	 public void whenPizzaIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
+	 public void whenHandBookIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
-	 	given(pizzaDao.findByProductId(anyLong())).willReturn(new Pizza());
+	 	given(handBookDao.findByProductId(anyLong())).willReturn(new HandBook());
         given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
        
-        pizzaServiceImpl.savePizza(pizzaDummy);
+        handBookServiceImpl.saveHandBook(handBookDummy);
 	    }
 	
 	
 	 @Test
-	public void whenPizzaIsAdded_itIsPossibleToFetchItById()throws ParseException{
+	public void whenHandBookIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
-		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
+		given(handBookDao.findOne(anyLong())).willReturn(handBookDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		handBookServiceImpl.saveHandBook(handBookDummy);
 	
-		pizzaFetched = pizzaServiceImpl.getPizza(new Long(281));
+		handBookFetched = handBookServiceImpl.getHandBook(new Long(281));
 		
-		assertEquals(pizzaFetched.getProductId(), pizzaDummy.getProductId());
+		assertEquals(handBookFetched.getProductId(), handBookDummy.getProductId());
 	}
 	
 
 	@Test(expected = ProductNotFoundException.class)
-	public void whenPizzaIsNotFound_ExceptionIsThrown() throws ParseException{
+	public void whenHandBookIsNotFound_ExceptionIsThrown() throws ParseException{
 		
-		given(pizzaDao.findOne(anyLong())).willReturn(null);
+		given(handBookDao.findOne(anyLong())).willReturn(null);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		handBookServiceImpl.saveHandBook(handBookDummy);
 		
-		pizzaFetched = pizzaServiceImpl.getPizza(new Long(0));
+		handBookFetched = handBookServiceImpl.getHandBook(new Long(0));
 		
 	}
 	
@@ -98,52 +98,53 @@ public class PizzaServiceTest {
 	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
 		
 		
-		pizzaDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
+		handBookDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
 		
-		pizzaDummy.setOfferExpiringDate(dateUtils.addDates(pizzaDummy.getOfferStartingDate(), pizzaDummy.getDaysValidityPeriod()));
+		handBookDummy.setOfferExpiringDate(dateUtils.addDates(handBookDummy.getOfferStartingDate(), handBookDummy.getDaysValidityPeriod()));
 		
-		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),pizzaDummy	.getOfferExpiringDate());
+		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),handBookDummy	.getOfferExpiringDate());
 	}
 	
 
 	@Test(expected = MissingParameterException.class)
 	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
 		
-		given(pizzaDao.findByProductId(anyLong())).willReturn(new Pizza());
+		given(handBookDao.findByProductId(anyLong())).willReturn(new HandBook());
 		
-		pizzaDummy.setDaysValidityPeriod(0);
+		handBookDummy.setDaysValidityPeriod(0);
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		handBookServiceImpl.saveHandBook(handBookDummy);
 		
 	}
 	
 	@Test(expected = ProductExpiredException.class)
 	public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrown() throws ParseException{
 		
-		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
+		given(handBookDao.findByProductId(anyLong())).willReturn(null);
 		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		handBookServiceImpl.saveHandBook(handBookDummy);
 	}
 	
 	@Test(expected= ProductNotFoundException.class)
-	public void whenTryingToGetADeletedpizza_ExceptionIsThrown()  throws ProductExpiredException{
+	public void whenTryingToGetADeletedhandBook_ExceptionIsThrown()  throws ProductExpiredException{
 		 
-		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
+		given(handBookDao.findByProductId(anyLong())).willReturn(null);
 		
-		pizzaServiceImpl.deletePizza(pizzaDummy);
+		handBookServiceImpl.deleteHandBook(handBookDummy);
 	}
 	
 	@Test(expected= ProductExpiredException.class)
-	public void whenTryingToGetAnExpiredPizza_thenExceptionIsThrown()  throws ParseException{
+	public void whenTryingToGetAnExpiredHandBook_thenExceptionIsThrown()  throws ParseException{
 
-		pizzaDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
+		handBookDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
+		given(handBookDao.findOne(anyLong())).willReturn(handBookDummy);
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pizzaServiceImpl.getPizza(pizzaDummy.getProductId());
+		handBookServiceImpl.getHandBook(handBookDummy.getProductId());
 		
 	}
+
 }

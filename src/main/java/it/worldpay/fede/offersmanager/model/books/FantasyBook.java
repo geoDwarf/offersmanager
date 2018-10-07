@@ -16,7 +16,29 @@ public class FantasyBook extends Book {
 	@Column(name= "SETTING")
 	private String setting;
 	
+		
+	public String getFantasyWorldName() {
+		return fantasyWorldName;
+	}
+
+	public void setFantasyWorldName(String fantasyWorldName) {
+		this.fantasyWorldName = fantasyWorldName;
+	}
+
+	public String getSetting() {
+		return setting;
+	}
+
+	public void setSetting(String setting) {
+		this.setting = setting;
+	}
+	
+
 	public FantasyBook(Long idProduct){
 		super(idProduct);		
+	}
+	
+	public FantasyBook(){
+		super();		
 	}
 }

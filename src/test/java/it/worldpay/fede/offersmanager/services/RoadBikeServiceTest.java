@@ -18,30 +18,30 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import it.worldpay.fede.offersmanager.dao.PizzaDao;
+import it.worldpay.fede.offersmanager.dao.RoadBikeDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.exceptions.MissingParameterException;
-import it.worldpay.fede.offersmanager.model.food.Pizza;
+import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class PizzaServiceTest {
-
+public class RoadBikeServiceTest {
+	
 	
 	@Before
 	public void initializeTestVariable(){
 		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
-		pizzaDummy = (Pizza)dummyFactory.getDummyProduct("PIZZA");
-		pizzaDummy.setDaysValidityPeriod(5);
-		pizzaDummy.setOfferStartingDate(new Date());
+		roadBikeDummy = (RoadBike)dummyFactory.getDummyProduct("ROADBIKE");
+		roadBikeDummy.setDaysValidityPeriod(5);
+		roadBikeDummy.setOfferStartingDate(new Date());
 	}
 	
 	@InjectMocks
-    private PizzaServiceImpl pizzaServiceImpl ;
+    private RoadBikeServiceImpl roadBikeServiceImpl ;
 
 	@Mock
 	DateUtils dateUtils;
@@ -50,46 +50,46 @@ public class PizzaServiceTest {
 	DateTime dateTime;
 	
 	@Mock
-	PizzaDao pizzaDao;
+	RoadBikeDao roadBikeDao;
 	
-	private Pizza pizzaDummy;
+	private RoadBike roadBikeDummy;
 		
-	private Pizza pizzaFetched;
+	private RoadBike roadBikeFetched;
 	
 	 @Test(expected = DuplicateProductException.class)
-	 public void whenPizzaIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
+	 public void whenRoadBikeIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
-	 	given(pizzaDao.findByProductId(anyLong())).willReturn(new Pizza());
+	 	given(roadBikeDao.findByProductId(anyLong())).willReturn(new RoadBike());
         given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
        
-        pizzaServiceImpl.savePizza(pizzaDummy);
+        roadBikeServiceImpl.saveRoadBike(roadBikeDummy);
 	    }
 	
 	
 	 @Test
-	public void whenPizzaIsAdded_itIsPossibleToFetchItById()throws ParseException{
+	public void whenRoadBikeIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
-		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
+		given(roadBikeDao.findOne(anyLong())).willReturn(roadBikeDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		roadBikeServiceImpl.saveRoadBike(roadBikeDummy);
 	
-		pizzaFetched = pizzaServiceImpl.getPizza(new Long(281));
+		roadBikeFetched = roadBikeServiceImpl.getRoadBike(new Long(281));
 		
-		assertEquals(pizzaFetched.getProductId(), pizzaDummy.getProductId());
+		assertEquals(roadBikeFetched.getProductId(), roadBikeDummy.getProductId());
 	}
 	
 
 	@Test(expected = ProductNotFoundException.class)
-	public void whenPizzaIsNotFound_ExceptionIsThrown() throws ParseException{
+	public void whenRoadBikeIsNotFound_ExceptionIsThrown() throws ParseException{
 		
-		given(pizzaDao.findOne(anyLong())).willReturn(null);
+		given(roadBikeDao.findOne(anyLong())).willReturn(null);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		roadBikeServiceImpl.saveRoadBike(roadBikeDummy);
 		
-		pizzaFetched = pizzaServiceImpl.getPizza(new Long(0));
+		roadBikeFetched = roadBikeServiceImpl.getRoadBike(new Long(0));
 		
 	}
 	
@@ -98,52 +98,54 @@ public class PizzaServiceTest {
 	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
 		
 		
-		pizzaDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
+		roadBikeDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
 		
-		pizzaDummy.setOfferExpiringDate(dateUtils.addDates(pizzaDummy.getOfferStartingDate(), pizzaDummy.getDaysValidityPeriod()));
+		roadBikeDummy.setOfferExpiringDate(dateUtils.addDates(roadBikeDummy.getOfferStartingDate(), roadBikeDummy.getDaysValidityPeriod()));
 		
-		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),pizzaDummy	.getOfferExpiringDate());
+		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),roadBikeDummy	.getOfferExpiringDate());
 	}
 	
 
 	@Test(expected = MissingParameterException.class)
 	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
 		
-		given(pizzaDao.findByProductId(anyLong())).willReturn(new Pizza());
+		given(roadBikeDao.findByProductId(anyLong())).willReturn(new RoadBike());
 		
-		pizzaDummy.setDaysValidityPeriod(0);
+		roadBikeDummy.setDaysValidityPeriod(0);
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		roadBikeServiceImpl.saveRoadBike(roadBikeDummy);
 		
 	}
 	
 	@Test(expected = ProductExpiredException.class)
 	public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrown() throws ParseException{
 		
-		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
+		given(roadBikeDao.findByProductId(anyLong())).willReturn(null);
 		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		roadBikeServiceImpl.saveRoadBike(roadBikeDummy);
 	}
 	
 	@Test(expected= ProductNotFoundException.class)
-	public void whenTryingToGetADeletedpizza_ExceptionIsThrown()  throws ProductExpiredException{
+	public void whenTryingToGetADeletedroadBike_ExceptionIsThrown()  throws ProductExpiredException{
 		 
-		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
+		given(roadBikeDao.findByProductId(anyLong())).willReturn(null);
 		
-		pizzaServiceImpl.deletePizza(pizzaDummy);
+		roadBikeServiceImpl.deleteRoadBike(roadBikeDummy);
 	}
 	
 	@Test(expected= ProductExpiredException.class)
-	public void whenTryingToGetAnExpiredPizza_thenExceptionIsThrown()  throws ParseException{
+	public void whenTryingToGetAnExpiredRoadBike_thenExceptionIsThrown()  throws ParseException{
 
-		pizzaDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
+		roadBikeDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
+		given(roadBikeDao.findOne(anyLong())).willReturn(roadBikeDummy);
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pizzaServiceImpl.getPizza(pizzaDummy.getProductId());
+		roadBikeServiceImpl.getRoadBike(roadBikeDummy.getProductId());
 		
 	}
+
+
 }

@@ -18,30 +18,29 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import it.worldpay.fede.offersmanager.dao.PizzaDao;
+import it.worldpay.fede.offersmanager.dao.FantasyBookDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.exceptions.MissingParameterException;
-import it.worldpay.fede.offersmanager.model.food.Pizza;
+import it.worldpay.fede.offersmanager.model.books.FantasyBook;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class PizzaServiceTest {
-
+public class FantasyBookServiceTest {
 	
 	@Before
 	public void initializeTestVariable(){
 		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
-		pizzaDummy = (Pizza)dummyFactory.getDummyProduct("PIZZA");
+		pizzaDummy = (FantasyBook)dummyFactory.getDummyProduct("FANTASYBOOK");
 		pizzaDummy.setDaysValidityPeriod(5);
 		pizzaDummy.setOfferStartingDate(new Date());
 	}
 	
 	@InjectMocks
-    private PizzaServiceImpl pizzaServiceImpl ;
+    private FantasyBookServiceImpl pizzaServiceImpl ;
 
 	@Mock
 	DateUtils dateUtils;
@@ -50,46 +49,46 @@ public class PizzaServiceTest {
 	DateTime dateTime;
 	
 	@Mock
-	PizzaDao pizzaDao;
+	FantasyBookDao pizzaDao;
 	
-	private Pizza pizzaDummy;
+	private FantasyBook pizzaDummy;
 		
-	private Pizza pizzaFetched;
+	private FantasyBook pizzaFetched;
 	
 	 @Test(expected = DuplicateProductException.class)
-	 public void whenPizzaIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
+	 public void whenFantasyBookIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
-	 	given(pizzaDao.findByProductId(anyLong())).willReturn(new Pizza());
+	 	given(pizzaDao.findByProductId(anyLong())).willReturn(new FantasyBook());
         given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
        
-        pizzaServiceImpl.savePizza(pizzaDummy);
+        pizzaServiceImpl.saveFantasyBook(pizzaDummy);
 	    }
 	
 	
 	 @Test
-	public void whenPizzaIsAdded_itIsPossibleToFetchItById()throws ParseException{
+	public void whenFantasyBookIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
 		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		pizzaServiceImpl.saveFantasyBook(pizzaDummy);
 	
-		pizzaFetched = pizzaServiceImpl.getPizza(new Long(281));
+		pizzaFetched = pizzaServiceImpl.getFantasyBook(new Long(281));
 		
 		assertEquals(pizzaFetched.getProductId(), pizzaDummy.getProductId());
 	}
 	
 
 	@Test(expected = ProductNotFoundException.class)
-	public void whenPizzaIsNotFound_ExceptionIsThrown() throws ParseException{
+	public void whenFantasyBookIsNotFound_ExceptionIsThrown() throws ParseException{
 		
 		given(pizzaDao.findOne(anyLong())).willReturn(null);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		pizzaServiceImpl.saveFantasyBook(pizzaDummy);
 		
-		pizzaFetched = pizzaServiceImpl.getPizza(new Long(0));
+		pizzaFetched = pizzaServiceImpl.getFantasyBook(new Long(0));
 		
 	}
 	
@@ -109,11 +108,11 @@ public class PizzaServiceTest {
 	@Test(expected = MissingParameterException.class)
 	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
 		
-		given(pizzaDao.findByProductId(anyLong())).willReturn(new Pizza());
+		given(pizzaDao.findByProductId(anyLong())).willReturn(new FantasyBook());
 		
 		pizzaDummy.setDaysValidityPeriod(0);
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		pizzaServiceImpl.saveFantasyBook(pizzaDummy);
 		
 	}
 	
@@ -124,7 +123,7 @@ public class PizzaServiceTest {
 		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		pizzaServiceImpl.savePizza(pizzaDummy);
+		pizzaServiceImpl.saveFantasyBook(pizzaDummy);
 	}
 	
 	@Test(expected= ProductNotFoundException.class)
@@ -132,18 +131,19 @@ public class PizzaServiceTest {
 		 
 		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
 		
-		pizzaServiceImpl.deletePizza(pizzaDummy);
+		pizzaServiceImpl.deleteFantasyBook(pizzaDummy);
 	}
 	
 	@Test(expected= ProductExpiredException.class)
-	public void whenTryingToGetAnExpiredPizza_thenExceptionIsThrown()  throws ParseException{
+	public void whenTryingToGetAnExpiredFantasyBook_thenExceptionIsThrown()  throws ParseException{
 
 		pizzaDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
 		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pizzaServiceImpl.getPizza(pizzaDummy.getProductId());
+		pizzaServiceImpl.getFantasyBook(pizzaDummy.getProductId());
 		
 	}
+
 }

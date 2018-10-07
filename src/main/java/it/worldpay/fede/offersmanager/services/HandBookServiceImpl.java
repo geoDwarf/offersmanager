@@ -21,7 +21,7 @@ public class HandBookServiceImpl extends BaseService implements HandBookService{
 		
 		HandBook handBookFound = handBookDao.findOne(id);
 		
-		checkIfProductIsNotFound(handBookFound);
+		checkIfProductIsNotFound(handBookFound,id);
 		
 		chekIfExpiringDateIsBeforeGettingProductTime(handBookFound);
 		
@@ -51,7 +51,7 @@ public class HandBookServiceImpl extends BaseService implements HandBookService{
 		
 		HandBook handBookNotFound = (HandBook)handBookDao.findByProductId(handBook.getProductId());
 		
-		checkIfProductIsNotFound(handBookNotFound);
+		checkIfProductIsNotFound(handBookNotFound,handBook.getProductId());
 		  
 	}
 

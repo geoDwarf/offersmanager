@@ -19,7 +19,7 @@ public class MountainBikeServiceImpl extends BaseService implements MountainBike
 		
 		MountainBike mountainBikeFound = mountainBikeDao.findOne(id);
 		
-		checkIfProductIsNotFound(mountainBikeFound);
+		checkIfProductIsNotFound(mountainBikeFound,id);
 		
 		chekIfExpiringDateIsBeforeGettingProductTime(mountainBikeFound);
 		
@@ -49,7 +49,7 @@ public class MountainBikeServiceImpl extends BaseService implements MountainBike
 		
 		MountainBike mountainBikeNotFound = (MountainBike)mountainBikeDao.findByProductId(mountainBike.getProductId());
 		
-		checkIfProductIsNotFound(mountainBikeNotFound);
+		checkIfProductIsNotFound(mountainBikeNotFound,mountainBike.getProductId());
 		
 		mountainBikeDao.delete(mountainBike);
 		  

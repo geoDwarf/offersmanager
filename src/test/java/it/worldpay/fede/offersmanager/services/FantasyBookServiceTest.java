@@ -34,13 +34,13 @@ public class FantasyBookServiceTest {
 	@Before
 	public void initializeTestVariable(){
 		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
-		pizzaDummy = (FantasyBook)dummyFactory.getDummyProduct("FANTASYBOOK");
-		pizzaDummy.setDaysValidityPeriod(5);
-		pizzaDummy.setOfferStartingDate(new Date());
+		fantasyBookDummy = (FantasyBook)dummyFactory.getDummyProduct("FANTASYBOOK");
+		fantasyBookDummy.setDaysValidityPeriod(5);
+		fantasyBookDummy.setOfferStartingDate(new Date());
 	}
 	
 	@InjectMocks
-    private FantasyBookServiceImpl pizzaServiceImpl ;
+    private FantasyBookServiceImpl fantasyBookServiceImpl ;
 
 	@Mock
 	DateUtils dateUtils;
@@ -49,46 +49,46 @@ public class FantasyBookServiceTest {
 	DateTime dateTime;
 	
 	@Mock
-	FantasyBookDao pizzaDao;
+	FantasyBookDao fantasyBookDao;
 	
-	private FantasyBook pizzaDummy;
+	private FantasyBook fantasyBookDummy;
 		
-	private FantasyBook pizzaFetched;
+	private FantasyBook fantasyBookFetched;
 	
 	 @Test(expected = DuplicateProductException.class)
 	 public void whenFantasyBookIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
-	 	given(pizzaDao.findByProductId(anyLong())).willReturn(new FantasyBook());
+	 	given(fantasyBookDao.findByProductId(anyLong())).willReturn(new FantasyBook());
         given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
        
-        pizzaServiceImpl.saveFantasyBook(pizzaDummy);
+        fantasyBookServiceImpl.saveFantasyBook(fantasyBookDummy);
 	    }
 	
 	
 	 @Test
 	public void whenFantasyBookIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
-		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
+		given(fantasyBookDao.findOne(anyLong())).willReturn(fantasyBookDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pizzaServiceImpl.saveFantasyBook(pizzaDummy);
+		fantasyBookServiceImpl.saveFantasyBook(fantasyBookDummy);
 	
-		pizzaFetched = pizzaServiceImpl.getFantasyBook(new Long(281));
+		fantasyBookFetched = fantasyBookServiceImpl.getFantasyBook(new Long(281));
 		
-		assertEquals(pizzaFetched.getProductId(), pizzaDummy.getProductId());
+		assertEquals(fantasyBookFetched.getProductId(), fantasyBookDummy.getProductId());
 	}
 	
 
 	@Test(expected = ProductNotFoundException.class)
 	public void whenFantasyBookIsNotFound_ExceptionIsThrown() throws ParseException{
-		
-		given(pizzaDao.findOne(anyLong())).willReturn(null);
+	
+		given(fantasyBookDao.findOne(anyLong())).willReturn(null);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		
-		pizzaServiceImpl.saveFantasyBook(pizzaDummy);
+		fantasyBookServiceImpl.saveFantasyBook(fantasyBookDummy);
 		
-		pizzaFetched = pizzaServiceImpl.getFantasyBook(new Long(0));
+		fantasyBookFetched = fantasyBookServiceImpl.getFantasyBook(new Long(0));
 		
 	}
 	
@@ -97,52 +97,52 @@ public class FantasyBookServiceTest {
 	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
 		
 		
-		pizzaDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
+		fantasyBookDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
 		
-		pizzaDummy.setOfferExpiringDate(dateUtils.addDates(pizzaDummy.getOfferStartingDate(), pizzaDummy.getDaysValidityPeriod()));
+		fantasyBookDummy.setOfferExpiringDate(dateUtils.addDates(fantasyBookDummy.getOfferStartingDate(), fantasyBookDummy.getDaysValidityPeriod()));
 		
-		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),pizzaDummy	.getOfferExpiringDate());
+		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),fantasyBookDummy	.getOfferExpiringDate());
 	}
 	
 
 	@Test(expected = MissingParameterException.class)
 	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
 		
-		given(pizzaDao.findByProductId(anyLong())).willReturn(new FantasyBook());
+		given(fantasyBookDao.findByProductId(anyLong())).willReturn(new FantasyBook());
 		
-		pizzaDummy.setDaysValidityPeriod(0);
+		fantasyBookDummy.setDaysValidityPeriod(0);
 		
-		pizzaServiceImpl.saveFantasyBook(pizzaDummy);
+		fantasyBookServiceImpl.saveFantasyBook(fantasyBookDummy);
 		
 	}
 	
 	@Test(expected = ProductExpiredException.class)
 	public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrown() throws ParseException{
 		
-		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
+		given(fantasyBookDao.findByProductId(anyLong())).willReturn(null);
 		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		pizzaServiceImpl.saveFantasyBook(pizzaDummy);
+		fantasyBookServiceImpl.saveFantasyBook(fantasyBookDummy);
 	}
 	
 	@Test(expected= ProductNotFoundException.class)
-	public void whenTryingToGetADeletedpizza_ExceptionIsThrown()  throws ProductExpiredException{
+	public void whenTryingToGetADeletedfantasyBook_ExceptionIsThrown()  throws ProductExpiredException{
 		 
-		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
+		given(fantasyBookDao.findByProductId(anyLong())).willReturn(null);
 		
-		pizzaServiceImpl.deleteFantasyBook(pizzaDummy);
+		fantasyBookServiceImpl.deleteFantasyBook(fantasyBookDummy);
 	}
 	
 	@Test(expected= ProductExpiredException.class)
 	public void whenTryingToGetAnExpiredFantasyBook_thenExceptionIsThrown()  throws ParseException{
 
-		pizzaDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
+		fantasyBookDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		given(pizzaDao.findOne(anyLong())).willReturn(pizzaDummy);
+		given(fantasyBookDao.findOne(anyLong())).willReturn(fantasyBookDummy);
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pizzaServiceImpl.getFantasyBook(pizzaDummy.getProductId());
+		fantasyBookServiceImpl.getFantasyBook(fantasyBookDummy.getProductId());
 		
 	}
 

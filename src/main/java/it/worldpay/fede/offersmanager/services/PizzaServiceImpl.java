@@ -19,7 +19,7 @@ public class PizzaServiceImpl extends BaseService implements PizzaService{
 		
 		Pizza pizzaFound = pizzaDao.findOne(id);
 		
-		checkIfProductIsNotFound(pizzaFound);
+		checkIfProductIsNotFound(pizzaFound,id);
 		
 		chekIfExpiringDateIsBeforeGettingProductTime(pizzaFound);
 		
@@ -49,7 +49,7 @@ public class PizzaServiceImpl extends BaseService implements PizzaService{
 		
 		Pizza pizzaNotFound = (Pizza)pizzaDao.findByProductId(pizza.getProductId());
 		
-		checkIfProductIsNotFound(pizzaNotFound);
+		checkIfProductIsNotFound(pizzaNotFound,pizza.getProductId());
 		  
 	}
 

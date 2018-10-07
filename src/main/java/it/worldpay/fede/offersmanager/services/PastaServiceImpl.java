@@ -21,7 +21,7 @@ public class PastaServiceImpl extends BaseService implements  PastaService{
 		
 		Pasta pastaFound = pastaDao.findOne(id);
 		
-		checkIfProductIsNotFound(pastaFound);
+		checkIfProductIsNotFound(pastaFound,id);
 		
 		chekIfExpiringDateIsBeforeGettingProductTime(pastaFound);
 		
@@ -51,7 +51,7 @@ public class PastaServiceImpl extends BaseService implements  PastaService{
 		
 		Pasta pastaNotFound = (Pasta)pastaDao.findByProductId(pasta.getProductId());
 		
-		checkIfProductIsNotFound(pastaNotFound);
+		checkIfProductIsNotFound(pastaNotFound,pasta.getProductId());
 		
 		pastaDao.delete(pasta);
 		  

@@ -21,7 +21,7 @@ public class FantasyBookServiceImpl extends BaseService implements FantasyBookSe
 		
 		FantasyBook fantasyBookFound = fantasyBookDao.findOne(id);
 		
-		checkIfProductIsNotFound(fantasyBookFound);
+		checkIfProductIsNotFound(fantasyBookFound,id);
 		
 		chekIfExpiringDateIsBeforeGettingProductTime(fantasyBookFound);
 		
@@ -51,7 +51,7 @@ public class FantasyBookServiceImpl extends BaseService implements FantasyBookSe
 		
 		FantasyBook fantasyBookNotFound = (FantasyBook)fantasyBookDao.findByProductId(fantasyBook.getProductId());
 		
-		checkIfProductIsNotFound(fantasyBookNotFound);
+		checkIfProductIsNotFound(fantasyBookNotFound,fantasyBook.getProductId());
 		  
 	}
 

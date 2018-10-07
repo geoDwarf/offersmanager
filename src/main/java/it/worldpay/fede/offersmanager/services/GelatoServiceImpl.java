@@ -22,7 +22,7 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 		
 		Gelato gelatoFound = gelatoDao.findOne(id);
 		
-		checkIfProductIsNotFound(gelatoFound);
+		checkIfProductIsNotFound(gelatoFound,id);
 		
 		chekIfExpiringDateIsBeforeGettingProductTime(gelatoFound);
 		
@@ -52,7 +52,7 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 		
 		Gelato gelatoNotFound = (Gelato)gelatoDao.findByProductId(gelato.getProductId());
 		
-		checkIfProductIsNotFound(gelatoNotFound);
+		checkIfProductIsNotFound(gelatoNotFound,gelato.getProductId());
 		
 		gelatoDao.delete(gelato);
 		  

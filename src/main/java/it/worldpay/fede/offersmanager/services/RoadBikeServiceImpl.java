@@ -21,7 +21,7 @@ public class RoadBikeServiceImpl extends BaseService implements RoadBikeService{
 		
 		RoadBike roadBikeFound = roadBikeDao.findOne(id);
 		
-		checkIfProductIsNotFound(roadBikeFound);
+		checkIfProductIsNotFound(roadBikeFound,id);
 		
 		chekIfExpiringDateIsBeforeGettingProductTime(roadBikeFound);
 		
@@ -51,7 +51,7 @@ public class RoadBikeServiceImpl extends BaseService implements RoadBikeService{
 		
 		RoadBike roadBikeNotFound = (RoadBike)roadBikeDao.findByProductId(roadBike.getProductId());
 		
-		checkIfProductIsNotFound(roadBikeNotFound);
+		checkIfProductIsNotFound(roadBikeNotFound,roadBike.getProductId());
 		  
 	}
 

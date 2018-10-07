@@ -27,10 +27,8 @@ public class BaseService {
 		
 		if (product.getDaysValidityPeriod() == 0 || product.getOfferStartingDate() == null)
 			throw new MissingParameterException();
-		
-	}
+		}
 
-	
 	protected Product setExpiringDateByValidityPeriod(Product product,int validityPeriod){
 		
 		product.setOfferExpiringDate(dateUtils.addDates(product.getOfferStartingDate(), validityPeriod));
@@ -55,12 +53,13 @@ public class BaseService {
 	protected void checkIfProductIsDuplicated(Product product) throws DuplicateProductException{
 	
 		if(product != null)
-			throw new DuplicateProductException();
+			throw new DuplicateProductException("A rpoduct with the folloaeing id already exists: ", product.getProductId());
 	 } 
 	
-	protected void checkIfProductIsNotFound(Product product) throws ProductNotFoundException{
+	protected void checkIfProductIsNotFound(Product product,Long productId) throws ProductNotFoundException{
+	
 		if (null == product)
-				throw new ProductNotFoundException();
+				throw new ProductNotFoundException("No product found with the following Id ",productId );
 	}
 	
 	protected void chekIfExpiringDateIsBeforeGettingProductTime(Product productFound){

@@ -25,7 +25,7 @@ public class ProductServiceImpl extends BaseService implements ProductService {
 		
 		Product productFound = productDao.findOne(id);
 		
-		checkIfProductIsNotFound(productFound);
+		checkIfProductIsNotFound(productFound,id);
 			
 		chekIfExpiringDateIsBeforeGettingProductTime(productFound);
 			
@@ -45,7 +45,7 @@ public class ProductServiceImpl extends BaseService implements ProductService {
 		Product productDuplicated = productDao.findByProductId(product.getProductId());
 		
 		if(productDuplicated != null)
-			throw new DuplicateProductException();
+			throw new DuplicateProductException("A product with the following id already exists", productDuplicated.getProductId());
 		 
 		  return  productDao.save(product);
 	}

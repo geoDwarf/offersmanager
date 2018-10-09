@@ -1,12 +1,8 @@
 package it.worldpay.fede.offersmanager.services;
 
 import java.util.Date;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.dao.ProductDao;
@@ -21,7 +17,7 @@ import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 @Service
 
-public class BaseService {
+public abstract class BaseService {
 	
 	public  boolean testing;
 	
@@ -34,7 +30,13 @@ public class BaseService {
 	@Autowired
 	ProductDao<Product> productDao;
 	
-	Product productExpired;
+	abstract Product getProduct(Long id);
+	
+	abstract void deleteProduct(Product product) throws ProductNotFoundException; 
+	
+	abstract void saveProduct(Product product) throws DuplicateProductException;
+	
+	
 	
 	protected void checkForValidityPeriodAndStartingDate(Product product) throws MissingParameterException {
 		
@@ -83,53 +85,53 @@ public class BaseService {
 	}
 	
 
-	protected void setExpiringDateByScheduler(Product product,int delay){
-		
-		
-		ScheduledExecutorService scheduler  = Executors.newSingleThreadScheduledExecutor();
-		Product productExpired ;
-		Runnable task = new Task(product);
-		{
-			
-		//private Product productExpired;
-			
-         
+//	protected void setExpiringDateByScheduler(Product product,int delay){
+//		
+//		
+//		ScheduledExecutorService scheduler  = Executors.newSingleThreadScheduledExecutor();
+//		Product productExpired ;
+//		Runnable task = new Task(product);
+//		{
+//			
+//		//private Product productExpired;
+//			
+//         
             
 //            private void saveExpiredproduct(){
 //            	productDao.save(productExpired);
 //            }
-        };
-        
-        
-        
-        scheduler.schedule(task, delay, TimeUnit.SECONDS);
-        scheduler.shutdown();
-		
-	}
-	
-	//@EnableJpaRepositories("dao")
-	public class Task  implements Runnable{
-		
-			Product product;
-			
-			public Task(Product product){
-				this.product = product;
-			}
-			
-		@Override
-		   public void run() {
-           	
-           setProductToExpired(product);
-           	
-           	productDao.delete(productExpired);
-           	
-           	productDao.save(productExpired);
-           	
-           	Long id = productExpired.getProductId();
-           	Product found = productDao.findOne(id);
-           	
-           	System.out.println(found.getProductId());
-           }
-	}
-	
+//        };
+//        
+//        
+//        
+//        scheduler.schedule(task, delay, TimeUnit.SECONDS);
+//        scheduler.shutdown();
+//		
+//	}
+//	
+//	//@EnableJpaRepositories("dao")
+//	public class Task  implements Runnable{
+//		
+//			Product product;
+//			
+//			public Task(Product product){
+//				this.product = product;
+//			}
+//			
+//		@Override
+//		   public void run() {
+//           	
+//           setProductToExpired(product);
+//           	
+//           	productDao.delete(productExpired);
+//           	
+//           	productDao.save(productExpired);
+//           	
+//           	Long id = productExpired.getProductId();
+//           	Product found = productDao.findOne(id);
+//           	
+//           	System.out.println(found.getProductId());
+//           }
+//	}
+//	
 }

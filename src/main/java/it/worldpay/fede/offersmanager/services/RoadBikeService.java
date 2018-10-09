@@ -10,11 +10,11 @@ import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
 @Service
 public interface RoadBikeService {
 	
-	RoadBike getRoadBike(Long id);
+	//RoadBike getRoadBike(Long id);
 	
 	void saveRoadBike(RoadBike roadBike) throws DuplicateProductException;
 	
-	void deleteRoadBike(RoadBike roadBike)throws ProductNotFoundException;
+	//void deleteRoadBike(RoadBike roadBike)throws ProductNotFoundException;
 
 
 }

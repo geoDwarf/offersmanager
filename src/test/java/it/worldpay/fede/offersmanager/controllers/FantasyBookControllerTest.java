@@ -68,16 +68,16 @@ public class FantasyBookControllerTest {
 	}
 	
 	
-	 @Test
-	 public void get_whenFantasyBookExists_thenResponseIs200() throws Exception {
-
-	        given(fantasyBookService.getFantasyBook(anyLong())).willReturn(fantasyBookDummy);
-	        
-	        mockMvc.perform(get(("/fantasyBook/getFantasyBook/{productId}"), fantasyBookDummy.getProductId())
-	                .contentType(MediaType.APPLICATION_JSON))
-	                .andExpect(status().isOk());
-
-	    }
+//	 @Test
+//	 public void get_whenFantasyBookExists_thenResponseIs200() throws Exception {
+//
+//	        given(fantasyBookService.getFantasyBook(anyLong())).willReturn(fantasyBookDummy);
+//	        
+//	        mockMvc.perform(get(("/fantasyBook/getFantasyBook/{productId}"), fantasyBookDummy.getProductId())
+//	                .contentType(MediaType.APPLICATION_JSON))
+//	                .andExpect(status().isOk());
+//
+//	    }
 	 
 	   @Test
 	    public void post_whenFantasyBookHasExpiringDateMissing_thenResponseIs400() throws Exception {
@@ -90,17 +90,17 @@ public class FantasyBookControllerTest {
 	                .andExpect(status().isBadRequest());
 	    }
 	   
-		 @Test
-		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
-			   
-			   doNothing().when(fantasyBookService).deleteFantasyBook(fantasyBookDummy);
-			   
-			   mockMvc.perform(delete("/fantasyBook/deleteFantasyBook")
-		                .contentType(MediaType.APPLICATION_JSON)
-		                .content(asJsonString(fantasyBookDummy)))
-		                .andExpect(status().isOk());
-		   }
-	   
+//		 @Test
+//		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
+//			   
+//			   doNothing().when(fantasyBookService).deleteFantasyBook(fantasyBookDummy);
+//			   
+//			   mockMvc.perform(delete("/fantasyBook/deleteFantasyBook")
+//		                .contentType(MediaType.APPLICATION_JSON)
+//		                .content(asJsonString(fantasyBookDummy)))
+//		                .andExpect(status().isOk());
+//		   }
+//	   
 	 
 	
 

@@ -9,9 +9,9 @@ import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 @Service
 public interface MountainBikeService {
 
-	MountainBike getMountainBike(Long id);
+	//MountainBike getMountainBike(Long id);
 	
 	void saveMountainBike(MountainBike gelato) throws DuplicateProductException;
 	
-	void deleteMountainBike(MountainBike gelato)throws ProductNotFoundException;
+	//void deleteMountainBike(MountainBike gelato)throws ProductNotFoundException;
 }

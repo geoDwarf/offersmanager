@@ -10,10 +10,10 @@ import it.worldpay.fede.offersmanager.model.books.FantasyBook;
 @Service
 public interface FantasyBookService {
 
-	FantasyBook getFantasyBook(Long id);
+	//FantasyBook getFantasyBook(Long id);
 	
 	void saveFantasyBook(FantasyBook fantasyBook) throws DuplicateProductException;
 	
-	void deleteFantasyBook(FantasyBook fantasyBook)throws ProductNotFoundException;
+	//void deleteFantasyBook(FantasyBook fantasyBook)throws ProductNotFoundException;
 	
 }

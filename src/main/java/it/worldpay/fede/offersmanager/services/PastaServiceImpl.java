@@ -16,20 +16,20 @@ public class PastaServiceImpl extends BaseService implements  PastaService{
 
 	
 	
-	@Override
-	public Pasta getPasta(Long id) throws ProductNotFoundException{
-		
-		Pasta pastaFound = pastaDao.findOne(id);
-		
-		checkIfProductIsNotFound(pastaFound,id);
-		
-		chekIfExpiringDateIsBeforeGettingProductTime(pastaFound);
-		
-		checkIfProductIsExpired(pastaFound);
-		
-		return pastaFound;
-		
-	}
+//	@Override
+//	public Pasta getPasta(Long id) throws ProductNotFoundException{
+//		
+//		Pasta pastaFound = pastaDao.findOne(id);
+//		
+//		checkIfProductIsNotFound(pastaFound,id);
+//		
+//		chekIfExpiringDateIsBeforeGettingProductTime(pastaFound);
+//		
+//		checkIfProductIsExpired(pastaFound);
+//		
+//		return pastaFound;
+//		
+//	}
 
 	@Override
 	public void savePasta(Pasta pasta) throws DuplicateProductException{
@@ -38,7 +38,7 @@ public class PastaServiceImpl extends BaseService implements  PastaService{
 		
 		setExpiringDateByValidityPeriod(pasta, pasta.getDaysValidityPeriod());
 		
-		Pasta pastaDuplicated = (Pasta)pastaDao.findByProductId(pasta.getProductId());
+		Pasta pastaDuplicated = (Pasta)productDao.findByProductId(pasta.getProductId());
 		
 		checkIfProductIsDuplicated(pastaDuplicated);
 		 
@@ -46,15 +46,15 @@ public class PastaServiceImpl extends BaseService implements  PastaService{
 		  
 	}
 	
-	@Override
-	public void deletePasta(Pasta pasta) throws ProductNotFoundException{
-		
-		Pasta pastaNotFound = (Pasta)pastaDao.findByProductId(pasta.getProductId());
-		
-		checkIfProductIsNotFound(pastaNotFound,pasta.getProductId());
-		
-		pastaDao.delete(pasta);
-		  
-	}
-	
+//	@Override
+//	public void deletePasta(Pasta pasta) throws ProductNotFoundException{
+//		
+//		Pasta pastaNotFound = (Pasta)pastaDao.findByProductId(pasta.getProductId());
+//		
+//		checkIfProductIsNotFound(pastaNotFound,pasta.getProductId());
+//		
+//		pastaDao.delete(pasta);
+//		  
+//	}
+//	
 }

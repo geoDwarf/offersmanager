@@ -68,17 +68,17 @@ public class RoadBikeControllerTest {
 	}
 	
 	
-	 @Test
-	 public void get_whenRoadBikeExists_thenResponseIs200() throws Exception {
-
-	        given(roadBikeService.getRoadBike(anyLong())).willReturn(roadBikeDummy);
-	        
-	        mockMvc.perform(get(("/roadBike/getRoadBike/{productId}"), roadBikeDummy.getProductId())
-	                .contentType(MediaType.APPLICATION_JSON))
-	                .andExpect(status().isOk());
-
-	    }
-	 
+//	 @Test
+//	 public void get_whenRoadBikeExists_thenResponseIs200() throws Exception {
+//
+//	        given(roadBikeService.getRoadBike(anyLong())).willReturn(roadBikeDummy);
+//	        
+//	        mockMvc.perform(get(("/roadBike/getRoadBike/{productId}"), roadBikeDummy.getProductId())
+//	                .contentType(MediaType.APPLICATION_JSON))
+//	                .andExpect(status().isOk());
+//
+//	    }
+//	 
 	   @Test
 	    public void post_whenRoadBikeHasExpiringDateMissing_thenResponseIs400() throws Exception {
 	    
@@ -90,15 +90,15 @@ public class RoadBikeControllerTest {
 	                .andExpect(status().isBadRequest());
 	    }
 	   
-		 @Test
-		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
-			   
-			   doNothing().when(roadBikeService).deleteRoadBike(roadBikeDummy);
-			   
-			   mockMvc.perform(delete("/roadBike/deleteRoadBike")
-		                .contentType(MediaType.APPLICATION_JSON)
-		                .content(asJsonString(roadBikeDummy)))
-		                .andExpect(status().isOk());
-		   }
+//		 @Test
+//		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
+//			   
+//			   doNothing().when(roadBikeService).deleteRoadBike(roadBikeDummy);
+//			   
+//			   mockMvc.perform(delete("/roadBike/deleteRoadBike")
+//		                .contentType(MediaType.APPLICATION_JSON)
+//		                .content(asJsonString(roadBikeDummy)))
+//		                .andExpect(status().isOk());
+//		   }
 	   
 }

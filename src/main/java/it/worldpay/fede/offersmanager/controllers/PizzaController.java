@@ -33,16 +33,16 @@ public class PizzaController {
 		response.setStatus(HttpStatus.CREATED.value());
 	}
 	
-	@RequestMapping(value="/getPizza/{productId}", method = RequestMethod.GET)
-	public Pizza getPizza(@PathVariable("productId") Long productId) {
-        return pizzaService.getPizza(productId);
-    }
+//	@RequestMapping(value="/getPizza/{productId}", method = RequestMethod.GET)
+//	public Pizza getPizza(@PathVariable("productId") Long productId) {
+//        return pizzaService.getPizza(productId);
+//    }
 	
-	@RequestMapping(value="/deletePizza", method = RequestMethod.DELETE)
-	public void deleteGelato(@Valid @RequestBody Pizza pizza, HttpServletResponse response)
-	{
-		 pizzaService.deletePizza(pizza);
-		 response.setStatus(HttpStatus.OK.value());
-		 
-	}
+//	@RequestMapping(value="/deletePizza", method = RequestMethod.DELETE)
+//	public void deletePizza(@Valid @RequestBody Pizza pizza, HttpServletResponse response)
+//	{
+//		 pizzaService.deletePizza(pizza);
+//		 response.setStatus(HttpStatus.OK.value());
+//		 
+//	}
 }

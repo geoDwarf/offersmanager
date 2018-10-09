@@ -30,18 +30,18 @@ public class FantasyBookController {
 		response.setStatus(HttpStatus.CREATED.value());
 	}
 	
-	@RequestMapping(value="/getFantasyBook/{productId}", method = RequestMethod.GET)
-	public FantasyBook getFantasyBook(@PathVariable("productId") Long productId) {
-        return fantasyBookService.getFantasyBook(productId);
-    }
+//	@RequestMapping(value="/getFantasyBook/{productId}", method = RequestMethod.GET)
+//	public FantasyBook getFantasyBook(@PathVariable("productId") Long productId) {
+//        return fantasyBookService.getFantasyBook(productId);
+//    }
 	
-	@RequestMapping(value="/deleteFantasyBook", method = RequestMethod.DELETE)
-	public void deleteGelato(@Valid @RequestBody FantasyBook fantasyBook, HttpServletResponse response)
-	{
-		 fantasyBookService.deleteFantasyBook(fantasyBook);
-		 response.setStatus(HttpStatus.OK.value());
-		 
-	}
+//	@RequestMapping(value="/deleteFantasyBook", method = RequestMethod.DELETE)
+//	public void deleteGelato(@Valid @RequestBody FantasyBook fantasyBook, HttpServletResponse response)
+//	{
+//		 fantasyBookService.deleteFantasyBook(fantasyBook);
+//		 response.setStatus(HttpStatus.OK.value());
+//		 
+//	}
 
 	
 

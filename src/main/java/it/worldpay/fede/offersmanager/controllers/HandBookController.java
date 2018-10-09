@@ -29,18 +29,18 @@ public class HandBookController {
 		response.setStatus(HttpStatus.CREATED.value());
 	}
 	
-	@RequestMapping(value="/getHandBook/{productId}", method = RequestMethod.GET)
-	public HandBook getHandBook(@PathVariable("productId") Long productId) {
-        return handBookService.getHandBook(productId);
-    }
-	
-	@RequestMapping(value="/deleteHandBook", method = RequestMethod.DELETE)
-	public void deleteGelato(@Valid @RequestBody HandBook handBook, HttpServletResponse response)
-	{
-		 handBookService.deleteHandBook(handBook);
-		 response.setStatus(HttpStatus.OK.value());
-		 
-	}
+//	@RequestMapping(value="/getHandBook/{productId}", method = RequestMethod.GET)
+//	public HandBook getHandBook(@PathVariable("productId") Long productId) {
+//        return handBookService.getHandBook(productId);
+//    }
+
+//	@RequestMapping(value="/deleteHandBook", method = RequestMethod.DELETE)
+//	public void deleteGelato(@Valid @RequestBody HandBook handBook, HttpServletResponse response)
+//	{
+//		 handBookService.deleteHandBook(handBook);
+//		 response.setStatus(HttpStatus.OK.value());
+//		 
+//	}
 
 
 }

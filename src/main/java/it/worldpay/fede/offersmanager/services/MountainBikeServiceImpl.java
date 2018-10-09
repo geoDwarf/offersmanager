@@ -14,20 +14,20 @@ public class MountainBikeServiceImpl extends BaseService implements MountainBike
 	@Autowired
 	 MountainBikeDao mountainBikeDao;
 
-	@Override
-	public MountainBike getMountainBike(Long id) throws ProductNotFoundException{
+//	@Override
+//	public MountainBike getMountainBike(Long id) throws ProductNotFoundException{
+//		
+//		MountainBike mountainBikeFound = mountainBikeDao.findOne(id);
+//		
+//		checkIfProductIsNotFound(mountainBikeFound,id);
+//		
+//		chekIfExpiringDateIsBeforeGettingProductTime(mountainBikeFound);
+//		
+//		checkIfProductIsExpired(mountainBikeFound);
+//		
+//		return mountainBikeFound;
 		
-		MountainBike mountainBikeFound = mountainBikeDao.findOne(id);
-		
-		checkIfProductIsNotFound(mountainBikeFound,id);
-		
-		chekIfExpiringDateIsBeforeGettingProductTime(mountainBikeFound);
-		
-		checkIfProductIsExpired(mountainBikeFound);
-		
-		return mountainBikeFound;
-		
-	}
+//	}
 
 	@Override
 	public void saveMountainBike(MountainBike mountainBike) throws DuplicateProductException{
@@ -36,7 +36,7 @@ public class MountainBikeServiceImpl extends BaseService implements MountainBike
 		
 		setExpiringDateByValidityPeriod(mountainBike, mountainBike.getDaysValidityPeriod());
 		
-		MountainBike mountainBikeDuplicated = (MountainBike)mountainBikeDao.findByProductId(mountainBike.getProductId());
+		MountainBike mountainBikeDuplicated = (MountainBike)productDao.findByProductId(mountainBike.getProductId());
 		
 		checkIfProductIsDuplicated(mountainBikeDuplicated);
 		 
@@ -44,16 +44,16 @@ public class MountainBikeServiceImpl extends BaseService implements MountainBike
 		  
 	}
 	
-	@Override
-	public void deleteMountainBike(MountainBike mountainBike) throws ProductNotFoundException{
-		
-		MountainBike mountainBikeNotFound = (MountainBike)mountainBikeDao.findByProductId(mountainBike.getProductId());
-		
-		checkIfProductIsNotFound(mountainBikeNotFound,mountainBike.getProductId());
-		
-		mountainBikeDao.delete(mountainBike);
-		  
-	}
+//	@Override
+//	public void deleteMountainBike(MountainBike mountainBike) throws ProductNotFoundException{
+//		
+//		MountainBike mountainBikeNotFound = (MountainBike)mountainBikeDao.findByProductId(mountainBike.getProductId());
+//		
+//		checkIfProductIsNotFound(mountainBikeNotFound,mountainBike.getProductId());
+//		
+//		mountainBikeDao.delete(mountainBike);
+//		  
+//	}
 	
 	
 	

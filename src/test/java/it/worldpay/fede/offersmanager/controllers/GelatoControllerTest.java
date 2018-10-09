@@ -70,16 +70,16 @@ public class GelatoControllerTest {
 	
        }
 	
-	 @Test
-	 public void get_whenGelatoExists_thenResponseIs200() throws Exception {
-
-	        given(gelatoService.getGelato(anyLong())).willReturn(gelatoDummy);
-	        
-	        mockMvc.perform(get(("/gelato/getGelato/{productId}"), gelatoDummy.getProductId())
-	                .contentType(MediaType.APPLICATION_JSON))
-	                .andExpect(status().isOk());
-
-	    }
+//	 @Test
+//	 public void get_whenGelatoExists_thenResponseIs200() throws Exception {
+//
+//	        given(gelatoService.getGelato(anyLong())).willReturn(gelatoDummy);
+//	        
+//	        mockMvc.perform(get(("/gelato/getGelato/{productId}"), gelatoDummy.getProductId())
+//	                .contentType(MediaType.APPLICATION_JSON))
+//	                .andExpect(status().isOk());
+//
+//	    }
 	 
 	 @Test
 	 public void post_whenGelatoHasExpiringDateMissing_thenResponseIs400() throws Exception {
@@ -92,16 +92,16 @@ public class GelatoControllerTest {
 	                .andExpect(status().isBadRequest());
 	    }
 	 
-	 @Test
-	 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
-		   
-		   doNothing().when(gelatoService).deleteGelato(gelatoDummy);
-		   
-		   mockMvc.perform(delete("/gelato/deleteGelato")
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(asJsonString(gelatoDummy)))
-	                .andExpect(status().isOk());
-	   }
+//	 @Test
+//	 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
+//		   
+//		   doNothing().when(gelatoService).deleteGelato(gelatoDummy);
+//		   
+//		   mockMvc.perform(delete("/gelato/deleteGelato")
+//	                .contentType(MediaType.APPLICATION_JSON)
+//	                .content(asJsonString(gelatoDummy)))
+//	                .andExpect(status().isOk());
+//	   }
 }
 
 

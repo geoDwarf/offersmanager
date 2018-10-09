@@ -71,16 +71,16 @@ public class PizzaControllerTest {
 	}
 	
 	
-	 @Test
-	 public void get_whenPizzaExists_thenResponseIs200() throws Exception {
-
-	        given(pizzaService.getPizza(anyLong())).willReturn(pizzaDummy);
-	        
-	        mockMvc.perform(get(("/pizza/getPizza/{productId}"), pizzaDummy.getProductId())
-	                .contentType(MediaType.APPLICATION_JSON))
-	                .andExpect(status().isOk());
-
-	    }
+//	 @Test
+//	 public void get_whenPizzaExists_thenResponseIs200() throws Exception {
+//
+//	        given(pizzaService.getPizza(anyLong())).willReturn(pizzaDummy);
+//	        
+//	        mockMvc.perform(get(("/pizza/getPizza/{productId}"), pizzaDummy.getProductId())
+//	                .contentType(MediaType.APPLICATION_JSON))
+//	                .andExpect(status().isOk());
+//
+//	    }
 	 
 	   @Test
 	    public void post_whenPizzaHasExpiringDateMissing_thenResponseIs400() throws Exception {
@@ -93,17 +93,17 @@ public class PizzaControllerTest {
 	                .andExpect(status().isBadRequest());
 	    }
 	   
-		 @Test
-		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
-			   
-			   doNothing().when(pizzaService).deletePizza(pizzaDummy);
-			   
-			   mockMvc.perform(delete("/pizza/deletePizza")
-		                .contentType(MediaType.APPLICATION_JSON)
-		                .content(asJsonString(pizzaDummy)))
-		                .andExpect(status().isOk());
-		   }
-	   
+//		 @Test
+//		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
+//			   
+//			   doNothing().when(pizzaService).deletePizza(pizzaDummy);
+//			   
+//			   mockMvc.perform(delete("/pizza/deletePizza")
+//		                .contentType(MediaType.APPLICATION_JSON)
+//		                .content(asJsonString(pizzaDummy)))
+//		                .andExpect(status().isOk());
+//		   }
+//	   
 	 
 	
 }

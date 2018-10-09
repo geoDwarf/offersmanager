@@ -19,12 +19,14 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import it.worldpay.fede.offersmanager.dao.PastaDao;
+import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.food.Pasta;
+import it.worldpay.fede.offersmanager.model.food.Pizza;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 
@@ -44,6 +46,9 @@ public class PastaServiceTest {
 
 	@InjectMocks
 	private PastaServiceImpl pastaServiceImpl ;
+	
+	@InjectMocks
+	private ProductServiceImpl productServiceImpl;
 
 	@Mock
 	DateUtils dateUtils;
@@ -53,6 +58,9 @@ public class PastaServiceTest {
 
 	@Mock
 	PastaDao pastaDao;
+	
+	@Mock
+	ProductDao<Pasta> productDao;
 
 	private Pasta pastaDummy;
 		
@@ -61,7 +69,7 @@ public class PastaServiceTest {
 	 @Test(expected = DuplicateProductException.class)
 	 public void whenPastaIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
-	 	given(pastaDao.findByProductId(anyLong())).willReturn(new Pasta());
+	 	given(productDao.findByProductId(anyLong())).willReturn(pastaDummy);
 	    given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
 	   
 	    pastaServiceImpl.savePasta(pastaDummy);
@@ -71,13 +79,13 @@ public class PastaServiceTest {
 	 @Test
 	public void whenPastaIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
-		given(pastaDao.findOne(anyLong())).willReturn(pastaDummy);
+		given(productDao.findOne(anyLong())).willReturn(pastaDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		given(dateTime.getDate()).willReturn(new Date());
 		
 		pastaServiceImpl.savePasta(pastaDummy);
 
-		pastaFetched = pastaServiceImpl.getPasta(new Long(281));
+		pastaFetched = (Pasta)productServiceImpl.getProduct(new Long(281));
 		
 		assertEquals(pastaFetched.getProductId(), pastaDummy.getProductId());
 	}
@@ -86,12 +94,12 @@ public class PastaServiceTest {
 	@Test(expected = ProductNotFoundException.class)
 	public void whenPastaIsNotFound_ExceptionIsThrown() throws ParseException{
 		
-		given(pastaDao.findOne(anyLong())).willReturn(null);
+		given(productDao.findOne(anyLong())).willReturn(null);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		
 		pastaServiceImpl.savePasta(pastaDummy);
 		
-		pastaFetched = pastaServiceImpl.getPasta(new Long(0));
+		pastaFetched = (Pasta)productServiceImpl.getProduct(new Long(0));
 		
 	}
 
@@ -137,10 +145,10 @@ public class PastaServiceTest {
 
 		pastaDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		given(pastaDao.findOne(anyLong())).willReturn(pastaDummy);
+		given(productDao.findOne(anyLong())).willReturn(pastaDummy);
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		pastaServiceImpl.getPasta(pastaDummy.getProductId());
+		productServiceImpl.getProduct(pastaDummy.getProductId());
 		
 	}
 

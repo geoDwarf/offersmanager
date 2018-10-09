@@ -5,9 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.dao.ProductDao;
@@ -21,6 +20,7 @@ import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 
 @Service
+
 public class BaseService {
 	
 	public  boolean testing;
@@ -59,9 +59,9 @@ public class BaseService {
 			throw new ProductExpiredException("the product you try to fetch is expired", product);
 	}
 	
-	protected Product setProductToExpired(Product product){
+	protected void setProductToExpired(Product product){
  		product.setExpired(true);
- 		return product;
+ 		
 	}
 	
 	protected void checkIfProductIsDuplicated(Product product) throws DuplicateProductException{
@@ -82,32 +82,22 @@ public class BaseService {
 			setProductToExpired(productFound);	
 	}
 	
+
 	protected void setExpiringDateByScheduler(Product product,int delay){
 		
 		
 		ScheduledExecutorService scheduler  = Executors.newSingleThreadScheduledExecutor();
 		Product productExpired ;
-		Runnable task = new Runnable() {
+		Runnable task = new Task(product);
+		{
 			
-		private Product productExpired;
+		//private Product productExpired;
 			
-            public void run() {
-            	
-            	productExpired = setProductToExpired(product);
-            	
-            	productDao.delete(product);
-            	
-            	productDao.save(product);
-            	
-            	Long id = productExpired.getProductId();
-            	Product found = productDao.findOne(id);
-            	
-            	System.out.println(found.getProductId());
-            }
+         
             
-            private void saveExpiredproduct(){
-            	productDao.save(productExpired);
-            }
+//            private void saveExpiredproduct(){
+//            	productDao.save(productExpired);
+//            }
         };
         
         
@@ -117,5 +107,29 @@ public class BaseService {
 		
 	}
 	
+	//@EnableJpaRepositories("dao")
+	public class Task  implements Runnable{
+		
+			Product product;
+			
+			public Task(Product product){
+				this.product = product;
+			}
+			
+		@Override
+		   public void run() {
+           	
+           setProductToExpired(product);
+           	
+           	productDao.delete(productExpired);
+           	
+           	productDao.save(productExpired);
+           	
+           	Long id = productExpired.getProductId();
+           	Product found = productDao.findOne(id);
+           	
+           	System.out.println(found.getProductId());
+           }
+	}
 	
 }

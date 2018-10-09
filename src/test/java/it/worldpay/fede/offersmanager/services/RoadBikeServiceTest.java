@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dao.RoadBikeDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
@@ -43,6 +44,9 @@ public class RoadBikeServiceTest {
 	
 	@InjectMocks
     private RoadBikeServiceImpl roadBikeServiceImpl ;
+	
+    @InjectMocks
+    private ProductServiceImpl productServiceImpl;
 
 	@Mock
 	DateUtils dateUtils;
@@ -53,6 +57,9 @@ public class RoadBikeServiceTest {
 	@Mock
 	RoadBikeDao roadBikeDao;
 	
+	@Mock
+	ProductDao<RoadBike> productDao;
+	
 	private RoadBike roadBikeDummy;
 		
 	private RoadBike roadBikeFetched;
@@ -60,7 +67,7 @@ public class RoadBikeServiceTest {
 	 @Test(expected = DuplicateProductException.class)
 	 public void whenRoadBikeIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
-	 	given(roadBikeDao.findByProductId(anyLong())).willReturn(new RoadBike());
+	 	given(productDao.findByProductId(anyLong())).willReturn(roadBikeDummy);
         given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
        
         roadBikeServiceImpl.saveRoadBike(roadBikeDummy);
@@ -70,13 +77,13 @@ public class RoadBikeServiceTest {
 	 @Test
 	public void whenRoadBikeIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
-		given(roadBikeDao.findOne(anyLong())).willReturn(roadBikeDummy);
+		given(productDao.findOne(anyLong())).willReturn(roadBikeDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		given(dateTime.getDate()).willReturn(new Date());
 		
 		roadBikeServiceImpl.saveRoadBike(roadBikeDummy);
 	
-		roadBikeFetched = roadBikeServiceImpl.getRoadBike(new Long(281));
+		roadBikeFetched = (RoadBike)productServiceImpl.getProduct(new Long(281));
 		
 		assertEquals(roadBikeFetched.getProductId(), roadBikeDummy.getProductId());
 	}
@@ -90,13 +97,13 @@ public class RoadBikeServiceTest {
 		
 		roadBikeServiceImpl.saveRoadBike(roadBikeDummy);
 		
-		roadBikeFetched = roadBikeServiceImpl.getRoadBike(new Long(0));
+		roadBikeFetched = (RoadBike)productServiceImpl.getProduct(new Long(0));
 		
 	}
 	
 	
 	@Test
-	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
+	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDate_ForSettingExpiringDate(){
 		
 		
 		roadBikeDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
@@ -110,7 +117,7 @@ public class RoadBikeServiceTest {
 	@Test(expected = MissingParameterException.class)
 	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
 		
-		given(roadBikeDao.findByProductId(anyLong())).willReturn(new RoadBike());
+		given(productDao.findByProductId(anyLong())).willReturn(new RoadBike());
 		
 		roadBikeDummy.setDaysValidityPeriod(0);
 		
@@ -121,7 +128,7 @@ public class RoadBikeServiceTest {
 	@Test(expected = ProductExpiredException.class)
 	public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrown() throws ParseException{
 		
-		given(roadBikeDao.findByProductId(anyLong())).willReturn(null);
+		given(productDao.findByProductId(anyLong())).willReturn(null);
 		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
@@ -131,9 +138,9 @@ public class RoadBikeServiceTest {
 	@Test(expected= ProductNotFoundException.class)
 	public void whenTryingToGetADeletedroadBike_ExceptionIsThrown()  throws ProductExpiredException{
 		 
-		given(roadBikeDao.findByProductId(anyLong())).willReturn(null);
+		given(productDao.findByProductId(anyLong())).willReturn(null);
 		
-		roadBikeServiceImpl.deleteRoadBike(roadBikeDummy);
+		productServiceImpl.deleteProduct(roadBikeDummy);
 	}
 	
 	@Test(expected= ProductExpiredException.class)
@@ -141,10 +148,10 @@ public class RoadBikeServiceTest {
 
 		roadBikeDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		given(roadBikeDao.findOne(anyLong())).willReturn(roadBikeDummy);
+		given(productDao.findOne(anyLong())).willReturn(roadBikeDummy);
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		roadBikeServiceImpl.getRoadBike(roadBikeDummy.getProductId());
+		productServiceImpl.getProduct(roadBikeDummy.getProductId());
 		
 	}
 

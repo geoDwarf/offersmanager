@@ -17,22 +17,6 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 	 GelatoDao gelatoDao;
 
 	
-	
-	@Override
-	public Gelato getGelato(Long id) throws ProductNotFoundException, ProductExpiredException{
-		
-		Gelato gelatoFound = gelatoDao.findOne(id);
-		
-		checkIfProductIsNotFound(gelatoFound,id);
-		
-		chekIfExpiringDateIsBeforeGettingProductTime(gelatoFound);
-		
-		checkIfProductIsExpired(gelatoFound);
-		
-		return gelatoFound;
-		
-	}
-
 	@Override
 	public void saveGelato(Gelato gelato) throws DuplicateProductException{
 		
@@ -40,30 +24,14 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 		
 		setExpiringDateByValidityPeriod(gelato, gelato.getDaysValidityPeriod());
 		
-		Gelato gelatoDuplicated = (Gelato)gelatoDao.findByProductId(gelato.getProductId());
+		Gelato gelatoDuplicated = (Gelato)productDao.findByProductId(gelato.getProductId());
 		
 		checkIfProductIsDuplicated(gelatoDuplicated);
 		 
 		gelatoDao.save(gelato);
-		
-		//setProductToExpired(gelato);
-		
-		
+				
 	        };
 	 
-		  
-	
-	
-	@Override
-	public void deleteGelato(Gelato gelato) throws ProductNotFoundException{
-		
-		Gelato gelatoNotFound = (Gelato)gelatoDao.findByProductId(gelato.getProductId());
-		
-		checkIfProductIsNotFound(gelatoNotFound,gelato.getProductId());
-		
-		gelatoDao.delete(gelato);
-		  
-	}
-	
+		 
 	
 }

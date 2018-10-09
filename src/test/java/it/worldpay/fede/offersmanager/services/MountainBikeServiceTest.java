@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import it.worldpay.fede.offersmanager.dao.MountainBikeDao;
+import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
@@ -43,6 +44,9 @@ public class MountainBikeServiceTest {
 @InjectMocks
 private MountainBikeServiceImpl mountainBikeServiceImpl ;
 
+@InjectMocks
+private ProductServiceImpl productServiceImpl;
+
 @Mock
 DateUtils dateUtils;
 
@@ -52,30 +56,35 @@ DateTime dateTime;
 @Mock
 MountainBikeDao mountainBikeDao;
 
+@Mock
+ProductDao<MountainBike> productDao;
+
 private MountainBike mountainBikeDummy;
 	
 private MountainBike mountainBikeFetched;
 
- @Test(expected = DuplicateProductException.class)
+
+
+@Test(expected = DuplicateProductException.class)
  public void whenMountainBikeIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
     
- 	given(mountainBikeDao.findByProductId(anyLong())).willReturn(new MountainBike());
+ 	given(productDao.findByProductId(anyLong())).willReturn(new MountainBike());
     given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
    
     mountainBikeServiceImpl.saveMountainBike(mountainBikeDummy);
     }
 
 
- @Test
+@Test
 public void whenMountainBikeIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
-	given(mountainBikeDao.findOne(anyLong())).willReturn(mountainBikeDummy);
+	given(productDao.findOne(anyLong())).willReturn(mountainBikeDummy);
 	given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 	given(dateTime.getDate()).willReturn(new Date());
 	
 	mountainBikeServiceImpl.saveMountainBike(mountainBikeDummy);
 
-	mountainBikeFetched = mountainBikeServiceImpl.getMountainBike(new Long(281));
+	mountainBikeFetched = (MountainBike)productServiceImpl.getProduct(new Long(281));
 	
 	assertEquals(mountainBikeFetched.getProductId(), mountainBikeDummy.getProductId());
 }
@@ -84,12 +93,12 @@ public void whenMountainBikeIsAdded_itIsPossibleToFetchItById()throws ParseExcep
 @Test(expected = ProductNotFoundException.class)
 public void whenMountainBikeIsNotFound_ExceptionIsThrown() throws ParseException{
 	
-	given(mountainBikeDao.findOne(anyLong())).willReturn(null);
+	given(productDao.findByProductId(anyLong())).willReturn(null);
 	given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 	
 	mountainBikeServiceImpl.saveMountainBike(mountainBikeDummy);
 	
-	mountainBikeFetched = mountainBikeServiceImpl.getMountainBike(new Long(0));
+	mountainBikeFetched = (MountainBike)productServiceImpl.getProduct(new Long(0));
 	
 }
 
@@ -117,10 +126,11 @@ public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
 	
 }
 
+
 @Test(expected = ProductExpiredException.class)
 public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrown() throws ParseException{
 	
-	given(mountainBikeDao.findByProductId(anyLong())).willReturn(null);
+	given(productDao.findByProductId(anyLong())).willReturn(null);
 	given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 	given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 	
@@ -128,17 +138,15 @@ public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrow
 }
 
 
-	
-	
 @Test(expected= ProductExpiredException.class)
 public void whenTryingToGetAnExpiredMountainBike_thenExceptionIsThrown()  throws ParseException{
 
 	mountainBikeDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 	
-	given(mountainBikeDao.findOne(anyLong())).willReturn(mountainBikeDummy);
+	given(productDao.findOne(anyLong())).willReturn(mountainBikeDummy);
 	given(dateTime.getDate()).willReturn(new Date());
 	
-	mountainBikeServiceImpl.getMountainBike(mountainBikeDummy.getProductId());
+	productServiceImpl.getProduct(mountainBikeDummy.getProductId());
 	
 }
 

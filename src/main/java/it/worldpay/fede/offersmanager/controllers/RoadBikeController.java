@@ -32,18 +32,18 @@ public class RoadBikeController {
 		response.setStatus(HttpStatus.CREATED.value());
 	}
 	
-	@RequestMapping(value="/getRoadBike/{productId}", method = RequestMethod.GET)
-	public RoadBike getRoadBike(@PathVariable("productId") Long productId) {
-        return roadBikeService.getRoadBike(productId);
-    }
+//	@RequestMapping(value="/getRoadBike/{productId}", method = RequestMethod.GET)
+//	public RoadBike getRoadBike(@PathVariable("productId") Long productId) {
+//        return roadBikeService.getRoadBike(productId);
+//    }
 	
-	@RequestMapping(value="/deleteRoadBike", method = RequestMethod.DELETE)
-	public void deleteGelato(@Valid @RequestBody RoadBike roadBike, HttpServletResponse response)
-	{
-		 roadBikeService.deleteRoadBike(roadBike);
-		 response.setStatus(HttpStatus.OK.value());
-		 
-	}
+//	@RequestMapping(value="/deleteRoadBike", method = RequestMethod.DELETE)
+//	public void deleteGelato(@Valid @RequestBody RoadBike roadBike, HttpServletResponse response)
+//	{
+//		 roadBikeService.deleteRoadBike(roadBike);
+//		 response.setStatus(HttpStatus.OK.value());
+//		 
+//	}
 
 
 }

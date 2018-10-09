@@ -31,16 +31,16 @@ public class MountainBikeController {
 		response.setStatus(HttpStatus.CREATED.value());
 	}
 	
-	@RequestMapping(value="/getMountainBike/{productId}", method = RequestMethod.GET)
-	public MountainBike getMountainBike(@PathVariable("productId") Long productId) {
-        return mountainBikeService.getMountainBike(productId);
-    }
+//	@RequestMapping(value="/getMountainBike/{productId}", method = RequestMethod.GET)
+//	public MountainBike getMountainBike(@PathVariable("productId") Long productId) {
+//        return mountainBikeService.getMountainBike(productId);
+//    }
 	
-	@RequestMapping(value="/deleteMountainBike", method = RequestMethod.DELETE)
-	public void deleteGelato(@Valid @RequestBody MountainBike mountainBike, HttpServletResponse response)
-	{
-		 mountainBikeService.deleteMountainBike(mountainBike);
-		 response.setStatus(HttpStatus.OK.value());
-		 
-	}
+//	@RequestMapping(value="/deleteMountainBike", method = RequestMethod.DELETE)
+//	public void deleteGelato(@Valid @RequestBody MountainBike mountainBike, HttpServletResponse response)
+//	{
+//		 mountainBikeService.deleteMountainBike(mountainBike);
+//		 response.setStatus(HttpStatus.OK.value());
+//		 
+//	}
 }

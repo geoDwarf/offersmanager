@@ -10,10 +10,10 @@ import it.worldpay.fede.offersmanager.model.food.Pizza;
 @Service
 public interface PizzaService {
 
-		Pizza getPizza(Long id);
+		//Pizza getPizza(Long id);
 		
 		void savePizza(Pizza pizza) throws DuplicateProductException;
 		
-		void deletePizza(Pizza pizza)throws ProductNotFoundException;
+		//void deletePizza(Pizza pizza)throws ProductNotFoundException;
 
 }

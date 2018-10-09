@@ -30,16 +30,16 @@ public class GelatoController {
 		response.setStatus(HttpStatus.CREATED.value());
 	}
 	
-	@RequestMapping(value="/getGelato/{productId}", method = RequestMethod.GET)
-	public Gelato getGelato(@PathVariable("productId") Long productId) {
-        return gelatoService.getGelato(productId);
-    }
-	
-	@RequestMapping(value="/deleteGelato", method = RequestMethod.DELETE)
-	public void deleteGelato(@Valid @RequestBody Gelato gelato, HttpServletResponse response)
-	{
-		 gelatoService.deleteGelato(gelato);
-		 response.setStatus(HttpStatus.OK.value());
-		 
-	}
+//	@RequestMapping(value="/getGelato/{productId}", method = RequestMethod.GET)
+//	public Gelato getGelato(@PathVariable("productId") Long productId) {
+//        return gelatoService.getGelato(productId);
+//    }
+//	
+//	@RequestMapping(value="/deleteGelato", method = RequestMethod.DELETE)
+//	public void deleteGelato(@Valid @RequestBody Gelato gelato, HttpServletResponse response)
+//	{
+//		 gelatoService.deleteGelato(gelato);
+//		 response.setStatus(HttpStatus.OK.value());
+//		 
+//	}
 }

@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import it.worldpay.fede.offersmanager.dao.HandBookDao;
+import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
@@ -43,6 +44,9 @@ public class HandBookServiceTest {
 	
 	@InjectMocks
     private HandBookServiceImpl handBookServiceImpl ;
+	
+	@InjectMocks
+	private ProductServiceImpl productServiceImpl;
 
 	@Mock
 	DateUtils dateUtils;
@@ -53,6 +57,9 @@ public class HandBookServiceTest {
 	@Mock
 	HandBookDao handBookDao;
 	
+	@Mock
+	ProductDao<HandBook> productDao;
+	
 	private HandBook handBookDummy;
 		
 	private HandBook handBookFetched;
@@ -60,7 +67,7 @@ public class HandBookServiceTest {
 	 @Test(expected = DuplicateProductException.class)
 	 public void whenHandBookIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
-	 	given(handBookDao.findByProductId(anyLong())).willReturn(new HandBook());
+	 	given(productDao.findByProductId(anyLong())).willReturn(handBookDummy);
         given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
        
         handBookServiceImpl.saveHandBook(handBookDummy);
@@ -70,13 +77,13 @@ public class HandBookServiceTest {
 	 @Test
 	public void whenHandBookIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
-		given(handBookDao.findOne(anyLong())).willReturn(handBookDummy);
+		given(productDao.findOne(anyLong())).willReturn(handBookDummy);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		given(dateTime.getDate()).willReturn(new Date());
 		
 		handBookServiceImpl.saveHandBook(handBookDummy);
 	
-		handBookFetched = handBookServiceImpl.getHandBook(new Long(281));
+		handBookFetched = (HandBook)productServiceImpl.getProduct(new Long(281));
 		
 		assertEquals(handBookFetched.getProductId(), handBookDummy.getProductId());
 	}
@@ -85,19 +92,18 @@ public class HandBookServiceTest {
 	@Test(expected = ProductNotFoundException.class)
 	public void whenHandBookIsNotFound_ExceptionIsThrown() throws ParseException{
 		
-		given(handBookDao.findOne(anyLong())).willReturn(null);
+		given(productDao.findOne(anyLong())).willReturn(null);
 		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 		
 		handBookServiceImpl.saveHandBook(handBookDummy);
 		
-		handBookFetched = handBookServiceImpl.getHandBook(new Long(0));
+		handBookFetched = (HandBook)productServiceImpl.getProduct(new Long(0));
 		
 	}
 	
 	
 	@Test
 	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
-		
 		
 		handBookDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
 		
@@ -110,7 +116,7 @@ public class HandBookServiceTest {
 	@Test(expected = MissingParameterException.class)
 	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
 		
-		given(handBookDao.findByProductId(anyLong())).willReturn(new HandBook());
+		given(productDao.findByProductId(anyLong())).willReturn(new HandBook());
 		
 		handBookDummy.setDaysValidityPeriod(0);
 		
@@ -121,7 +127,7 @@ public class HandBookServiceTest {
 	@Test(expected = ProductExpiredException.class)
 	public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrown() throws ParseException{
 		
-		given(handBookDao.findByProductId(anyLong())).willReturn(null);
+		given(productDao.findByProductId(anyLong())).willReturn(null);
 		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
@@ -133,7 +139,7 @@ public class HandBookServiceTest {
 		 
 		given(handBookDao.findByProductId(anyLong())).willReturn(null);
 		
-		handBookServiceImpl.deleteHandBook(handBookDummy);
+		productServiceImpl.deleteProduct(handBookDummy);
 	}
 	
 	@Test(expected= ProductExpiredException.class)
@@ -141,10 +147,10 @@ public class HandBookServiceTest {
 
 		handBookDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 		
-		given(handBookDao.findOne(anyLong())).willReturn(handBookDummy);
+		given(productDao.findOne(anyLong())).willReturn(handBookDummy);
 		given(dateTime.getDate()).willReturn(new Date());
 		
-		handBookServiceImpl.getHandBook(handBookDummy.getProductId());
+		productServiceImpl.getProduct(handBookDummy.getProductId());
 		
 	}
 

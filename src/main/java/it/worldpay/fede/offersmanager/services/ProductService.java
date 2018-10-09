@@ -13,7 +13,7 @@ public interface ProductService {
 	
 	Product getProduct(Long id);
 	
-	Product saveProduct(Product product) throws DuplicateProductException;;
+	//Product saveProduct(Product product) throws DuplicateProductException;;
 
 	void deleteProduct(Product product) throws ProductNotFoundException;
 	

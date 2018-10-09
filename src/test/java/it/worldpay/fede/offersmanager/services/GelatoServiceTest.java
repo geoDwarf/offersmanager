@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import it.worldpay.fede.offersmanager.dao.GelatoDao;
+import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
@@ -45,6 +46,9 @@ public class GelatoServiceTest {
 @InjectMocks
 private GelatoServiceImpl gelatoServiceImpl ;
 
+@InjectMocks
+private ProductServiceImpl productServiceImpl;
+
 @Mock
 DateUtils dateUtils;
 
@@ -54,14 +58,18 @@ DateTime dateTime;
 @Mock
 GelatoDao gelatoDao;
 
+@Mock
+ProductDao<Gelato> productDao;
+
 private Gelato gelatoDummy;
 	
 private Gelato gelatoFetched;
 
+
  @Test(expected = DuplicateProductException.class)
  public void whenGelatoIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
     
- 	given(gelatoDao.findByProductId(anyLong())).willReturn(new Gelato());
+ 	given(productDao.findByProductId(anyLong())).willReturn(gelatoDummy);
     given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
    
     gelatoServiceImpl.saveGelato(gelatoDummy);
@@ -71,13 +79,13 @@ private Gelato gelatoFetched;
  @Test
 public void whenGelatoIsAdded_itIsPossibleToFetchItById()throws ParseException{
 
-	given(gelatoDao.findOne(anyLong())).willReturn(gelatoDummy);
+	given(productDao.findOne(anyLong())).willReturn(gelatoDummy);
 	given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 	given(dateTime.getDate()).willReturn(new Date());
 	
 	gelatoServiceImpl.saveGelato(gelatoDummy);
 
-	gelatoFetched = gelatoServiceImpl.getGelato(new Long(281));
+	gelatoFetched = (Gelato)productServiceImpl.getProduct(new Long(281));
 	
 	assertEquals(gelatoFetched.getProductId(), gelatoDummy.getProductId());
 }
@@ -86,12 +94,12 @@ public void whenGelatoIsAdded_itIsPossibleToFetchItById()throws ParseException{
 @Test(expected = ProductNotFoundException.class)
 public void whenGelatoIsNotFound_ExceptionIsThrown() throws ParseException{
 	
-	given(gelatoDao.findOne(anyLong())).willReturn(null);
+	given(productDao.findOne(anyLong())).willReturn(null);
 	given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
 	
 	gelatoServiceImpl.saveGelato(gelatoDummy);
 	
-	gelatoFetched = gelatoServiceImpl.getGelato(new Long(0));
+	gelatoFetched = (Gelato)productServiceImpl.getProduct(new Long(0));
 	
 }
 
@@ -137,10 +145,10 @@ public void whenTryingToGetAnExpiredGelato_thenExceptionIsThrown()  throws Parse
 
 	gelatoDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
 	
-	given(gelatoDao.findOne(anyLong())).willReturn(gelatoDummy);
+	given(productDao.findOne(anyLong())).willReturn(gelatoDummy);
 	given(dateTime.getDate()).willReturn(new Date());
 	
-	gelatoServiceImpl.getGelato(gelatoDummy.getProductId());
+	productServiceImpl.getProduct(gelatoDummy.getProductId());
 	
 }
 

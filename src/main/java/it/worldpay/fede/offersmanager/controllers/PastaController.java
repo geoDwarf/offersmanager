@@ -29,17 +29,17 @@ public class PastaController {
 		response.setStatus(HttpStatus.CREATED.value());
 	}
 	
-	@RequestMapping(value="/getPasta/{productId}", method = RequestMethod.GET)
-	public Pasta getPasta(@PathVariable("productId") Long productId) {
-        return pastaService.getPasta(productId);
-    }
+//	@RequestMapping(value="/getPasta/{productId}", method = RequestMethod.GET)
+//	public Pasta getPasta(@PathVariable("productId") Long productId) {
+//        return pastaService.getPasta(productId);
+//    }
 	
-	@RequestMapping(value="/deletePasta", method = RequestMethod.DELETE)
-	public void deleteGelato(@Valid @RequestBody Pasta pasta, HttpServletResponse response)
-	{
-		 pastaService.deletePasta(pasta);
-		 response.setStatus(HttpStatus.OK.value());
-		 
-	}
+//	@RequestMapping(value="/deletePasta", method = RequestMethod.DELETE)
+//	public void deleteGelato(@Valid @RequestBody Pasta pasta, HttpServletResponse response)
+//	{
+//		 pastaService.deletePasta(pasta);
+//		 response.setStatus(HttpStatus.OK.value());
+//		 
+//	}
 
 }

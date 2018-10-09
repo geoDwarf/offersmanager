@@ -9,10 +9,10 @@ import it.worldpay.fede.offersmanager.model.food.Pasta;
 @Service
 public interface PastaService {
 	
-	Pasta getPasta(Long id);
+	//Pasta getPasta(Long id);
 	
 	void savePasta(Pasta pasta) throws DuplicateProductException;
 	
-	void deletePasta(Pasta pasta)throws ProductNotFoundException;
+	//void deletePasta(Pasta pasta)throws ProductNotFoundException;
 
 }

@@ -16,20 +16,6 @@ public class RoadBikeServiceImpl extends BaseService implements RoadBikeService{
 	@Autowired
 	RoadBikeDao roadBikeDao;
 
-	@Override
-	public RoadBike getRoadBike(Long id) throws ProductNotFoundException{
-		
-		RoadBike roadBikeFound = roadBikeDao.findOne(id);
-		
-		checkIfProductIsNotFound(roadBikeFound,id);
-		
-		chekIfExpiringDateIsBeforeGettingProductTime(roadBikeFound);
-		
-		checkIfProductIsExpired(roadBikeDao.findOne(id));
-		
-		return roadBikeFound;
-		
-	}
 
 	@Override
 	public void saveRoadBike(RoadBike roadBike) throws DuplicateProductException{
@@ -38,7 +24,7 @@ public class RoadBikeServiceImpl extends BaseService implements RoadBikeService{
 		
 		setExpiringDateByValidityPeriod(roadBike, roadBike.getDaysValidityPeriod());
 		
-		RoadBike roadBikeDuplicated = (RoadBike)roadBikeDao.findByProductId(roadBike.getProductId());
+		RoadBike roadBikeDuplicated = (RoadBike)productDao.findByProductId(roadBike.getProductId());
 		
 		checkIfProductIsDuplicated(roadBikeDuplicated);
 		  
@@ -46,14 +32,7 @@ public class RoadBikeServiceImpl extends BaseService implements RoadBikeService{
 		  
 	}
 	
-	@Override
-	public void deleteRoadBike(RoadBike roadBike) throws ProductNotFoundException{
-		
-		RoadBike roadBikeNotFound = (RoadBike)roadBikeDao.findByProductId(roadBike.getProductId());
-		
-		checkIfProductIsNotFound(roadBikeNotFound,roadBike.getProductId());
-		  
-	}
+
 
 
 

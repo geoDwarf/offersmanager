@@ -11,25 +11,10 @@ import it.worldpay.fede.offersmanager.model.books.HandBook;
 @Service
 public class HandBookServiceImpl extends BaseService implements HandBookService{
 	
-
 	
 	@Autowired
 	 HandBookDao handBookDao;
-
-	@Override
-	public HandBook getHandBook(Long id) throws ProductNotFoundException{
-		
-		HandBook handBookFound = handBookDao.findOne(id);
-		
-		checkIfProductIsNotFound(handBookFound,id);
-		
-		chekIfExpiringDateIsBeforeGettingProductTime(handBookFound);
-		
-		checkIfProductIsExpired(handBookDao.findOne(id));
-		
-		return handBookFound;
-		
-	}
+	
 
 	@Override
 	public void saveHandBook(HandBook handBook) throws DuplicateProductException{
@@ -38,7 +23,7 @@ public class HandBookServiceImpl extends BaseService implements HandBookService{
 		
 		setExpiringDateByValidityPeriod(handBook, handBook.getDaysValidityPeriod());
 		
-		HandBook handBookDuplicated = (HandBook)handBookDao.findByProductId(handBook.getProductId());
+		HandBook handBookDuplicated = (HandBook)productDao.findByProductId(handBook.getProductId());
 		
 		checkIfProductIsDuplicated(handBookDuplicated);
 		  
@@ -46,14 +31,7 @@ public class HandBookServiceImpl extends BaseService implements HandBookService{
 		  
 	}
 	
-	@Override
-	public void deleteHandBook(HandBook handBook) throws ProductNotFoundException{
-		
-		HandBook handBookNotFound = (HandBook)handBookDao.findByProductId(handBook.getProductId());
-		
-		checkIfProductIsNotFound(handBookNotFound,handBook.getProductId());
-		  
-	}
+
 
 
 

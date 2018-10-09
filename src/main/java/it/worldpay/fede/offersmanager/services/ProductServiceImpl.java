@@ -37,20 +37,6 @@ public class ProductServiceImpl extends BaseService implements ProductService {
 	}
 
 	@Override
-	public Product saveProduct(Product product) throws DuplicateProductException{
-		
-		checkForValidityPeriodAndStartingDate(product);
-		
-		setExpiringDateByValidityPeriod(product, product.getDaysValidityPeriod());
-		
-		Product productDuplicated = productDao.findByProductId(product.getProductId());
-		
-		checkIfProductIsDuplicated(productDuplicated);
-		 
-		 return  productDao.save(product);
-	}
-	
-	@Override
 	public void deleteProduct(Product product) throws ProductNotFoundException{
 		
 		Product productNotFound = (Product)productDao.findByProductId(product.getProductId());

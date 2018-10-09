@@ -10,6 +10,7 @@ import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.Product;
+import it.worldpay.fede.offersmanager.model.food.Pizza;
 
 
 
@@ -44,14 +45,22 @@ public class ProductServiceImpl extends BaseService implements ProductService {
 		
 		Product productDuplicated = productDao.findByProductId(product.getProductId());
 		
-		if(productDuplicated != null)
-			throw new DuplicateProductException("A product with the following id already exists", product);
+		checkIfProductIsDuplicated(productDuplicated);
 		 
-		  return  productDao.save(product);
+		 return  productDao.save(product);
 	}
 	
 	@Override
 	public void deleteProduct(Product product) throws ProductNotFoundException{
+		
+		Product productNotFound = (Product)productDao.findByProductId(product.getProductId());
+		
+		checkIfProductIsNotFound(productNotFound,product.getProductId());
+		
+		productDao.delete(product);
+		
+		
+		  
 		
 	}
 	

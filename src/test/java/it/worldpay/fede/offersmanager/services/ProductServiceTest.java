@@ -151,4 +151,15 @@ public class ProductServiceTest {
 	}
 	
 	
+	@Test
+	public void testScheduler() throws InterruptedException{
+		productServiceImpl.setExpiringDateByScheduler(productDummy,5);
+		
+		Thread.sleep(10000);
+		
+		Product productExpired = productDao.findOne(productDummy.getProductId());
+		//assertEquals(productSetToExpired.isExpired(),productDummy.isExpired());
+	}
+	
+	
 }

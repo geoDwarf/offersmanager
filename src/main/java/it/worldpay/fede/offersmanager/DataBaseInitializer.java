@@ -18,11 +18,11 @@ public interface DataBaseInitializer {
 	
 	MountainBike getMountainBike() throws ParseException;
 	
-	RoadBike getRoadBike();
+	RoadBike getRoadBike()throws ParseException;
 	
-	HandBook getHandBook();
+	HandBook getHandBook()throws ParseException;
 	
-	FantasyBook getfantasyBook();
+	FantasyBook getfantasyBook()throws ParseException;
 	
 	Pizza getPizza();
 	

@@ -50,6 +50,8 @@ public class PizzaServiceImpl extends BaseService implements PizzaService{
 		Pizza pizzaNotFound = (Pizza)pizzaDao.findByProductId(pizza.getProductId());
 		
 		checkIfProductIsNotFound(pizzaNotFound,pizza.getProductId());
+		
+		pizzaDao.delete(pizza);
 		  
 	}
 

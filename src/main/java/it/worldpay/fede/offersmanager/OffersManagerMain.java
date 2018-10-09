@@ -52,5 +52,8 @@ public class OffersManagerMain implements CommandLineRunner
 	 @Override
 	 public void run(String... strings) throws Exception {
 		mountainBikeDao.save(dataBaseInitializer.getMountainBike());
+		roadBikeDao.save(dataBaseInitializer.getRoadBike());
+		handBookDao.save(dataBaseInitializer.getHandBook());
+		fantasyBookDao.save(dataBaseInitializer.getfantasyBook());
 	    }
 }

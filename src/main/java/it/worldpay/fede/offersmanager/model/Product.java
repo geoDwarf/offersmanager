@@ -29,7 +29,7 @@ public abstract class Product {
 	private Date offerStartingDate;
 	
 	@Column(name = "OFFER_PRICE")
-	private long offerPrice;
+	private double offerPrice;
 	
 	@Column(name = "OFFER_DESCRIPTION")
 	private String offerDescription;
@@ -76,11 +76,11 @@ public abstract class Product {
 		this.offerStartingDate = offerStartingDate;
 	}
 
-	public long getOfferPrice() {
+	public double getOfferPrice() {
 		return offerPrice;
 	}
 
-	public void setOfferPrice(long offerPrice) {
+	public void setOfferPrice(double offerPrice) {
 		this.offerPrice = offerPrice;
 	}
 

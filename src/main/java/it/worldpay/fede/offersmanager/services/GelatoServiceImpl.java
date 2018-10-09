@@ -45,8 +45,14 @@ public class GelatoServiceImpl extends BaseService implements GelatoService {
 		checkIfProductIsDuplicated(gelatoDuplicated);
 		 
 		gelatoDao.save(gelato);
+		
+		//setProductToExpired(gelato);
+		
+		
+	        };
+	 
 		  
-	}
+	
 	
 	@Override
 	public void deleteGelato(Gelato gelato) throws ProductNotFoundException{

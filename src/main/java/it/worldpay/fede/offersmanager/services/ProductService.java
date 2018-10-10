@@ -11,11 +11,11 @@ import it.worldpay.fede.offersmanager.model.Product;
 public interface ProductService {
 	
 	
-	Product getProduct(Long id);
+	//Product getProduct(Long id);
 	
 	//Product saveProduct(Product product) throws DuplicateProductException;;
 
-	void deleteProduct(Product product) throws ProductNotFoundException;
+	//void deleteProduct(Product product) throws ProductNotFoundException;
 	
 	//Product getProductById(Long id);
 	

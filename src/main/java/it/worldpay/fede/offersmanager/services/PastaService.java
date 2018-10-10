@@ -11,7 +11,7 @@ public interface PastaService {
 	
 	//Pasta getPasta(Long id);
 	
-	void savePasta(Pasta pasta) throws DuplicateProductException;
+	//void savePasta(Pasta pasta) throws DuplicateProductException;
 	
 	//void deletePasta(Pasta pasta)throws ProductNotFoundException;
 

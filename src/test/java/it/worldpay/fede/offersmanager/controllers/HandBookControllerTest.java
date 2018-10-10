@@ -57,16 +57,16 @@ public class HandBookControllerTest {
 	private HandBook badRequestHandBookDummy;
 	
 	
-	@Test
-	public void post_whenHandBookIsValid_thenResponseIs201()  throws Exception{
-		
-		doNothing().when(handBookService).saveHandBook(handBookDummy);
-		
-		mockMvc.perform(post("/handBook/saveHandBook")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(handBookDummy)))
-                .andExpect(status().isCreated());
-	}
+//	@Test
+//	public void post_whenHandBookIsValid_thenResponseIs201()  throws Exception{
+//		
+//		doNothing().when(handBookService).saveHandBook(handBookDummy);
+//		
+//		mockMvc.perform(post("/handBook/saveHandBook")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(asJsonString(handBookDummy)))
+//                .andExpect(status().isCreated());
+//	}
 	
 	
 //	 @Test
@@ -80,17 +80,17 @@ public class HandBookControllerTest {
 //
 //	    }
 	 
-	   @Test
-	    public void post_whenHandBookHasExpiringDateMissing_thenResponseIs400() throws Exception {
-	    
-		   doNothing().when(handBookService).saveHandBook(badRequestHandBookDummy);
-
-	       mockMvc.perform(post("/handBook/saveHandBook")
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(asJsonString(badRequestHandBookDummy)))
-	                .andExpect(status().isBadRequest());
-	    }
-	   
+//	   @Test
+//	    public void post_whenHandBookHasExpiringDateMissing_thenResponseIs400() throws Exception {
+//	    
+//		   doNothing().when(handBookService).saveHandBook(badRequestHandBookDummy);
+//
+//	       mockMvc.perform(post("/handBook/saveHandBook")
+//	                .contentType(MediaType.APPLICATION_JSON)
+//	                .content(asJsonString(badRequestHandBookDummy)))
+//	                .andExpect(status().isBadRequest());
+//	    }
+//	   
 //		 @Test
 //		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{
 //			   

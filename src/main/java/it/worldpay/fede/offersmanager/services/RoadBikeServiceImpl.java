@@ -9,28 +9,28 @@ import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
 
 @Service
-public class RoadBikeServiceImpl extends BaseService implements RoadBikeService{
+public class RoadBikeServiceImpl  implements RoadBikeService{ //extends BaseService
 	
 
 	
-	@Autowired
-	RoadBikeDao roadBikeDao;
-
-
-	@Override
-	public void saveRoadBike(RoadBike roadBike) throws DuplicateProductException{
-		
-		checkForValidityPeriodAndStartingDate(roadBike);
-		
-		setExpiringDateByValidityPeriod(roadBike, roadBike.getDaysValidityPeriod());
-		
-		RoadBike roadBikeDuplicated = (RoadBike)productDao.findByProductId(roadBike.getProductId());
-		
-		checkIfProductIsDuplicated(roadBikeDuplicated);
+//	@Autowired
+//	RoadBikeDao roadBikeDao;
+//
+//
+//	@Override
+//	public void saveRoadBike(RoadBike roadBike) throws DuplicateProductException{
+//		
+//		checkForValidityPeriodAndStartingDate(roadBike);
+//		
+//		setExpiringDateByValidityPeriod(roadBike, roadBike.getDaysValidityPeriod());
+//		
+//		RoadBike roadBikeDuplicated = (RoadBike)productDao.findByProductId(roadBike.getProductId());
+//		
+//		checkIfProductIsDuplicated(roadBikeDuplicated);
+//		  
+//		roadBikeDao.save(roadBike);
 		  
-		roadBikeDao.save(roadBike);
-		  
-	}
+//	}
 	
 
 

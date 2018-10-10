@@ -21,14 +21,14 @@ import it.worldpay.fede.offersmanager.services.GelatoService;
 @RequestMapping(value="/gelato")
 public class GelatoController {
 	
-	@Autowired
-	GelatoService gelatoService;
-	
-	@RequestMapping(value="/saveGelato", method = RequestMethod.POST)
-	public void saveGelato(@Valid @RequestBody Gelato gelato, HttpServletResponse response){
-		gelatoService.saveGelato(gelato);
-		response.setStatus(HttpStatus.CREATED.value());
-	}
+//	@Autowired
+//	GelatoService gelatoService;
+//	
+//	@RequestMapping(value="/saveGelato", method = RequestMethod.POST)
+//	public void saveGelato(@Valid @RequestBody Gelato gelato, HttpServletResponse response){
+//		gelatoService.saveGelato(gelato);
+//		response.setStatus(HttpStatus.CREATED.value());
+//	}
 	
 //	@RequestMapping(value="/getGelato/{productId}", method = RequestMethod.GET)
 //	public Gelato getGelato(@PathVariable("productId") Long productId) {

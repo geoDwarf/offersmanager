@@ -9,7 +9,7 @@ import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.model.books.FantasyBook;
 
 @Service
-public class FantasyBookServiceImpl extends BaseService implements FantasyBookService{
+public class FantasyBookServiceImpl implements FantasyBookService{ //extends BaseService 
 	
 
 	
@@ -32,21 +32,21 @@ public class FantasyBookServiceImpl extends BaseService implements FantasyBookSe
 //		return fantasyBookFound;
 //		
 //	}
-
-	@Override
-	public void saveFantasyBook(FantasyBook fantasyBook) throws DuplicateProductException{
-		
-		checkForValidityPeriodAndStartingDate(fantasyBook);
-		
-		setExpiringDateByValidityPeriod(fantasyBook, fantasyBook.getDaysValidityPeriod());
-		
-		FantasyBook fantasyBookDuplicated = (FantasyBook)fantasyBookDao.findByProductId(fantasyBook.getProductId());
-		
-		checkIfProductIsDuplicated(fantasyBookDuplicated);
-		  
-		fantasyBookDao.save(fantasyBook);
-		  
-	}
+//
+//	@Override
+//	public void saveFantasyBook(FantasyBook fantasyBook) throws DuplicateProductException{
+//		
+//		checkForValidityPeriodAndStartingDate(fantasyBook);
+//		
+//		setExpiringDateByValidityPeriod(fantasyBook, fantasyBook.getDaysValidityPeriod());
+//		
+//		FantasyBook fantasyBookDuplicated = (FantasyBook)fantasyBookDao.findByProductId(fantasyBook.getProductId());
+//		
+//		checkIfProductIsDuplicated(fantasyBookDuplicated);
+//		  
+//		fantasyBookDao.save(fantasyBook);
+//		  
+//	}
 	
 //	@Override
 //	public void deleteFantasyBook(FantasyBook fantasyBook) throws ProductNotFoundException{

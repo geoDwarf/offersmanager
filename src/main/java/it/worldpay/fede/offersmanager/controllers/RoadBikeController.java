@@ -23,15 +23,15 @@ public class RoadBikeController {
 
 	
 	
-	@Autowired
-	RoadBikeService roadBikeService;
-	
-	@RequestMapping(value="/saveRoadBike", method = RequestMethod.POST)
-	public void saveRoadBike(@Valid @RequestBody RoadBike roadBike, HttpServletResponse response){
-		roadBikeService.saveRoadBike(roadBike);
-		response.setStatus(HttpStatus.CREATED.value());
-	}
-	
+//	@Autowired
+//	RoadBikeService roadBikeService;
+//	
+//	@RequestMapping(value="/saveRoadBike", method = RequestMethod.POST)
+//	public void saveRoadBike(@Valid @RequestBody RoadBike roadBike, HttpServletResponse response){
+//		roadBikeService.saveRoadBike(roadBike);
+//		response.setStatus(HttpStatus.CREATED.value());
+//	}
+//	
 //	@RequestMapping(value="/getRoadBike/{productId}", method = RequestMethod.GET)
 //	public RoadBike getRoadBike(@PathVariable("productId") Long productId) {
 //        return roadBikeService.getRoadBike(productId);

@@ -12,7 +12,7 @@ public interface RoadBikeService {
 	
 	//RoadBike getRoadBike(Long id);
 	
-	void saveRoadBike(RoadBike roadBike) throws DuplicateProductException;
+	//void saveRoadBike(RoadBike roadBike) throws DuplicateProductException;
 	
 	//void deleteRoadBike(RoadBike roadBike)throws ProductNotFoundException;
 

@@ -57,17 +57,17 @@ public class PastaControllerTest {
 	private Pasta badRequestPastaDummy;
 	
 	
-	@Test
-	public void post_whenPastaIsValid_thenResponseIs201()  throws Exception{
-		
-		doNothing().when(pastaService).savePasta(pastaDummy);
-		
-		mockMvc.perform(post("/pasta/savePasta")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(pastaDummy)))
-                .andExpect(status().isCreated());
-	}
-	
+//	@Test
+//	public void post_whenPastaIsValid_thenResponseIs201()  throws Exception{
+//		
+//		doNothing().when(pastaService).savePasta(pastaDummy);
+//		
+//		mockMvc.perform(post("/pasta/savePasta")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(asJsonString(pastaDummy)))
+//                .andExpect(status().isCreated());
+//	}
+//	
 	
 //	 @Test
 //	 public void get_whenPastaExists_thenResponseIs200() throws Exception {
@@ -80,16 +80,16 @@ public class PastaControllerTest {
 //
 //	    }
 	 
-	   @Test
-	    public void post_whenPastaHasExpiringDateMissing_thenResponseIs400() throws Exception {
-	    
-		   doNothing().when(pastaService).savePasta(badRequestPastaDummy);
-
-	       mockMvc.perform(post("/pasta/savePasta")
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(asJsonString(badRequestPastaDummy)))
-	                .andExpect(status().isBadRequest());
-	    }
+//	   @Test
+//	    public void post_whenPastaHasExpiringDateMissing_thenResponseIs400() throws Exception {
+//	    
+//		   doNothing().when(pastaService).savePasta(badRequestPastaDummy);
+//
+//	       mockMvc.perform(post("/pasta/savePasta")
+//	                .contentType(MediaType.APPLICATION_JSON)
+//	                .content(asJsonString(badRequestPastaDummy)))
+//	                .andExpect(status().isBadRequest());
+//	    }
 	   
 //		 @Test
 //		 public void delete_whenPastaIsDeleted_thenResponseIs200()  throws Exception{

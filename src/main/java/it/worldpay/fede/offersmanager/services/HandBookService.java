@@ -11,7 +11,7 @@ public interface HandBookService {
 	
 	//HandBook getHandBook(Long id);
 	
-	void saveHandBook(HandBook handBook) throws DuplicateProductException;
+	//void saveHandBook(HandBook handBook) throws DuplicateProductException;
 	
 	//void deleteHandBook(HandBook handBook)throws ProductNotFoundException;
 

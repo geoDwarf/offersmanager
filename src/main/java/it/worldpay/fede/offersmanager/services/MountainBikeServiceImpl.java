@@ -9,7 +9,7 @@ import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 
 @Service
-public class MountainBikeServiceImpl extends BaseService implements MountainBikeService  {
+public class MountainBikeServiceImpl  implements MountainBikeService  { //extends BaseService
 
 	@Autowired
 	 MountainBikeDao mountainBikeDao;
@@ -29,20 +29,20 @@ public class MountainBikeServiceImpl extends BaseService implements MountainBike
 		
 //	}
 
-	@Override
-	public void saveMountainBike(MountainBike mountainBike) throws DuplicateProductException{
-		
-		checkForValidityPeriodAndStartingDate(mountainBike);
-		
-		setExpiringDateByValidityPeriod(mountainBike, mountainBike.getDaysValidityPeriod());
-		
-		MountainBike mountainBikeDuplicated = (MountainBike)productDao.findByProductId(mountainBike.getProductId());
-		
-		checkIfProductIsDuplicated(mountainBikeDuplicated);
-		 
-		mountainBikeDao.save(mountainBike);
-		  
-	}
+//	@Override
+//	public void saveMountainBike(MountainBike mountainBike) throws DuplicateProductException{
+//		
+//		checkForValidityPeriodAndStartingDate(mountainBike);
+//		
+//		setExpiringDateByValidityPeriod(mountainBike, mountainBike.getDaysValidityPeriod());
+//		
+//		MountainBike mountainBikeDuplicated = (MountainBike)productDao.findByProductId(mountainBike.getProductId());
+//		
+//		checkIfProductIsDuplicated(mountainBikeDuplicated);
+//		 
+//		mountainBikeDao.save(mountainBike);
+//		  
+//	}
 	
 //	@Override
 //	public void deleteMountainBike(MountainBike mountainBike) throws ProductNotFoundException{

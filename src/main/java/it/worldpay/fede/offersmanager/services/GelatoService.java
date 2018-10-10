@@ -12,7 +12,7 @@ public interface GelatoService {
 	
 //	Gelato getGelato(Long id);
 	
-	void saveGelato(Gelato gelato) throws DuplicateProductException;
+//	void saveGelato(Gelato gelato) throws DuplicateProductException;
 	
 //	void deleteGelato(Gelato gelato)throws ProductNotFoundException;
 }

@@ -9,27 +9,27 @@ import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.books.HandBook;
 
 @Service
-public class HandBookServiceImpl extends BaseService implements HandBookService{
+public class HandBookServiceImpl  implements HandBookService{ //extends BaseService
 	
 	
-	@Autowired
-	 HandBookDao handBookDao;
-	
-
-	@Override
-	public void saveHandBook(HandBook handBook) throws DuplicateProductException{
-		
-		checkForValidityPeriodAndStartingDate(handBook);
-		
-		setExpiringDateByValidityPeriod(handBook, handBook.getDaysValidityPeriod());
-		
-		HandBook handBookDuplicated = (HandBook)productDao.findByProductId(handBook.getProductId());
-		
-		checkIfProductIsDuplicated(handBookDuplicated);
-		  
-		handBookDao.save(handBook);
-		  
-	}
+//	@Autowired
+//	 HandBookDao handBookDao;
+//	
+//
+//	@Override
+//	public void saveHandBook(HandBook handBook) throws DuplicateProductException{
+//		
+//		checkForValidityPeriodAndStartingDate(handBook);
+//		
+//		setExpiringDateByValidityPeriod(handBook, handBook.getDaysValidityPeriod());
+//		
+//		HandBook handBookDuplicated = (HandBook)productDao.findByProductId(handBook.getProductId());
+//		
+//		checkIfProductIsDuplicated(handBookDuplicated);
+//		  
+//		handBookDao.save(handBook);
+//		  
+//	}
 	
 
 

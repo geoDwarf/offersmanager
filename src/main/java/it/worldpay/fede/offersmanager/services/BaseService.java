@@ -30,11 +30,11 @@ public abstract class BaseService {
 	@Autowired
 	ProductDao<Product> productDao;
 	
-	abstract Product getProduct(Long id);
+	public abstract Product getProduct(Long id);
 	
-	abstract void deleteProduct(Product product) throws ProductNotFoundException; 
+	public abstract void deleteProduct(Product product) throws ProductNotFoundException; 
 	
-	abstract void saveProduct(Product product) throws DuplicateProductException;
+	public abstract void saveProduct(Product product) throws DuplicateProductException;
 	
 	
 	
@@ -48,7 +48,7 @@ public abstract class BaseService {
 		
 		product.setOfferExpiringDate(dateUtils.addDates(product.getOfferStartingDate(), validityPeriod));
 		
-		if (product.getOfferExpiringDate().before(new Date()) && testing){
+		if (product.getOfferExpiringDate().before(new Date())){
 			setProductToExpired(product);
 			throw new ProductExpiredException("the product you try to fetch is expired", product);
 		}
@@ -83,55 +83,4 @@ public abstract class BaseService {
 		if (productFound.getOfferExpiringDate().before(now))
 			setProductToExpired(productFound);	
 	}
-	
-
-//	protected void setExpiringDateByScheduler(Product product,int delay){
-//		
-//		
-//		ScheduledExecutorService scheduler  = Executors.newSingleThreadScheduledExecutor();
-//		Product productExpired ;
-//		Runnable task = new Task(product);
-//		{
-//			
-//		//private Product productExpired;
-//			
-//         
-            
-//            private void saveExpiredproduct(){
-//            	productDao.save(productExpired);
-//            }
-//        };
-//        
-//        
-//        
-//        scheduler.schedule(task, delay, TimeUnit.SECONDS);
-//        scheduler.shutdown();
-//		
-//	}
-//	
-//	//@EnableJpaRepositories("dao")
-//	public class Task  implements Runnable{
-//		
-//			Product product;
-//			
-//			public Task(Product product){
-//				this.product = product;
-//			}
-//			
-//		@Override
-//		   public void run() {
-//           	
-//           setProductToExpired(product);
-//           	
-//           	productDao.delete(productExpired);
-//           	
-//           	productDao.save(productExpired);
-//           	
-//           	Long id = productExpired.getProductId();
-//           	Product found = productDao.findOne(id);
-//           	
-//           	System.out.println(found.getProductId());
-//           }
-//	}
-//	
 }

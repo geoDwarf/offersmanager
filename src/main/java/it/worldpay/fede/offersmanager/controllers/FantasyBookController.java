@@ -24,12 +24,12 @@ public class FantasyBookController {
 	@Autowired
 	FantasyBookService fantasyBookService;
 	
-	@RequestMapping(value="/saveFantasyBook", method = RequestMethod.POST)
-	public void saveFantasyBook(@Valid @RequestBody FantasyBook fantasyBook, HttpServletResponse response){
-		fantasyBookService.saveFantasyBook(fantasyBook);
-		response.setStatus(HttpStatus.CREATED.value());
-	}
-	
+//	@RequestMapping(value="/saveFantasyBook", method = RequestMethod.POST)
+//	public void saveFantasyBook(@Valid @RequestBody FantasyBook fantasyBook, HttpServletResponse response){
+//		fantasyBookService.saveFantasyBook(fantasyBook);
+//		response.setStatus(HttpStatus.CREATED.value());
+//	}
+//	
 //	@RequestMapping(value="/getFantasyBook/{productId}", method = RequestMethod.GET)
 //	public FantasyBook getFantasyBook(@PathVariable("productId") Long productId) {
 //        return fantasyBookService.getFantasyBook(productId);

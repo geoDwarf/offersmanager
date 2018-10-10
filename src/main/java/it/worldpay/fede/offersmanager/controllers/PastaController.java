@@ -20,14 +20,14 @@ import it.worldpay.fede.offersmanager.services.PastaService;
 @RequestMapping(value="/pasta")
 public class PastaController {
 	
-	@Autowired
-	PastaService pastaService;
-	
-	@RequestMapping(value="/savePasta", method = RequestMethod.POST)
-	public void savePasta(@Valid @RequestBody Pasta pasta, HttpServletResponse response){
-		pastaService.savePasta(pasta);
-		response.setStatus(HttpStatus.CREATED.value());
-	}
+//	@Autowired
+//	PastaService pastaService;
+//	
+//	@RequestMapping(value="/savePasta", method = RequestMethod.POST)
+//	public void savePasta(@Valid @RequestBody Pasta pasta, HttpServletResponse response){
+//		pastaService.savePasta(pasta);
+//		response.setStatus(HttpStatus.CREATED.value());
+//	}
 	
 //	@RequestMapping(value="/getPasta/{productId}", method = RequestMethod.GET)
 //	public Pasta getPasta(@PathVariable("productId") Long productId) {

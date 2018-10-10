@@ -20,14 +20,14 @@ import it.worldpay.fede.offersmanager.services.HandBookService;
 @RequestMapping(value="/handBook")
 public class HandBookController {
 	
-	@Autowired
-	HandBookService handBookService;
-	
-	@RequestMapping(value="/saveHandBook", method = RequestMethod.POST)
-	public void saveHandBook(@Valid @RequestBody HandBook handBook, HttpServletResponse response){
-		handBookService.saveHandBook(handBook);
-		response.setStatus(HttpStatus.CREATED.value());
-	}
+//	@Autowired
+//	HandBookService handBookService;
+//	
+//	@RequestMapping(value="/saveHandBook", method = RequestMethod.POST)
+//	public void saveHandBook(@Valid @RequestBody HandBook handBook, HttpServletResponse response){
+//		handBookService.saveHandBook(handBook);
+//		response.setStatus(HttpStatus.CREATED.value());
+//	}
 	
 //	@RequestMapping(value="/getHandBook/{productId}", method = RequestMethod.GET)
 //	public HandBook getHandBook(@PathVariable("productId") Long productId) {

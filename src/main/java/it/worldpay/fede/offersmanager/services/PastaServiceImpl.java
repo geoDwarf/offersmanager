@@ -9,7 +9,7 @@ import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.food.Pasta;
 
 @Service
-public class PastaServiceImpl extends BaseService implements  PastaService{
+public class PastaServiceImpl  implements  PastaService{//extends BaseService
 
 	@Autowired
 	 PastaDao pastaDao;
@@ -31,20 +31,20 @@ public class PastaServiceImpl extends BaseService implements  PastaService{
 //		
 //	}
 
-	@Override
-	public void savePasta(Pasta pasta) throws DuplicateProductException{
-		
-		checkForValidityPeriodAndStartingDate(pasta);
-		
-		setExpiringDateByValidityPeriod(pasta, pasta.getDaysValidityPeriod());
-		
-		Pasta pastaDuplicated = (Pasta)productDao.findByProductId(pasta.getProductId());
-		
-		checkIfProductIsDuplicated(pastaDuplicated);
-		 
-		pastaDao.save(pasta);
-		  
-	}
+//	@Override
+//	public void savePasta(Pasta pasta) throws DuplicateProductException{
+//		
+//		checkForValidityPeriodAndStartingDate(pasta);
+//		
+//		setExpiringDateByValidityPeriod(pasta, pasta.getDaysValidityPeriod());
+//		
+//		Pasta pastaDuplicated = (Pasta)productDao.findByProductId(pasta.getProductId());
+//		
+//		checkIfProductIsDuplicated(pastaDuplicated);
+//		 
+//		pastaDao.save(pasta);
+//		  
+//	}
 	
 //	@Override
 //	public void deletePasta(Pasta pasta) throws ProductNotFoundException{

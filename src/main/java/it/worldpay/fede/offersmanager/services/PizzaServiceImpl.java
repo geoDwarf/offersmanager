@@ -9,7 +9,7 @@ import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.model.food.Pizza;
 
 @Service
-public class PizzaServiceImpl extends BaseService implements PizzaService{
+public class PizzaServiceImpl  implements PizzaService{ //extends BaseService
 	
 	@Autowired
 	 PizzaDao pizzaDao;
@@ -32,20 +32,20 @@ public class PizzaServiceImpl extends BaseService implements PizzaService{
 //		
 //	}
 
-	@Override
-	public void savePizza(Pizza pizza) throws DuplicateProductException{
-		
-		checkForValidityPeriodAndStartingDate(pizza);
-		
-		setExpiringDateByValidityPeriod(pizza, pizza.getDaysValidityPeriod());
-		
-		Pizza pizzaDuplicated = (Pizza)productDao.findByProductId(pizza.getProductId());
-		
-		checkIfProductIsDuplicated(pizzaDuplicated);
-		  
-		pizzaDao.save(pizza);
-		  
-	}
+//	@Override
+//	public void savePizza(Pizza pizza) throws DuplicateProductException{
+//		
+//		checkForValidityPeriodAndStartingDate(pizza);
+//		
+//		setExpiringDateByValidityPeriod(pizza, pizza.getDaysValidityPeriod());
+//		
+//		Pizza pizzaDuplicated = (Pizza)productDao.findByProductId(pizza.getProductId());
+//		
+//		checkIfProductIsDuplicated(pizzaDuplicated);
+//		  
+//		pizzaDao.save(pizza);
+//		  
+//	}
 	
 //	@Override
 //	public void deletePizza(Pizza pizza) throws ProductNotFoundException{

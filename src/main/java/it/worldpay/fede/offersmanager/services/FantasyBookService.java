@@ -12,7 +12,7 @@ public interface FantasyBookService {
 
 	//FantasyBook getFantasyBook(Long id);
 	
-	void saveFantasyBook(FantasyBook fantasyBook) throws DuplicateProductException;
+	//void saveFantasyBook(FantasyBook fantasyBook) throws DuplicateProductException;
 	
 	//void deleteFantasyBook(FantasyBook fantasyBook)throws ProductNotFoundException;
 	

@@ -1,11 +1,14 @@
 package it.worldpay.fede.offersmanager.services;
 
+import org.springframework.stereotype.Service;
+
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
 import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.Product;
-import it.worldpay.fede.offersmanager.model.food.Pizza;
 
+
+@Service
 public class BaseServiceDefault  extends BaseService{
 	
 	@Override

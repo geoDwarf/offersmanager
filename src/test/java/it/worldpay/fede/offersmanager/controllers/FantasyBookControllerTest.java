@@ -56,17 +56,17 @@ public class FantasyBookControllerTest {
 	private FantasyBook badRequestFantasyBookDummy;
 	
 	
-	@Test
-	public void post_whenFantasyBookIsValid_thenResponseIs201()  throws Exception{
-		
-		doNothing().when(fantasyBookService).saveFantasyBook(fantasyBookDummy);
-		
-		mockMvc.perform(post("/fantasyBook/saveFantasyBook")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(fantasyBookDummy)))
-                .andExpect(status().isCreated());
-	}
-	
+//	@Test
+//	public void post_whenFantasyBookIsValid_thenResponseIs201()  throws Exception{
+//		
+//		doNothing().when(fantasyBookService).saveFantasyBook(fantasyBookDummy);
+//		
+//		mockMvc.perform(post("/fantasyBook/saveFantasyBook")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(asJsonString(fantasyBookDummy)))
+//                .andExpect(status().isCreated());
+//	}
+//	
 	
 //	 @Test
 //	 public void get_whenFantasyBookExists_thenResponseIs200() throws Exception {
@@ -79,16 +79,16 @@ public class FantasyBookControllerTest {
 //
 //	    }
 	 
-	   @Test
-	    public void post_whenFantasyBookHasExpiringDateMissing_thenResponseIs400() throws Exception {
-	    
-		   doNothing().when(fantasyBookService).saveFantasyBook(badRequestFantasyBookDummy);
-
-	       mockMvc.perform(post("/fantasyBook/saveFantasyBook")
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(asJsonString(badRequestFantasyBookDummy)))
-	                .andExpect(status().isBadRequest());
-	    }
+//	   @Test
+//	    public void post_whenFantasyBookHasExpiringDateMissing_thenResponseIs400() throws Exception {
+//	    
+//		   doNothing().when(fantasyBookService).saveFantasyBook(badRequestFantasyBookDummy);
+//
+//	       mockMvc.perform(post("/fantasyBook/saveFantasyBook")
+//	                .contentType(MediaType.APPLICATION_JSON)
+//	                .content(asJsonString(badRequestFantasyBookDummy)))
+//	                .andExpect(status().isBadRequest());
+//	    }
 	   
 //		 @Test
 //		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{

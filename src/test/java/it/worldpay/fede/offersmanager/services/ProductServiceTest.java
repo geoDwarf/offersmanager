@@ -26,34 +26,34 @@ import it.worldpay.fede.offersmanager.utils.DateUtils;
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ProductServiceTest {
 	
-	@Before
-	public void initializeTestVariable(){
-		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
-		productDummy = dummyFactory.getDummyProduct("GELATO");
-		productDummy.setOfferStartingDate(new Date());
-		productDummy.setDaysValidityPeriod(5);
-		productServiceImpl.testing = true;
-	}
-	
-	@InjectMocks
-    private ProductServiceImpl productServiceImpl ;
-
-	@Mock
-	DateUtils dateUtils;
-	
-	@Mock
-	DateTime dateTime;
-	
-	@Mock
-	ProductDao<Product> productDao;
-	
-	private Product productDummy;
-	
-	
-	
-	private Product productUpdated;
-	
-	private Product productFetched;
+//	@Before
+//	public void initializeTestVariable(){
+//		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
+//		productDummy = dummyFactory.getDummyProduct("GELATO");
+//		productDummy.setOfferStartingDate(new Date());
+//		productDummy.setDaysValidityPeriod(5);
+//		productServiceImpl.testing = true;
+//	}
+//	
+//	@InjectMocks
+//    private ProductServiceImpl productServiceImpl ;
+//
+//	@Mock
+//	DateUtils dateUtils;
+//	
+//	@Mock
+//	DateTime dateTime;
+//	
+//	@Mock
+//	ProductDao<Product> productDao;
+//	
+//	private Product productDummy;
+//	
+//	
+//	
+//	private Product productUpdated;
+//	
+//	private Product productFetched;
 	
 //	 @Test(expected = DuplicateProductException.class)
 //	 public void whenProductIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
@@ -93,17 +93,17 @@ public class ProductServiceTest {
 //	}
 	
 	
-	@Test
-	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
-		
-		
-		productDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
-		
-		productDummy.setOfferExpiringDate(dateUtils.addDates(productDummy.getOfferStartingDate(), productDummy.getDaysValidityPeriod()));
-		
-		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),productDummy.getOfferExpiringDate());
-	}
-	
+//	@Test
+//	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
+//		
+//		
+//		productDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
+//		
+//		productDummy.setOfferExpiringDate(dateUtils.addDates(productDummy.getOfferStartingDate(), productDummy.getDaysValidityPeriod()));
+//		
+//		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),productDummy.getOfferExpiringDate());
+//	}
+//	
 
 //	@Test(expected = MissingParameterException.class)
 //	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
@@ -126,33 +126,33 @@ public class ProductServiceTest {
 //		productServiceImpl.saveProduct(productDummy);
 //	}
 	
-	@Test(expected = ProductExpiredException.class)
-	public void whenAnExpiredProductIsFound_ProductExpiredExceptionIsThrown()  throws ParseException{
-		
-		productDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
-		
-		given(productDao.findOne(anyLong())).willReturn(productDummy);
-		given(dateTime.getDate()).willReturn(new Date());
-		
-		productServiceImpl.getProduct(productDummy.getProductId());
-	}
+//	@Test(expected = ProductExpiredException.class)
+//	public void whenAnExpiredProductIsFound_ProductExpiredExceptionIsThrown()  throws ParseException{
+//		
+//		productDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
+//		
+//		given(productDao.findOne(anyLong())).willReturn(productDummy);
+//		given(dateTime.getDate()).willReturn(new Date());
+//		
+//		productServiceImpl.getProduct(productDummy.getProductId());
+//	}
+//	
+//	
+//	@Test
+//	public void whenProductIsDeleted_ItWillThorwoExceptionIfWeTryToFetchit(){
+//		//TODO
+//	}
 	
 	
-	@Test
-	public void whenProductIsDeleted_ItWillThorwoExceptionIfWeTryToFetchit(){
-		//TODO
-	}
-	
-	
-	@Test
-	public void testScheduler() throws InterruptedException{
-		productServiceImpl.setExpiringDateByScheduler(productDummy,5);
-		
-		Thread.sleep(10000);
-		
-		Product productExpired = productDao.findOne(productDummy.getProductId());
-		//assertEquals(productSetToExpired.isExpired(),productDummy.isExpired());
-	}
+//	@Test
+//	public void testScheduler() throws InterruptedException{
+//		productServiceImpl.setExpiringDateByScheduler(productDummy,5);
+//		
+//		Thread.sleep(10000);
+//		
+//		Product productExpired = productDao.findOne(productDummy.getProductId());
+//		//assertEquals(productSetToExpired.isExpired(),productDummy.isExpired());
+//	}
 	
 	
 }

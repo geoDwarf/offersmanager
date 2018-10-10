@@ -10,28 +10,28 @@ import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
 
 @Service
-public class GelatoServiceImpl extends BaseService implements GelatoService {
+public class GelatoServiceImpl  implements GelatoService {//extends BaseService
 
 	
-	@Autowired
-	 GelatoDao gelatoDao;
-
-	
-	@Override
-	public void saveGelato(Gelato gelato) throws DuplicateProductException{
-		
-		checkForValidityPeriodAndStartingDate(gelato);
-		
-		setExpiringDateByValidityPeriod(gelato, gelato.getDaysValidityPeriod());
-		
-		Gelato gelatoDuplicated = (Gelato)productDao.findByProductId(gelato.getProductId());
-		
-		checkIfProductIsDuplicated(gelatoDuplicated);
-		 
-		gelatoDao.save(gelato);
-				
-	        };
-	 
-		 
+//	@Autowired
+//	 GelatoDao gelatoDao;
+//
+//	
+//	@Override
+//	public void saveGelato(Gelato gelato) throws DuplicateProductException{
+//		
+//		checkForValidityPeriodAndStartingDate(gelato);
+//		
+//		setExpiringDateByValidityPeriod(gelato, gelato.getDaysValidityPeriod());
+//		
+//		Gelato gelatoDuplicated = (Gelato)productDao.findByProductId(gelato.getProductId());
+//		
+//		checkIfProductIsDuplicated(gelatoDuplicated);
+//		 
+//		gelatoDao.save(gelato);
+//				
+//	        };
+//	 
+//		 
 	
 }

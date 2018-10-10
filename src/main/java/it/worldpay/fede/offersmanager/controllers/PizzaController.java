@@ -24,15 +24,15 @@ import it.worldpay.fede.offersmanager.services.PizzaService;
 public class PizzaController {
 	
 	
-	@Autowired
-	PizzaService pizzaService;
-	
-	@RequestMapping(value="/savePizza", method = RequestMethod.POST)
-	public void savePizza(@Valid @RequestBody Pizza pizza, HttpServletResponse response){
-		pizzaService.savePizza(pizza);
-		response.setStatus(HttpStatus.CREATED.value());
-	}
-	
+//	@Autowired
+//	PizzaService pizzaService;
+//	
+//	@RequestMapping(value="/savePizza", method = RequestMethod.POST)
+//	public void savePizza(@Valid @RequestBody Pizza pizza, HttpServletResponse response){
+//		pizzaService.savePizza(pizza);
+//		response.setStatus(HttpStatus.CREATED.value());
+//	}
+//	
 //	@RequestMapping(value="/getPizza/{productId}", method = RequestMethod.GET)
 //	public Pizza getPizza(@PathVariable("productId") Long productId) {
 //        return pizzaService.getPizza(productId);

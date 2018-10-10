@@ -11,8 +11,18 @@ import it.worldpay.fede.offersmanager.model.Bike;
 public class RoadBike extends Bike {
 
 	@Column
-	private long weight;
+	private double weight;
 	
+	
+	
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
 	public RoadBike(Long idProduct){
 		super(idProduct);
 	}

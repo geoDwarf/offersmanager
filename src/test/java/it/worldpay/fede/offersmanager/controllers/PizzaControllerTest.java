@@ -59,16 +59,16 @@ public class PizzaControllerTest {
 	private Pizza badRequestPizzaDummy;
 	
 	
-	@Test
-	public void post_whenPizzaIsValid_thenResponseIs201()  throws Exception{
-		
-		doNothing().when(pizzaService).savePizza(pizzaDummy);
-		
-		mockMvc.perform(post("/pizza/savePizza")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(pizzaDummy)))
-                .andExpect(status().isCreated());
-	}
+//	@Test
+//	public void post_whenPizzaIsValid_thenResponseIs201()  throws Exception{
+//		
+//		doNothing().when(pizzaService).savePizza(pizzaDummy);
+//		
+//		mockMvc.perform(post("/pizza/savePizza")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(asJsonString(pizzaDummy)))
+//                .andExpect(status().isCreated());
+//	}
 	
 	
 //	 @Test
@@ -82,16 +82,16 @@ public class PizzaControllerTest {
 //
 //	    }
 	 
-	   @Test
-	    public void post_whenPizzaHasExpiringDateMissing_thenResponseIs400() throws Exception {
-	    
-		   doNothing().when(pizzaService).savePizza(badRequestPizzaDummy);
-
-	       mockMvc.perform(post("/pizza/savePizza")
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(asJsonString(badRequestPizzaDummy)))
-	                .andExpect(status().isBadRequest());
-	    }
+//	   @Test
+//	    public void post_whenPizzaHasExpiringDateMissing_thenResponseIs400() throws Exception {
+//	    
+//		   doNothing().when(pizzaService).savePizza(badRequestPizzaDummy);
+//
+//	       mockMvc.perform(post("/pizza/savePizza")
+//	                .contentType(MediaType.APPLICATION_JSON)
+//	                .content(asJsonString(badRequestPizzaDummy)))
+//	                .andExpect(status().isBadRequest());
+//	    }
 	   
 //		 @Test
 //		 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{

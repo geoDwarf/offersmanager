@@ -58,17 +58,17 @@ public class GelatoControllerTest {
 	private Gelato badRequestGelatoDummy;
 
 	
-	@Test
-	public void post_whenGelatoIsValid_thenResponseIs201()  throws Exception{
-		
-		doNothing().when(gelatoService).saveGelato(gelatoDummy);
-		
-		mockMvc.perform(post("/gelato/saveGelato")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(gelatoDummy)))
-                .andExpect(status().isCreated());
-	
-       }
+//	@Test
+//	public void post_whenGelatoIsValid_thenResponseIs201()  throws Exception{
+//		
+//		doNothing().when(gelatoService).saveGelato(gelatoDummy);
+//		
+//		mockMvc.perform(post("/gelato/saveGelato")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(asJsonString(gelatoDummy)))
+//                .andExpect(status().isCreated());
+//	
+//       }
 	
 //	 @Test
 //	 public void get_whenGelatoExists_thenResponseIs200() throws Exception {
@@ -81,16 +81,16 @@ public class GelatoControllerTest {
 //
 //	    }
 	 
-	 @Test
-	 public void post_whenGelatoHasExpiringDateMissing_thenResponseIs400() throws Exception {
-	    
-		   doNothing().when(gelatoService).saveGelato(badRequestGelatoDummy);
-
-	       mockMvc.perform(post("/gelato/saveGelato")
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(asJsonString(badRequestGelatoDummy)))
-	                .andExpect(status().isBadRequest());
-	    }
+//	 @Test
+//	 public void post_whenGelatoHasExpiringDateMissing_thenResponseIs400() throws Exception {
+//	    
+//		   doNothing().when(gelatoService).saveGelato(badRequestGelatoDummy);
+//
+//	       mockMvc.perform(post("/gelato/saveGelato")
+//	                .contentType(MediaType.APPLICATION_JSON)
+//	                .content(asJsonString(badRequestGelatoDummy)))
+//	                .andExpect(status().isBadRequest());
+//	    }
 	 
 //	 @Test
 //	 public void delete_whenGelatoIsDeleted_thenResponseIs200()  throws Exception{

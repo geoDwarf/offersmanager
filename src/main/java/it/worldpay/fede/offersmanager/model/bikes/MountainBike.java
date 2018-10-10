@@ -17,6 +17,25 @@ public class MountainBike extends Bike  {
 	@Column(name = "REAR_FORK_BRAND")
 	private String rearForkBrand;
 	
+	
+	public boolean isFullSuspended() {
+		return isFullSuspended;
+	}
+	public void setFullSuspended(boolean isFullSuspended) {
+		this.isFullSuspended = isFullSuspended;
+	}
+	public String getFrontForkBrand() {
+		return frontForkBrand;
+	}
+	public void setFrontForkBrand(String frontForkBrand) {
+		this.frontForkBrand = frontForkBrand;
+	}
+	public String getRearForkBrand() {
+		return rearForkBrand;
+	}
+	public void setRearForkBrand(String rearForkBrand) {
+		this.rearForkBrand = rearForkBrand;
+	}
 	public MountainBike(Long idProduct){
 		super(idProduct);
 	}

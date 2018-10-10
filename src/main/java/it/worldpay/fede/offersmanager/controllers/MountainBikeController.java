@@ -22,14 +22,14 @@ import it.worldpay.fede.offersmanager.services.MountainBikeService;
 public class MountainBikeController {
 
 	
-	@Autowired
-	MountainBikeService mountainBikeService;
-	
-	@RequestMapping(value="/saveMountainBike", method = RequestMethod.POST)
-	public void saveMountainBike(@Valid @RequestBody MountainBike mountainBike, HttpServletResponse response){
-		mountainBikeService.saveMountainBike(mountainBike);
-		response.setStatus(HttpStatus.CREATED.value());
-	}
+//	@Autowired
+//	MountainBikeService mountainBikeService;
+//	
+//	@RequestMapping(value="/saveMountainBike", method = RequestMethod.POST)
+//	public void saveMountainBike(@Valid @RequestBody MountainBike mountainBike, HttpServletResponse response){
+//		mountainBikeService.saveMountainBike(mountainBike);
+//		response.setStatus(HttpStatus.CREATED.value());
+//	}
 	
 //	@RequestMapping(value="/getMountainBike/{productId}", method = RequestMethod.GET)
 //	public MountainBike getMountainBike(@PathVariable("productId") Long productId) {

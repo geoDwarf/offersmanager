@@ -13,49 +13,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.worldpay.fede.offersmanager.model.Product;
-import it.worldpay.fede.offersmanager.model.food.Gelato;
-import it.worldpay.fede.offersmanager.services.GelatoService;
-import it.worldpay.fede.offersmanager.services.PizzaService;
-import it.worldpay.fede.offersmanager.services.ProductService;
+import it.worldpay.fede.offersmanager.services.BaseService;
 
 @RestController
 @EnableAutoConfiguration
 @RequestMapping(value="/offers")
 public class OffersManagerController {
 	
-	
-	
 	@Autowired
-	ProductService productService;
-	
-	@Autowired
-	PizzaService pizzaService;
-	
-	@Autowired
-	GelatoService gelatoService;
+	BaseService baseService;
 	
 	
 	///########################## PRODUCT ############################################
 	
 	@RequestMapping(value="/getProduct/{productId}", method = RequestMethod.GET)
 	public Product getProduct(@PathVariable("productId") Long productId) {
-        return productService.getProduct(productId);
+        return baseService.getProduct(productId);
     }
 	
-	@RequestMapping(value="/deleteProduct/{productId}", method = RequestMethod.DELETE)
+	@RequestMapping(value="/deleteProduct", method = RequestMethod.DELETE)
 	public void deleteProduct(@Valid @RequestBody Product product, HttpServletResponse response)
 	{
-		 productService.deleteProduct(product);
+		 baseService.deleteProduct(product);
 		 response.setStatus(HttpStatus.OK.value());
 	}
 	
-	///########################## GELATO ##############################################
-	
-	@RequestMapping(value="/saveGelato", method = RequestMethod.POST)
-	public void saveGelato(@Valid @RequestBody Gelato gelato, HttpServletResponse response){
-		gelatoService.saveGelato(gelato);
+	@RequestMapping(value="/saveProduct", method = RequestMethod.POST)
+	public void saveProduct(@Valid @RequestBody Product product, HttpServletResponse response){
+		baseService.saveProduct(product);
 		response.setStatus(HttpStatus.CREATED.value());
 	}
+	
+	
+	
+	///########################## GELATO #############################################
 	
 	///########################## PIZZA ##############################################
 		

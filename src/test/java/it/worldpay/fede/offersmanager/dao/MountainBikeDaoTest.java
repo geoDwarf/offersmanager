@@ -50,7 +50,7 @@ public class MountainBikeDaoTest {
 		
 		mountainBikeDao.save(mountainBikeDummy);
 		
-		mountainBikeDao.delete(mountainBikeDummy);
+		mountainBikeDao.delete(mountainBikeDummy.getProductId());
 		
 		mountainBikeFound = mountainBikeDao.findOne(mountainBikeDummy.getProductId());
 		

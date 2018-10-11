@@ -38,12 +38,9 @@ public class BaseServiceTest {
 	gelatoDummy = (Gelato)dummyFactory.getDummyProduct("GELATO");
 	gelatoDummy.setDaysValidityPeriod(5);
 	gelatoDummy.setOfferStartingDate(new Date());
-//	gelatoServiceImpl.testing = true;
+	baseServiceDefault.testing = true;
 }
 	
-
-//@InjectMocks
-//private GelatoServiceImpl gelatoServiceImpl ;
 
 @InjectMocks
 private BaseServiceDefault baseServiceDefault;

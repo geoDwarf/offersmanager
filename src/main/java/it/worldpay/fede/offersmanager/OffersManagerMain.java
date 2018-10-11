@@ -13,7 +13,6 @@ import it.worldpay.fede.offersmanager.dao.MountainBikeDao;
 import it.worldpay.fede.offersmanager.dao.PastaDao;
 import it.worldpay.fede.offersmanager.dao.PizzaDao;
 import it.worldpay.fede.offersmanager.dao.RoadBikeDao;
-import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 
 
 @SpringBootApplication
@@ -55,5 +54,8 @@ public class OffersManagerMain implements CommandLineRunner
 		roadBikeDao.save(dataBaseInitializer.getRoadBike());
 		handBookDao.save(dataBaseInitializer.getHandBook());
 		fantasyBookDao.save(dataBaseInitializer.getfantasyBook());
+		pastaDao.save(dataBaseInitializer.getPasta());
+		pizzaDao.save(dataBaseInitializer.getPizza());
+		gelatoDao.save(dataBaseInitializer.getGelato());
 	    }
 }

@@ -26,7 +26,7 @@ public class FantasyBookDaoTest {
 	private DummyFactory dummyFactory;
 			
 	@Autowired
-	FantasyBookDao gelatoDao;
+	FantasyBookDao fantasyBookDao;
 	
 	FantasyBook gelatoDummy;
 	
@@ -37,9 +37,9 @@ public class FantasyBookDaoTest {
 	@Test
 	public void whenSaveFantasyBook_thenItIsPossibleToFetchIt(){
 		
-		gelatoDao.save(gelatoDummy);
+		fantasyBookDao.save(gelatoDummy);
 		
-		gelatoFound = gelatoDao.findOne(gelatoDummy.getProductId());
+		gelatoFound = fantasyBookDao.findOne(gelatoDummy.getProductId());
 		
 		assertEquals(gelatoFound.getProductId(), gelatoDummy.getProductId());
 			}
@@ -47,11 +47,11 @@ public class FantasyBookDaoTest {
 	@Test
 	public void whenSaveFantasyBook_thenItIsPossibleToDeleteIt(){
 		
-		gelatoDao.save(gelatoDummy);
+		fantasyBookDao.save(gelatoDummy);
 		
-		gelatoDao.delete(gelatoDummy);
+		fantasyBookDao.delete(gelatoDummy);
 		
-		gelatoFound = gelatoDao.findOne(gelatoDummy.getProductId());
+		gelatoFound = fantasyBookDao.findOne(gelatoDummy.getProductId());
 		
 		Assert.assertNull(gelatoFound);
 	}
@@ -59,11 +59,11 @@ public class FantasyBookDaoTest {
 	@Test
 	public void whneFantasyBookIsSaved_thenItIspossibleToFetchItById(){
 		
-		gelatoSaved =gelatoDao.save(gelatoDummy);
+		gelatoSaved =fantasyBookDao.save(gelatoDummy);
 		
 		Long gleatoSavedId = gelatoSaved.getProductId();
 		
-		gelatoFound = (FantasyBook)gelatoDao.findByProductId(gleatoSavedId);
+		gelatoFound = (FantasyBook)fantasyBookDao.findByProductId(gleatoSavedId);
 		}
 
 }

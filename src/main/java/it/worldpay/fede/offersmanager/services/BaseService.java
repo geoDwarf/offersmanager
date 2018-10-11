@@ -16,8 +16,7 @@ import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 
 @Service
-
-public abstract class BaseService {
+public abstract class BaseService <T extends Product>{
 	
 	public  boolean testing;
 	
@@ -30,11 +29,35 @@ public abstract class BaseService {
 	@Autowired
 	ProductDao<Product> productDao;
 	
-	public abstract Product getProduct(Long id);
+ 
+	public abstract void saveProduct(T product) throws DuplicateProductException;
 	
-	public abstract void deleteProduct(Product product) throws ProductNotFoundException; 
 	
-	public abstract void saveProduct(Product product) throws DuplicateProductException;
+	public Product getProduct(Long id) throws ProductNotFoundException, ProductExpiredException{
+		
+		Product productFound = productDao.findOne(id);
+		
+		checkIfProductIsNotFound(productFound,id);
+			
+		chekIfExpiringDateIsBeforeGettingProductTime(productFound);
+			
+		checkIfProductIsExpired(productDao.findOne(id));
+		
+		return productFound;
+		
+	}
+	
+	
+	
+	public void deleteProduct(Long productId) throws ProductNotFoundException{
+		
+		Product productNotFound = (Product)productDao.findByProductId(productId);
+		
+		checkIfProductIsNotFound(productNotFound,productId);
+		
+		productDao.delete(productId);
+		
+	}
 	
 	
 	
@@ -44,7 +67,8 @@ public abstract class BaseService {
 			throw new MissingParameterException("missing parameter, please check your offer validity period and starting date", product);
 		}
 
-	protected Product setExpiringDateByValidityPeriod(Product product,int validityPeriod){
+	
+	protected void setExpiringDateByValidityPeriod(Product product,int validityPeriod){
 		
 		product.setOfferExpiringDate(dateUtils.addDates(product.getOfferStartingDate(), validityPeriod));
 		
@@ -52,8 +76,6 @@ public abstract class BaseService {
 			setProductToExpired(product);
 			throw new ProductExpiredException("the product you try to fetch is expired", product);
 		}
-		
-		return product;
 	}
 	
 	protected void checkIfProductIsExpired(Product product) throws ProductExpiredException{

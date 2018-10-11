@@ -6,7 +6,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface DateTime {
-
-	
-	    Date getDate();
+	Date getDate();
 }

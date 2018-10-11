@@ -24,10 +24,10 @@ public interface DataBaseInitializer {
 	
 	FantasyBook getfantasyBook()throws ParseException;
 	
-	Pizza getPizza();
+	Pizza getPizza() throws ParseException;
 	
-	Pasta getPasta();
+	Pasta getPasta() throws ParseException;
 	
-	Gelato getGelato(); 
+	Gelato getGelato() throws ParseException; 
 
 }

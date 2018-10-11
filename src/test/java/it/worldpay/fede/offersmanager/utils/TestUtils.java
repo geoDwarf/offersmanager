@@ -22,5 +22,6 @@ public class TestUtils {
 	
 	public static void changeProductForBadRequest(Product product){
 		product.setDaysValidityPeriod(0);
+		product.setProductId(null);
 	}
 }

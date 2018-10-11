@@ -12,6 +12,7 @@ import it.worldpay.fede.offersmanager.model.books.FantasyBook;
 import it.worldpay.fede.offersmanager.model.books.HandBook;
 import it.worldpay.fede.offersmanager.model.books.HandBook.Level;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
+import it.worldpay.fede.offersmanager.model.food.Gelato.Flavor;
 import it.worldpay.fede.offersmanager.model.food.Pasta;
 import it.worldpay.fede.offersmanager.model.food.Pizza;
 
@@ -81,22 +82,54 @@ public class DataBaseInitializerImpl implements DataBaseInitializer{
 	}
 	
 	@Override
-	public Pizza getPizza(){
+	public Pizza getPizza() throws ParseException{
 		Pizza pizza = new Pizza();
 		pizza.setProductId(new Long(6));
+		pizza.setDressing("Margherita");
+		pizza.setOfferDescription("The most classical italian pizza served at special price");
+		pizza.setOfferPrice(15.30);
+		pizza.setOfferStartingDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-18 11:00"));
+		pizza.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-26 11:00"));
+		pizza.setDaysValidityPeriod(8);
+		pizza.setOrigin("Piedmont");
+		pizza.setProductName("Pizza Margherita");
+		pizza.setCalories(558.3);
 		return pizza;
 	}
 	
 	@Override
-	public Pasta getPasta(){
+	public Pasta getPasta() throws ParseException{
 		Pasta pasta = new Pasta();
 		pasta.setProductId(new Long(7));
+		pasta.setDressing("Carbonara");
+		pasta.setOrigin("Naples");
+		pasta.setCookingTime(11);
+		pasta.setDaysValidityPeriod(11);
+		pasta.setOfferDescription("Bacon, eggs an pepper...");
+		pasta.setOfferPrice(5.3);
+		pasta.setOfferStartingDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-18 11:00"));
+		pasta.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-29 11:00"));
+		pasta.setPastaType("Bucatini");
+		pasta.setProductName("Carboara pasta");
 		return pasta;
 	}
 	
-	public Gelato getGelato(){
+	@Override
+	public Gelato getGelato() throws ParseException{
 		Gelato gelato = new Gelato();
 		gelato.setProductId(new Long(8));
+		gelato.setCalories(250);
+		gelato.setDaysValidityPeriod(2);
+		gelato.setOfferStartingDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-18 11:00"));
+		gelato.setExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-29 11:00"));
+		gelato.setFlavorOne(Flavor.CHOCOLATE);
+		gelato.setFlavorTwo(Flavor.COCONUT);
+		gelato.setFlavorThree(Flavor.PISTACHIO);
+		gelato.setOfferPrice(2);
+		gelato.setOrigin("Unknown");
+		gelato.setProductName("Chocolate coconut and pistachi ice cream!");
+		gelato.setServedWithWippedCream(false);
+		
 		return gelato;
 	} 
 

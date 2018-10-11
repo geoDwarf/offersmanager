@@ -33,129 +33,126 @@ import it.worldpay.fede.offersmanager.utils.DateUtils;
 public class PizzaServiceTest {
 
 	
-//	@Before
-//	public void initializeTestVariable(){
-//		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
-//		pizzaDummy = (Pizza)dummyFactory.getDummyProduct("PIZZA");
-//		pizzaDummy.setDaysValidityPeriod(5);
-//		pizzaDummy.setOfferStartingDate(new Date());
-//		pizzaServiceImpl.testing = true;
-//	}
-//	
-//	@InjectMocks
-//    private PizzaServiceImpl pizzaServiceImpl ;
-//	
-//	@InjectMocks
-//	private ProductServiceImpl productServiceImpl;
-//
-//	@Mock
-//	DateUtils dateUtils;
-//	
-//	@Mock
-//	DateTime dateTime;
-//	
-//	@Mock
-//	PizzaDao pizzaDao;
-//	
-//	@Mock
-//	ProductDao<Pizza> productDao;
-//	
-//	
-//	private Pizza pizzaDummy;
-//		
-//	private Pizza pizzaFetched;
-//	
-//	 @Test(expected = DuplicateProductException.class)
-//	 public void whenPizzaIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
-//	    
-//		 
-//	 	given(productDao.findByProductId(anyLong())).willReturn(pizzaDummy);
-//        given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
-//       
-//        pizzaServiceImpl.savePizza(pizzaDummy);
-//	    }
-//	
-//	
-//	 @Test
-//	public void whenPizzaIsAdded_itIsPossibleToFetchItById()throws ParseException{
-//
-//
-//		given(productDao.findOne(anyLong())).willReturn(pizzaDummy);
-//		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
-//		given(dateTime.getDate()).willReturn(new Date());
-//		
-//		pizzaServiceImpl.savePizza(pizzaDummy);
-//	
-//		pizzaFetched = (Pizza)productServiceImpl.getProduct(new Long(281));
-//		
-//		assertEquals(pizzaFetched.getProductId(), pizzaDummy.getProductId());
-//	}
-//	
-//
-//	@Test(expected = ProductNotFoundException.class)
-//	public void whenPizzaIsNotFound_ExceptionIsThrown() throws ParseException{
-//		
-//		given(productDao.findOne(anyLong())).willReturn(null);
-//		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
-//		
-//		pizzaServiceImpl.savePizza(pizzaDummy);
-//		
-//		pizzaFetched = (Pizza)productServiceImpl.getProduct(new Long(0));
-//		
-//	}
-//	
-//	
-//	@Test
-//	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
-//		
-//		
-//		pizzaDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
-//		
-//		pizzaDummy.setOfferExpiringDate(dateUtils.addDates(pizzaDummy.getOfferStartingDate(), pizzaDummy.getDaysValidityPeriod()));
-//		
-//		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),pizzaDummy	.getOfferExpiringDate());
-//	}
-//	
-//
-//	@Test(expected = MissingParameterException.class)
-//	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
-//		
-//		given(productDao.findByProductId(anyLong())).willReturn(new Pizza());
-//		
-//		pizzaDummy.setDaysValidityPeriod(0);
-//		
-//		pizzaServiceImpl.savePizza(pizzaDummy);
-//		
-//	}
-//	
-//	@Test(expected = ProductExpiredException.class)
-//	public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrown() throws ParseException{
-//		
-//		given(productDao.findByProductId(anyLong())).willReturn(null);
-//		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
-//		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
-//		
-//		pizzaServiceImpl.savePizza(pizzaDummy);
-//	}
-//	
-//	@Test(expected= ProductNotFoundException.class)
-//	public void whenTryingToGetADeletedpizza_ExceptionIsThrown()  throws ProductExpiredException{
-//		 
-//		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
-//		
-//		
-//		productServiceImpl.deleteProduct(pizzaDummy);
-//	}
-//	
-//	@Test(expected= ProductExpiredException.class)
-//	public void whenTryingToGetAnExpiredPizza_thenExceptionIsThrown()  throws ParseException{
-//
-//		pizzaDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
-//		
-//		given(productDao.findOne(anyLong())).willReturn(pizzaDummy);
-//		given(dateTime.getDate()).willReturn(new Date());
-//		
-//		productServiceImpl.getProduct(pizzaDummy.getProductId());
-//		
-//	}
+	@Before
+	public void initializeTestVariable(){
+		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
+		pizzaDummy = (Pizza)dummyFactory.getDummyProduct("PIZZA");
+		pizzaDummy.setDaysValidityPeriod(5);
+		pizzaDummy.setOfferStartingDate(new Date());
+		pizzaService.testing = true;
+	}
+	
+	@InjectMocks
+    private PizzaService pizzaService ;
+	
+	@Mock
+	DateUtils dateUtils;
+	
+	@Mock
+	DateTime dateTime;
+	
+	@Mock
+	PizzaDao pizzaDao;
+	
+	@Mock
+	ProductDao<Pizza> productDao;
+	
+	
+	private Pizza pizzaDummy;
+		
+	private Pizza pizzaFetched;
+	
+	 @Test(expected = DuplicateProductException.class)
+	 public void whenPizzaIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
+	    
+		given(pizzaDao.findByProductId(anyLong())).willReturn(pizzaDummy);
+		given(productDao.findByProductId(anyLong())).willReturn(pizzaDummy);
+        given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
+       
+        pizzaService.saveProduct(pizzaDummy);
+	    }
+	
+	
+	 @Test
+	public void whenPizzaIsAdded_itIsPossibleToFetchItById()throws ParseException{
+
+
+		given(productDao.findOne(anyLong())).willReturn(pizzaDummy);
+		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
+		given(dateTime.getDate()).willReturn(new Date());
+		
+		pizzaService.saveProduct(pizzaDummy);
+	
+		pizzaFetched = (Pizza)pizzaService.getProduct(new Long(281));
+		
+		assertEquals(pizzaFetched.getProductId(), pizzaDummy.getProductId());
+	}
+	
+
+	@Test(expected = ProductNotFoundException.class)
+	public void whenPizzaIsNotFound_ExceptionIsThrown() throws ParseException{
+		
+		given(productDao.findOne(anyLong())).willReturn(null);
+		given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
+		
+		pizzaService.saveProduct(pizzaDummy);
+		
+		pizzaFetched = (Pizza)pizzaService.getProduct(new Long(0));
+		
+	}
+	
+	
+	@Test
+	public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingExpiringDate(){
+		
+		
+		pizzaDummy.setOfferStartingDate(dateUtils.parseStringToDate("2018-04-25 12:15"));
+		
+		pizzaDummy.setOfferExpiringDate(dateUtils.addDates(pizzaDummy.getOfferStartingDate(), pizzaDummy.getDaysValidityPeriod()));
+		
+		assertEquals(dateUtils.parseStringToDate("2018-04-30 12:15"),pizzaDummy	.getOfferExpiringDate());
+	}
+	
+
+	@Test(expected = MissingParameterException.class)
+	public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
+		
+		given(productDao.findByProductId(anyLong())).willReturn(new Pizza());
+		
+		pizzaDummy.setDaysValidityPeriod(0);
+		
+		pizzaService.saveProduct(pizzaDummy);
+		
+	}
+	
+	@Test(expected = ProductExpiredException.class)
+	public void whenAnInvalidExpiringDateisPassed_thenProductExpiredExceptionIsThrown() throws ParseException{
+		
+		given(productDao.findByProductId(anyLong())).willReturn(null);
+		given(dateUtils.parseStringToDate(anyString())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
+		given(dateUtils.addDates(any(Date.class), anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
+		
+		pizzaService.saveProduct(pizzaDummy);
+	}
+	
+	@Test(expected= ProductNotFoundException.class)
+	public void whenTryingToGetADeletedpizza_ExceptionIsThrown()  throws ProductExpiredException{
+		 
+		given(pizzaDao.findByProductId(anyLong())).willReturn(null);
+		
+		
+		pizzaService.deleteProduct(pizzaDummy.getProductId());
+	}
+	
+	@Test(expected= ProductExpiredException.class)
+	public void whenTryingToGetAnExpiredPizza_thenExceptionIsThrown()  throws ParseException{
+
+		pizzaDummy.setOfferExpiringDate(new SimpleDateFormat("yyyy-MM-dd").parse("2014-01-01 11:00"));
+		
+		given(productDao.findOne(anyLong())).willReturn(pizzaDummy);
+		given(dateTime.getDate()).willReturn(new Date());
+		
+		pizzaService.getProduct(pizzaDummy.getProductId());
+		
+	}
 }

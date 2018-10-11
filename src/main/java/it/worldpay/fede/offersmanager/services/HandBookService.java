@@ -1,18 +1,30 @@
 package it.worldpay.fede.offersmanager.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.worldpay.fede.offersmanager.dao.HandBookDao;
 import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
-import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
 import it.worldpay.fede.offersmanager.model.books.HandBook;
 
 @Service
-public interface HandBookService {
+public class HandBookService extends BaseService<HandBook>{
 	
-	//HandBook getHandBook(Long id);
-	
-	//void saveHandBook(HandBook handBook) throws DuplicateProductException;
-	
-	//void deleteHandBook(HandBook handBook)throws ProductNotFoundException;
+	@Autowired
+	HandBookDao handBookDao;
 
+	@Override
+	public void saveProduct(HandBook handBook) throws DuplicateProductException{
+		
+		checkForValidityPeriodAndStartingDate(handBook);
+		
+		setExpiringDateByValidityPeriod(handBook, handBook.getDaysValidityPeriod());
+		
+		HandBook handBookDuplicated = (HandBook)handBookDao.findByProductId(handBook.getProductId());
+		
+		checkIfProductIsDuplicated(handBookDuplicated);
+		  
+		handBookDao.save(handBook);
+		  
+	}
 }

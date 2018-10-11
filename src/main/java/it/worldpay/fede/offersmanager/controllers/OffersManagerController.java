@@ -13,7 +13,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.worldpay.fede.offersmanager.model.Product;
-import it.worldpay.fede.offersmanager.services.BaseService;
+import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
+import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
+import it.worldpay.fede.offersmanager.model.books.FantasyBook;
+import it.worldpay.fede.offersmanager.model.books.HandBook;
+import it.worldpay.fede.offersmanager.model.food.Gelato;
+import it.worldpay.fede.offersmanager.model.food.Pasta;
+import it.worldpay.fede.offersmanager.model.food.Pizza;
+import it.worldpay.fede.offersmanager.services.BaseServiceDefault;
+import it.worldpay.fede.offersmanager.services.FantasyBookService;
+import it.worldpay.fede.offersmanager.services.GelatoService;
+import it.worldpay.fede.offersmanager.services.HandBookService;
+import it.worldpay.fede.offersmanager.services.MountainBikeService;
+import it.worldpay.fede.offersmanager.services.PastaService;
+import it.worldpay.fede.offersmanager.services.PizzaService;
+import it.worldpay.fede.offersmanager.services.RoadBikeService;
 
 @RestController
 @EnableAutoConfiguration
@@ -21,44 +35,100 @@ import it.worldpay.fede.offersmanager.services.BaseService;
 public class OffersManagerController {
 	
 	@Autowired
-	BaseService baseService;
+	BaseServiceDefault baseServiceDefault;
 	
 	
-	///########################## PRODUCT ############################################
+	@Autowired
+	PizzaService pizzaService;
+	
+	@Autowired
+	GelatoService gelatoService;
+	
+	@Autowired 
+	PastaService pastaService;
+	
+	@Autowired 
+	MountainBikeService mountainBikeService;
+	
+	@Autowired 
+	RoadBikeService roadBikeService;
+	
+	@Autowired
+	HandBookService handBookService;
+	
+	@Autowired 
+	FantasyBookService fantasyBookService;
+	
+	
+
 	
 	@RequestMapping(value="/getProduct/{productId}", method = RequestMethod.GET)
 	public Product getProduct(@PathVariable("productId") Long productId) {
-        return baseService.getProduct(productId);
+        return baseServiceDefault.getProduct(productId);
     }
 	
-	@RequestMapping(value="/deleteProduct", method = RequestMethod.DELETE)
-	public void deleteProduct(@Valid @RequestBody Product product, HttpServletResponse response)
+	@RequestMapping(value="/deleteProduct/{productId}", method = RequestMethod.DELETE)
+	public void deleteProduct(@PathVariable("productId") Long  productId, HttpServletResponse response)
 	{
-		 baseService.deleteProduct(product);
+		baseServiceDefault.deleteProduct(productId);
 		 response.setStatus(HttpStatus.OK.value());
 	}
 	
-	@RequestMapping(value="/saveProduct", method = RequestMethod.POST)
-	public void saveProduct(@Valid @RequestBody Product product, HttpServletResponse response){
-		baseService.saveProduct(product);
-		response.setStatus(HttpStatus.CREATED.value());
-	}
-	
-	
-	
-	///########################## GELATO #############################################
-	
-	///########################## PIZZA ##############################################
-		
-	///########################## PASTA ##############################################
-		
-	///########################## MOUNTAIN BIKE#######################################
-	
-	///########################## ROAD BIKE ##########################################
-	
-	///########################## HAND BOOK ##########################################
-	
-	///########################## FANTASY BOOK########################################
-		
 
+	
+	@RequestMapping(value="/saveGelato", method = RequestMethod.POST)
+	public void saveGelato(@Valid @RequestBody Gelato gelato, HttpServletResponse response){
+		gelatoService.saveProduct(gelato);
+		response.setStatus(HttpStatus.CREATED.value());	
+		}
+	
+	
+
+		
+	@RequestMapping(value="/savePizza", method = RequestMethod.POST)
+	public void savePizza(@Valid @RequestBody Pizza pizza, HttpServletResponse response){
+		pizzaService.saveProduct(pizza);
+		response.setStatus(HttpStatus.CREATED.value());	
+		}
+	
+
+		
+	@RequestMapping(value="/savePasta", method = RequestMethod.POST)
+	public void savePizza(@Valid @RequestBody Pasta pasta, HttpServletResponse response){
+		pastaService.saveProduct(pasta);
+		response.setStatus(HttpStatus.CREATED.value());	
+		}
+	
+
+	
+	@RequestMapping(value="/saveMountainBike", method = RequestMethod.POST)
+	public void saveMountainBike(@Valid @RequestBody MountainBike mountainBike, HttpServletResponse response){
+		mountainBikeService.saveProduct(mountainBike);
+		response.setStatus(HttpStatus.CREATED.value());	
+		}
+	
+
+	
+	@RequestMapping(value="/saveRoadBike", method = RequestMethod.POST)
+	public void saveRoadBike(@Valid @RequestBody RoadBike roadBike, HttpServletResponse response){
+		roadBikeService.saveProduct(roadBike);
+		response.setStatus(HttpStatus.CREATED.value());	
+		}
+	
+
+	
+	
+	@RequestMapping(value="/saveHandBook", method = RequestMethod.POST)
+	public void saveHandBook(@Valid @RequestBody HandBook handBook, HttpServletResponse response){
+		handBookService.saveProduct(handBook);
+		response.setStatus(HttpStatus.CREATED.value());	
+		}
+	
+
+		
+	@RequestMapping(value="/saveFantasyBook", method = RequestMethod.POST)
+	public void saveFantasyBook(@Valid @RequestBody FantasyBook fantasyBook, HttpServletResponse response){
+		fantasyBookService.saveProduct(fantasyBook);
+		response.setStatus(HttpStatus.CREATED.value());	
+}
 }

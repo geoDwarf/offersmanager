@@ -23,7 +23,7 @@ import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 
 
-@RunWith(MockitoJUnitRunner.Silent.class)
+//@RunWith(MockitoJUnitRunner.Silent.class)
 public class ProductServiceTest {
 	
 //	@Before

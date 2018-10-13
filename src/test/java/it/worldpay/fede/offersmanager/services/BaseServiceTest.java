@@ -21,10 +21,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import it.worldpay.fede.offersmanager.dao.GelatoDao;
 import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
+import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
@@ -62,7 +62,7 @@ private Gelato gelatoDummy;
 private Gelato gelatoFetched;
 
 
- @Test(expected = DuplicateProductException.class)
+ @Test(expected = DuplicateResourceException.class)
  public void whenProductIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
     
  	given(productDao.findByProductId(anyLong())).willReturn(gelatoDummy);
@@ -87,7 +87,7 @@ public void whenGelatoIsAdded_itIsPossibleToFetchItById()throws ParseException{
 }
 
 
-@Test(expected = ProductNotFoundException.class)
+@Test(expected = ResourceNotFoundException.class)
 public void whenGelatoIsNotFound_ExceptionIsThrown() throws ParseException{
 	
 	given(productDao.findOne(anyLong())).willReturn(null);

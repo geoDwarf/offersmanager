@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.dao.ProductDao;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
+import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
 import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
@@ -30,10 +30,10 @@ public abstract class BaseService <T extends Product>{
 	ProductDao<Product> productDao;
 	
  
-	public abstract void saveProduct(T product) throws DuplicateProductException;
+	public abstract void saveProduct(T product) throws DuplicateResourceException;
 	
 	
-	public Product getProduct(Long id) throws ProductNotFoundException, ProductExpiredException{
+	public Product getProduct(Long id) throws ResourceNotFoundException, ProductExpiredException{
 		
 		Product productFound = productDao.findOne(id);
 		
@@ -49,7 +49,7 @@ public abstract class BaseService <T extends Product>{
 	
 	
 	
-	public void deleteProduct(Long productId) throws ProductNotFoundException{
+	public void deleteProduct(Long productId) throws ResourceNotFoundException{
 		
 		Product productNotFound = (Product)productDao.findByProductId(productId);
 		
@@ -88,16 +88,16 @@ public abstract class BaseService <T extends Product>{
  		
 	}
 	
-	protected void checkIfProductIsDuplicated(Product product) throws DuplicateProductException{
+	protected void checkIfProductIsDuplicated(Product product) throws DuplicateResourceException{
 	
 		if(product != null)
-			throw new DuplicateProductException("A product with the following id already exists: ", product);
+			throw new DuplicateResourceException("A product with the following id already exists: ", product);
 	 } 
 	
-	protected void checkIfProductIsNotFound(Product product,Long productId) throws ProductNotFoundException{
+	protected void checkIfProductIsNotFound(Product product,Long productId) throws ResourceNotFoundException{
 	
 		if (null == product)
-				throw new ProductNotFoundException("No product found with the following Id ",productId );
+				throw new ResourceNotFoundException("No product found with the following Id ",productId );
 	}
 	
 	protected void chekIfExpiringDateIsBeforeGettingProductTime(Product productFound){

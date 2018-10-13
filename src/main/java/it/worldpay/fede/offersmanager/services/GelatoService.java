@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.dao.GelatoDao;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.model.food.Gelato;
 
 @Service
@@ -14,7 +14,7 @@ public class GelatoService extends BaseService<Gelato> {
 	GelatoDao gelatoDao;	
 	
 	@Override
-	public void saveProduct(Gelato gelato) throws DuplicateProductException{
+	public void saveProduct(Gelato gelato) throws DuplicateResourceException{
 		
 		checkForValidityPeriodAndStartingDate(gelato);
 		

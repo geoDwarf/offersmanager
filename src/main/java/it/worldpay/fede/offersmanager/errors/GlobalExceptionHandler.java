@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler extends AbstractGlobalExceptionHandler {
 	
 	
-	@ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> productNotFound(ProductNotFoundException ex) {
+	@ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> productNotFound(ResourceNotFoundException ex) {
     	return buildAndSendErrorResponse(ex, "not found",ex.getProductNotFound(), HttpStatus.NOT_FOUND);
    }
 
-	@ExceptionHandler(DuplicateProductException.class)
-	public ResponseEntity<ExceptionResponse> productDuplicated(DuplicateProductException ex) {
+	@ExceptionHandler(DuplicateResourceException.class)
+	public ResponseEntity<ExceptionResponse> productDuplicated(DuplicateResourceException ex) {
         return buildAndSendErrorResponse(ex, "duplicated",ex.getDuplicatedProduct(), HttpStatus.NOT_FOUND);
     }
 

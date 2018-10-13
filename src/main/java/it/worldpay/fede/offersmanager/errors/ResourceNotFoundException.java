@@ -2,15 +2,16 @@ package it.worldpay.fede.offersmanager.errors;
 
 import it.worldpay.fede.offersmanager.model.Product;
 
-public class ProductNotFoundException extends RuntimeException{
+public class ResourceNotFoundException extends RuntimeException{
 	
 	private Long productId;
 	private Product productNotFound = null;
 	
-	public ProductNotFoundException(String message,Long productId){
+	public ResourceNotFoundException(String message,Long productId){
 		super(message+": "+ productId);
 		this.productId = productId;
 	}
+
 
 	public Long getProductId() {
 		return productId;

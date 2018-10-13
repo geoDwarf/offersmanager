@@ -21,10 +21,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dao.RoadBikeDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
+import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
 import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
@@ -64,7 +64,7 @@ public class RoadBikeServiceTest {
 		
 	private RoadBike roadBikeFetched;
 	
-	 @Test(expected = DuplicateProductException.class)
+	 @Test(expected = DuplicateResourceException.class)
 	 public void whenRoadBikeIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
 	 	given(roadBikeDao.findByProductId(anyLong())).willReturn(roadBikeDummy);
@@ -89,7 +89,7 @@ public class RoadBikeServiceTest {
 	}
 	
 
-	@Test(expected = ProductNotFoundException.class)
+	@Test(expected = ResourceNotFoundException.class)
 	public void whenRoadBikeIsNotFound_ExceptionIsThrown() throws ParseException{
 		
 		given(roadBikeDao.findOne(anyLong())).willReturn(null);
@@ -135,7 +135,7 @@ public class RoadBikeServiceTest {
 		roadBikeService.saveProduct(roadBikeDummy);
 	}
 	
-	@Test(expected= ProductNotFoundException.class)
+	@Test(expected= ResourceNotFoundException.class)
 	public void whenTryingToGetADeletedroadBike_ExceptionIsThrown()  throws ProductExpiredException{
 		 
 		given(productDao.findByProductId(anyLong())).willReturn(null);

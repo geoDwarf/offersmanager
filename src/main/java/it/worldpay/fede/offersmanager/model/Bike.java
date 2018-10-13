@@ -15,7 +15,7 @@ public abstract class Bike extends Product{
 	@Column( name ="BRAND")
 	private String brand; 
 	
-	@NotNull
+	//@NotNull
 	@Column( name ="SPEEDS")
 	private int speeds;
 

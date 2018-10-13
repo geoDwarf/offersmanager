@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.dao.PastaDao;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.model.food.Pasta;
 
 @Service
@@ -14,7 +14,7 @@ public class PastaService extends BaseService<Pasta> {
 	PastaDao pastaDao;
 	
 	@Override
-	public void saveProduct(Pasta pasta) throws DuplicateProductException{
+	public void saveProduct(Pasta pasta) throws DuplicateResourceException{
 		
 		checkForValidityPeriodAndStartingDate(pasta);
 		

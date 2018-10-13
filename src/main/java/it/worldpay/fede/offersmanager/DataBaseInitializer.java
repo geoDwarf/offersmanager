@@ -5,6 +5,7 @@ import java.text.ParseException;
 
 import org.springframework.stereotype.Component;
 
+import it.worldpay.fede.offersmanager.model.Offer;
 import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
 import it.worldpay.fede.offersmanager.model.books.FantasyBook;
@@ -29,5 +30,8 @@ public interface DataBaseInitializer {
 	Pasta getPasta() throws ParseException;
 	
 	Gelato getGelato() throws ParseException; 
-
+	
+	//Offer getGenericOffer();
+	
+	//Offer getMountainBikeOffer();
 }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.dao.HandBookDao;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.model.books.HandBook;
 
 @Service
@@ -14,7 +14,7 @@ public class HandBookService extends BaseService<HandBook>{
 	HandBookDao handBookDao;
 
 	@Override
-	public void saveProduct(HandBook handBook) throws DuplicateProductException{
+	public void saveProduct(HandBook handBook) throws DuplicateResourceException{
 		
 		checkForValidityPeriodAndStartingDate(handBook);
 		

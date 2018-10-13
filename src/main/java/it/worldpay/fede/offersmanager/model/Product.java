@@ -1,19 +1,27 @@
 package it.worldpay.fede.offersmanager.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Product {
+public abstract   class Product implements Serializable{
 	
 	@Id
 	@NotNull
@@ -43,6 +51,23 @@ public abstract class Product {
 	
 	@Column(name = "IS_EXPIRED")
 	private boolean isExpired;
+	
+	@NotNull
+	@JoinColumn(name = "OFFER_ID")
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "offerId")
+	@JsonIdentityReference(alwaysAsId = true)
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Offer offer;
+	
+	
+	//@JsonIgnore
+	public Offer getOffer() {
+		return offer;
+	}
+
+	public void setOffer(Offer offer) {
+		this.offer = offer;
+	}
 
 	public boolean isExpired() {
 		return isExpired;

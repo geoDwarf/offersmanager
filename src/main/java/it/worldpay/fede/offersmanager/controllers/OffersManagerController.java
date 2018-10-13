@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.worldpay.fede.offersmanager.model.Offer;
 import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
@@ -25,6 +26,7 @@ import it.worldpay.fede.offersmanager.services.FantasyBookService;
 import it.worldpay.fede.offersmanager.services.GelatoService;
 import it.worldpay.fede.offersmanager.services.HandBookService;
 import it.worldpay.fede.offersmanager.services.MountainBikeService;
+import it.worldpay.fede.offersmanager.services.OfferServiceDefault;
 import it.worldpay.fede.offersmanager.services.PastaService;
 import it.worldpay.fede.offersmanager.services.PizzaService;
 import it.worldpay.fede.offersmanager.services.RoadBikeService;
@@ -36,7 +38,6 @@ public class OffersManagerController {
 	
 	@Autowired
 	BaseServiceDefault baseServiceDefault;
-	
 	
 	@Autowired
 	PizzaService pizzaService;
@@ -59,7 +60,8 @@ public class OffersManagerController {
 	@Autowired 
 	FantasyBookService fantasyBookService;
 	
-	
+	@Autowired
+	OfferServiceDefault offerServiceDefault;	
 
 	
 	@RequestMapping(value="/getProduct/{productId}", method = RequestMethod.GET)
@@ -75,7 +77,6 @@ public class OffersManagerController {
 	}
 	
 
-	
 	@RequestMapping(value="/saveGelato", method = RequestMethod.POST)
 	public void saveGelato(@Valid @RequestBody Gelato gelato, HttpServletResponse response){
 		gelatoService.saveProduct(gelato);
@@ -83,8 +84,6 @@ public class OffersManagerController {
 		}
 	
 	
-
-		
 	@RequestMapping(value="/savePizza", method = RequestMethod.POST)
 	public void savePizza(@Valid @RequestBody Pizza pizza, HttpServletResponse response){
 		pizzaService.saveProduct(pizza);
@@ -92,14 +91,12 @@ public class OffersManagerController {
 		}
 	
 
-		
 	@RequestMapping(value="/savePasta", method = RequestMethod.POST)
 	public void savePizza(@Valid @RequestBody Pasta pasta, HttpServletResponse response){
 		pastaService.saveProduct(pasta);
 		response.setStatus(HttpStatus.CREATED.value());	
 		}
 	
-
 	
 	@RequestMapping(value="/saveMountainBike", method = RequestMethod.POST)
 	public void saveMountainBike(@Valid @RequestBody MountainBike mountainBike, HttpServletResponse response){
@@ -108,7 +105,6 @@ public class OffersManagerController {
 		}
 	
 
-	
 	@RequestMapping(value="/saveRoadBike", method = RequestMethod.POST)
 	public void saveRoadBike(@Valid @RequestBody RoadBike roadBike, HttpServletResponse response){
 		roadBikeService.saveProduct(roadBike);
@@ -116,8 +112,6 @@ public class OffersManagerController {
 		}
 	
 
-	
-	
 	@RequestMapping(value="/saveHandBook", method = RequestMethod.POST)
 	public void saveHandBook(@Valid @RequestBody HandBook handBook, HttpServletResponse response){
 		handBookService.saveProduct(handBook);
@@ -125,10 +119,22 @@ public class OffersManagerController {
 		}
 	
 
-		
 	@RequestMapping(value="/saveFantasyBook", method = RequestMethod.POST)
 	public void saveFantasyBook(@Valid @RequestBody FantasyBook fantasyBook, HttpServletResponse response){
 		fantasyBookService.saveProduct(fantasyBook);
 		response.setStatus(HttpStatus.CREATED.value());	
-}
+	}
+	
+	
+	@RequestMapping(value="/saveOffer", method = RequestMethod.POST)
+	public void saveOffer(@Valid @RequestBody Offer offer, HttpServletResponse response){
+		offerServiceDefault.saveOffer(offer);
+		response.setStatus(HttpStatus.CREATED.value());	
+	}		
+		
+	
+	@RequestMapping(value="/getOffer/{offerId}", method = RequestMethod.GET)
+	public Offer getOffer(@PathVariable("offerId") Long offerId) {
+        return offerServiceDefault.getOffer(offerId);
+    }
 }

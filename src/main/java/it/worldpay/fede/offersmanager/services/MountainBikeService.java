@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.worldpay.fede.offersmanager.dao.MountainBikeDao;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 import it.worldpay.fede.offersmanager.model.books.FantasyBook;
 
@@ -15,7 +15,7 @@ public class MountainBikeService extends BaseService<MountainBike> {
 	MountainBikeDao mountainBikeDao;
 	
 	@Override
-	public void saveProduct(MountainBike mountainBike) throws DuplicateProductException{
+	public void saveProduct(MountainBike mountainBike) throws DuplicateResourceException{
 		
 		checkForValidityPeriodAndStartingDate(mountainBike);
 		

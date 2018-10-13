@@ -21,10 +21,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import it.worldpay.fede.offersmanager.dao.MountainBikeDao;
 import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
+import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
 import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
@@ -64,7 +64,7 @@ private MountainBike mountainBikeFetched;
 
 
 
-@Test(expected = DuplicateProductException.class)
+@Test(expected = DuplicateResourceException.class)
  public void whenMountainBikeIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
     
  	given(mountainBikeDao.findByProductId(anyLong())).willReturn(new MountainBike());
@@ -89,7 +89,7 @@ public void whenMountainBikeIsAdded_itIsPossibleToFetchItById()throws ParseExcep
 }
 
 
-@Test(expected = ProductNotFoundException.class)
+@Test(expected = ResourceNotFoundException.class)
 public void whenMountainBikeIsNotFound_ExceptionIsThrown() throws ParseException{
 	
 	given(productDao.findByProductId(anyLong())).willReturn(null);

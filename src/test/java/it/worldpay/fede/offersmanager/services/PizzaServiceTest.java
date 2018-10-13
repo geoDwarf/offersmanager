@@ -21,10 +21,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import it.worldpay.fede.offersmanager.dao.PizzaDao;
 import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
+import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
 import it.worldpay.fede.offersmanager.model.food.Pizza;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
@@ -62,7 +62,7 @@ public class PizzaServiceTest {
 		
 	private Pizza pizzaFetched;
 	
-	 @Test(expected = DuplicateProductException.class)
+	 @Test(expected = DuplicateResourceException.class)
 	 public void whenPizzaIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
 		given(pizzaDao.findByProductId(anyLong())).willReturn(pizzaDummy);
@@ -89,7 +89,7 @@ public class PizzaServiceTest {
 	}
 	
 
-	@Test(expected = ProductNotFoundException.class)
+	@Test(expected = ResourceNotFoundException.class)
 	public void whenPizzaIsNotFound_ExceptionIsThrown() throws ParseException{
 		
 		given(productDao.findOne(anyLong())).willReturn(null);
@@ -135,7 +135,7 @@ public class PizzaServiceTest {
 		pizzaService.saveProduct(pizzaDummy);
 	}
 	
-	@Test(expected= ProductNotFoundException.class)
+	@Test(expected= ResourceNotFoundException.class)
 	public void whenTryingToGetADeletedpizza_ExceptionIsThrown()  throws ProductExpiredException{
 		 
 		given(pizzaDao.findByProductId(anyLong())).willReturn(null);

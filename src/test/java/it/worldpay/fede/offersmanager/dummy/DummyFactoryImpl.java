@@ -1,7 +1,12 @@
 package it.worldpay.fede.offersmanager.dummy;
 
+
+
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
+import it.worldpay.fede.offersmanager.model.Offer;
 import it.worldpay.fede.offersmanager.model.Product;
 import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
@@ -15,6 +20,7 @@ import it.worldpay.fede.offersmanager.model.food.Pizza;
 public class DummyFactoryImpl implements DummyFactory{
 
 	private  Long  productId = new Long(281);
+	private  Long  offerId = new Long(332);
 	private  Long  productIdNull = null;
 
 	public Product getDummyProduct(String product){
@@ -71,6 +77,8 @@ private HandBook getDummyHandBook(){
 	return new HandBook(productId);
 }
 
+
+
 @Override
 public Product getBadRequestDummyProduct(String product){
 	if (product.equalsIgnoreCase("GELATO")){
@@ -103,7 +111,6 @@ private Gelato getBadRequestDummyGelato(){
 	
 }
 
-
 private Pizza getBadRequestDummyPizza(){
 	return new Pizza(productIdNull);
 	
@@ -130,5 +137,11 @@ protected FantasyBook getBadRequestDummyFantasyBook(){
 
 protected HandBook getBadRequestDummyHandBook(){
 	return new HandBook(productIdNull);
+}
+
+@Override
+public Offer getDummyOffer(Long idOffer, List<Product> products) {
+	return new Offer(idOffer, products);
+	
 }
 }

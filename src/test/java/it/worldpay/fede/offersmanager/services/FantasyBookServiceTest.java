@@ -21,10 +21,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import it.worldpay.fede.offersmanager.dao.FantasyBookDao;
 import it.worldpay.fede.offersmanager.dao.ProductDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.errors.DuplicateProductException;
+import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.errors.MissingParameterException;
 import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ProductNotFoundException;
+import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
 import it.worldpay.fede.offersmanager.model.books.FantasyBook;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
@@ -60,7 +60,7 @@ public class FantasyBookServiceTest  {
 		
 	private FantasyBook fantasyBookFetched;
 	
-	 @Test(expected = DuplicateProductException.class)
+	 @Test(expected = DuplicateResourceException.class)
 	 public void whenFantasyBookIsDuplicate_thenDuplicateProductExceptionIsThrown() throws ParseException{
 	    
 	 	given(fantasyBookDao.findByProductId(anyLong())).willReturn(new FantasyBook());
@@ -86,7 +86,7 @@ public class FantasyBookServiceTest  {
 	}
 	
 
-	@Test(expected = ProductNotFoundException.class)
+	@Test(expected = ResourceNotFoundException.class)
 	public void whenFantasyBookIsNotFound_ExceptionIsThrown() throws ParseException{
 	
 		given(fantasyBookDao.findOne(anyLong())).willReturn(null);
@@ -132,7 +132,7 @@ public class FantasyBookServiceTest  {
 		fantasyBookService.saveProduct(fantasyBookDummy);
 	}
 	
-	@Test(expected= ProductNotFoundException.class)
+	@Test(expected= ResourceNotFoundException.class)
 	public void whenTryingToGetADeletedfantasyBook_ExceptionIsThrown()  throws ProductExpiredException{
 		 
 		given(fantasyBookDao.findByProductId(anyLong())).willReturn(null);

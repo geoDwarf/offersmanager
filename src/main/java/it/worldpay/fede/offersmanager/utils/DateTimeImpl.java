@@ -7,10 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DateTimeImpl implements DateTime{
 
-	
 	@Override
 	public Date getDate(){
-		
 		return new Date();
 	}
 }

@@ -45,9 +45,7 @@ public class RoadBikeServiceTest {
 	@InjectMocks
     private RoadBikeService roadBikeService ;
 	
-//    @InjectMocks
-//    private ProductServiceImpl productServiceImpl;
-
+	
 	@Mock
 	DateUtils dateUtils;
 	

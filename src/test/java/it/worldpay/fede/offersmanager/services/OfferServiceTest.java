@@ -2,6 +2,8 @@ package it.worldpay.fede.offersmanager.services;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.when;
 import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
@@ -30,7 +32,6 @@ public class OfferServiceTest {
 		DummyFactoryImpl  dummyFactory= new DummyFactoryImpl();
 		offerDummy = dummyFactory.getDummyOffer(new Long(3),new ArrayList<>());
 	
-	
 	}
 	
 	private Offer offerDummy;
@@ -44,51 +45,35 @@ public class OfferServiceTest {
 	OfferServiceDefault offerServiceDefault;
 	
 	@Test(expected = DuplicateResourceException.class)
-	 public void whenOfferIsDuplicated_thenDuplicateResourceExceptionIsThrown() throws ParseException{
+	public void whenOfferIsDuplicated_thenDuplicateResourceExceptionIsThrown() throws ParseException{
 	    
 		given(offerDao.findOne(anyLong())).willReturn(offerDummy);
-//		given(productDao.findByProductId(anyLong())).willReturn(pizzaDummy);
-//       given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00"));
-//      
+   
 		offerServiceDefault.saveOffer(offerDummy);
-	    }
+	    
+	}
 
-	 
-		@Test
-		public void whenOfferIsAdded_itIsPossibleToFetchItById()throws ParseException{
-
-
-//			given(offerDao.findOne(anyLong())).willReturn(offerDummy);
-//			given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
-//			given(dateTime.getDate()).willReturn(new Date());
-//			
-//			offerServiceDefault.saveOffer(offerDummy);
-//		
-//			offerFetched = offerServiceDefault.getOffer(new Long(3));
-//			
-//			assertEquals(offerFetched.getOfferId(), offerDummy.getOfferId());
-		}
-	 
 	 @Test(expected = ResourceNotFoundException.class)
-	 public void whenOfferIsNotFound_ExceptionIsThrown() throws ParseException{
+	public void whenOfferIsNotFound_ExceptionIsThrown() throws ParseException{
 	 	
 	 	given(offerDao.findOne(anyLong())).willReturn(null);
-//	 	given(dateUtils.addDates(any(Date.class),anyInt())).willReturn(new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-22 11:00")); 
-//	 	
+
 	 	offerServiceDefault.saveOffer(offerDummy);
-//	 	
+	
 	 	offerFetched = offerServiceDefault.getOffer(new Long(0));
-//	 	
+ 	
 	 }
 	 
 	 @Test(expected= ResourceNotFoundException.class)
-	 public void whenTryingToGetADeletedpizza_ExceptionIsThrown()  throws ProductExpiredException{
+	 public void whenTryingToGetADeletedOffer_ExceptionIsThrown()  throws ProductExpiredException{
 			 
-//			given(pizzaDao.findByProductId(anyLong())).willReturn(null);
-//			
-//			
-//			pizzaService.deleteProduct(pizzaDummy.getProductId());
-		}
+		when(offerDao.findOne(anyLong())).thenReturn(offerDummy, null);
+			
+		offerServiceDefault.deleteOffer(offerDummy.getOfferId());
+		
+		offerServiceDefault.getOffer(offerDummy.getOfferId());
+		
+	 }
 		
 
 }

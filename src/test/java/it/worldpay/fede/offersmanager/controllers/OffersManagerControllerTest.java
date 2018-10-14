@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.worldpay.fede.offersmanager.dummy.DummyFactory;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
+import it.worldpay.fede.offersmanager.model.Offer;
 import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
 import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
 import it.worldpay.fede.offersmanager.model.books.FantasyBook;
@@ -36,6 +39,7 @@ import it.worldpay.fede.offersmanager.services.FantasyBookService;
 import it.worldpay.fede.offersmanager.services.GelatoService;
 import it.worldpay.fede.offersmanager.services.HandBookService;
 import it.worldpay.fede.offersmanager.services.MountainBikeService;
+import it.worldpay.fede.offersmanager.services.OfferServiceDefault;
 import it.worldpay.fede.offersmanager.services.PastaService;
 import it.worldpay.fede.offersmanager.services.PizzaService;
 import it.worldpay.fede.offersmanager.services.RoadBikeService;
@@ -45,7 +49,7 @@ public class OffersManagerControllerTest {
 
 	@Before
 	public void initializeTestVariable() {
-		initialize();
+		init();
 	}
 
 	@Autowired
@@ -79,6 +83,8 @@ public class OffersManagerControllerTest {
 	@Mock
 	FantasyBookService fantasyBookService;
 
+	@Mock
+	OfferServiceDefault offerServiceDefault;
 
 	private MockMvc mockMvc;
 
@@ -98,7 +104,8 @@ public class OffersManagerControllerTest {
 
 	private FantasyBook fantasyBookDummy;
 
-
+	private Offer offerDummy;
+	
 
 	@Test
 	public void post_whenGelatoIsValid_thenResponseIs201() throws Exception {
@@ -141,8 +148,6 @@ public class OffersManagerControllerTest {
 	}
 
 
-	
-
 	@Test
 	public void post_whenPizzaIsValid_thenResponseIs201() throws Exception {
 
@@ -161,7 +166,6 @@ public class OffersManagerControllerTest {
 
 		mockMvc.perform(get(("/offers/getProduct/{productId}"), pizzaDummy.getProductId())
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
 	}
 
 	@Test
@@ -183,8 +187,6 @@ public class OffersManagerControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 
-
-	
 
 	@Test
 	public void post_whenPastaIsValid_thenResponseIs201() throws Exception {
@@ -227,9 +229,8 @@ public class OffersManagerControllerTest {
 	}
 
 
-
 	@Test
-	public void post_whenMountainùbikeIsValid_thenResponseIs201() throws Exception {
+	public void post_whenMountainbikeIsValid_thenResponseIs201() throws Exception {
 
 		doNothing().when(mountainBikeService).saveProduct(mountainBikeDummy);
 
@@ -245,7 +246,6 @@ public class OffersManagerControllerTest {
 
 		mockMvc.perform(get(("/offers/getProduct/{productId}"), mountainBikeDummy.getProductId())
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
 	}
 
 	@Test
@@ -267,8 +267,6 @@ public class OffersManagerControllerTest {
 	}
 
 	
-	
-
 	@Test
 	public void post_whenrRoadBikeIsValid_thenResponseIs201() throws Exception {
 
@@ -286,7 +284,6 @@ public class OffersManagerControllerTest {
 
 		mockMvc.perform(get(("/offers/getProduct/{productId}"), roadBikeDummy.getProductId())
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
 	}
 
 	@Test
@@ -307,7 +304,6 @@ public class OffersManagerControllerTest {
 				.content(asJsonString(roadBikeDummy))).andExpect(status().isBadRequest());
 	}
 
-	
 	
 	@Test
 	public void post_whenHandBookIsValid_thenResponseIs201() throws Exception {
@@ -350,9 +346,7 @@ public class OffersManagerControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 
-
 	
-
 	@Test
 	public void post_whenFantasyBookIsValid_thenResponseIs201() throws Exception {
 
@@ -372,7 +366,6 @@ public class OffersManagerControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 	}
-	
 	
 	@Test
 	public void delete_whenFantasyBookIsDeletedResponseIs200() throws Exception {
@@ -395,6 +388,35 @@ public class OffersManagerControllerTest {
 	}
 
 
+	@Test
+	public void post_whenOfferIsValid_thenResponseIs201() throws Exception {
+
+		doNothing().when(offerServiceDefault).saveOffer(offerDummy);
+
+		mockMvc.perform(post("/offers/saveOffer").contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(offerDummy))).andExpect(status().isCreated());
+	}
+	
+	@Test
+	public void post_whenOfferExists_thenResponseIs201() throws Exception {
+
+		given(offerServiceDefault.getOffer(anyLong())).willReturn(offerDummy);
+
+		mockMvc.perform(get(("/offers/getOffer/{offerId}"), offerDummy.getOfferId())
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+	}
+
+	@Test
+	public void delete_whenOfferIsDeletedResponseIs200() throws Exception {
+
+		doNothing().when(offerServiceDefault).deleteOffer(offerDummy.getOfferId());
+
+		mockMvc.perform(delete(("/offers/deleteOffer/{offerId}"), offerDummy.getOfferId())
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+	}
+	
+	
 	public static String asJsonString(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);
@@ -403,7 +425,7 @@ public class OffersManagerControllerTest {
 		}
 	}
 
-	private void initialize() {
+	private void init() {
 
 		dummyFactory = new DummyFactoryImpl();
 
@@ -414,6 +436,7 @@ public class OffersManagerControllerTest {
 		roadBikeDummy = (RoadBike) dummyFactory.getDummyProduct("ROADBIKE");
 		handBookDummy = (HandBook) dummyFactory.getDummyProduct("HANDBOOK");
 		fantasyBookDummy = (FantasyBook) dummyFactory.getDummyProduct("FANTASYBOOK");
+		offerDummy = dummyFactory.getDummyOffer(new Long(22),new ArrayList<>());
 
 		mockMvc = MockMvcBuilders.standaloneSetup(offersManagerController).build();
 	}

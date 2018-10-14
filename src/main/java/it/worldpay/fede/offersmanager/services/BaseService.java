@@ -18,6 +18,11 @@ import it.worldpay.fede.offersmanager.utils.DateUtils;
 @Service
 public abstract class BaseService <T extends Product>{
 	
+	/*
+	 The testing variable is used just for allowing testing the application from an external client.
+	 * It allows to save an offer with a expiring date earlier than now if the save method is called not by a testing method .
+	 * It should be oblviously removed in a production environment
+	 */
 	public  boolean testing;
 	
 	@Autowired

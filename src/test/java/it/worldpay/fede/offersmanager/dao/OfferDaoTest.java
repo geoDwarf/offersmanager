@@ -40,7 +40,7 @@ public class OfferDaoTest {
 	
 	
 	@Test
-	public void whenSaveOffer_thenItIsPossibleToFetchIt(){
+	public void whenOfferIsSaved_thenItIsPossibleToFetchIt(){
 		
 		offerDao.save(offerDummy);
 		
@@ -50,7 +50,7 @@ public class OfferDaoTest {
 			}
 	
 	@Test
-	public void whenSavePasta_thenItIsPossibleToDeleteIt(){
+	public void whenOfferIsSaved_thenItIsPossibleToDeleteIt(){
 		
 		offerDao.save(offerDummy);
 		
@@ -64,7 +64,7 @@ public class OfferDaoTest {
 	
 
 	@Test
-	public void whnePastaIsSaved_thenItIspossibleToFetchItById(){
+	public void whenOfferIsSaved_thenItIspossibleToFetchItById(){
 		
 		offerSaved =offerDao.save(offerDummy);
 		

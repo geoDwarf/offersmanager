@@ -45,9 +45,6 @@ public class GelatoServiceTest {
 
 @InjectMocks
 private GelatoService gelatoService ;
-//
-//@InjectMocks
-//private ProductServiceImpl productServiceImpl;
 
 @Mock
 DateUtils dateUtils;
@@ -118,7 +115,7 @@ public void whenValidityPeriodIsGiven_itCanBeAddedToStartOfferingDateForSettingE
 
 
 @Test(expected = MissingParameterException.class)
-public void whenMandatortSavingParametersAreMissing_ExceptionIsTrhown(){
+public void whenMandatorySavingParametersAreMissing_ExceptionIsTrhown(){
 	
 	given(gelatoDao.findByProductId(anyLong())).willReturn(new Gelato());
 	

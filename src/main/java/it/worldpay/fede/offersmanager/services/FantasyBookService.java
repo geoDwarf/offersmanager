@@ -8,7 +8,7 @@ import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
 import it.worldpay.fede.offersmanager.model.books.FantasyBook;
 
 @Service
-public class FantasyBookService extends BaseService<FantasyBook>{ //extends BaseService 
+public class FantasyBookService extends BaseService<FantasyBook>{ 
 	
 	@Autowired
 	FantasyBookDao fantasyBookDao;

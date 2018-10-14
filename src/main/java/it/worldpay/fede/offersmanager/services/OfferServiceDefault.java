@@ -8,7 +8,7 @@ import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
 import it.worldpay.fede.offersmanager.model.Offer;
 
 @Service
-public class OfferServiceDefault	 extends OfferService {
+public class OfferServiceDefault extends OfferService {
 
 	
 	@Override
@@ -37,7 +37,7 @@ public class OfferServiceDefault	 extends OfferService {
 	@Override
 	public void deleteOffer(Long offerId) throws ResourceNotFoundException{
 		
-		Offer offerNotFound = (Offer)offerDao.findOne(offerId);
+		Offer offerNotFound = offerDao.findOne(offerId);
 		
 		checkIfOfferIsNotFound(offerNotFound, offerId);
 		

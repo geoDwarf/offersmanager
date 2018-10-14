@@ -31,7 +31,7 @@ public interface DataBaseInitializer {
 	
 	Gelato getGelato() throws ParseException; 
 	
-	//Offer getGenericOffer();
+	Offer getGenericOffer();
 	
 	//Offer getMountainBikeOffer();
 }

@@ -62,8 +62,8 @@ public class RoadBikeDaoTest {
 		
 		pizzaSaved =pizzaoDao.save(pizzaDummy);
 		
-		Long gleatoSavedId = pizzaSaved.getProductId();
+		Long roadBikeSavedId = pizzaSaved.getProductId();
 		
-		pizzaFound = (RoadBike)pizzaoDao.findByProductId(gleatoSavedId);
+		pizzaFound = (RoadBike)pizzaoDao.findByProductId(roadBikeSavedId);
 		}
 }

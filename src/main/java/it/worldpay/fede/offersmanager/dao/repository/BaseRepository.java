@@ -13,9 +13,5 @@ import it.worldpay.fede.offersmanager.model.Product;
 public interface BaseRepository<T extends Product> extends CrudRepository<T, Long> {
 	
 	Product findByProductId(Long productId);
-
-
-    
-    @Query(value = "SELECT * FROM products WHERE CATEGORIES=:category", nativeQuery = true)
-    List<Product> findByCategories(@Param("category") String category);
+	
 }

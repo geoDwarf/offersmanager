@@ -63,9 +63,9 @@ public class PizzaDaoTest {
 		
 		pizzaSaved =pizzaoDao.save(pizzaDummy);
 		
-		Long gleatoSavedId = pizzaSaved.getProductId();
+		Long pizzaSavedId = pizzaSaved.getProductId();
 		
-		pizzaFound = (Pizza)pizzaoDao.findByProductId(gleatoSavedId);
+		pizzaFound = (Pizza)pizzaoDao.findByProductId(pizzaSavedId);
 		}
 	
 }

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -15,7 +15,7 @@ public abstract class Bike extends Product{
 	@Column( name ="BRAND")
 	private String brand; 
 	
-	//@NotNull
+	
 	@Column( name ="SPEEDS")
 	private int speeds;
 

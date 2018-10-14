@@ -19,7 +19,7 @@ public class FantasyBookDaoTest {
 	
 	@Before
 	public void initializeTestVariable(){
-		gelatoDummy = (FantasyBook)dummyFactory.getDummyProduct("FANTASYBOOK");
+		fantasyBookDummy = (FantasyBook)dummyFactory.getDummyProduct("FANTASYBOOK");
 	}
 	
 	@Autowired
@@ -28,42 +28,42 @@ public class FantasyBookDaoTest {
 	@Autowired
 	FantasyBookDao fantasyBookDao;
 	
-	FantasyBook gelatoDummy;
+	FantasyBook fantasyBookDummy;
 	
-	private FantasyBook gelatoFound;
+	private FantasyBook fantasyBookFound;
 	
-	private FantasyBook gelatoSaved;
+	private FantasyBook fantasyBookSaved;
 	
 	@Test
 	public void whenSaveFantasyBook_thenItIsPossibleToFetchIt(){
 		
-		fantasyBookDao.save(gelatoDummy);
+		fantasyBookDao.save(fantasyBookDummy);
 		
-		gelatoFound = fantasyBookDao.findOne(gelatoDummy.getProductId());
+		fantasyBookFound = fantasyBookDao.findOne(fantasyBookDummy.getProductId());
 		
-		assertEquals(gelatoFound.getProductId(), gelatoDummy.getProductId());
+		assertEquals(fantasyBookFound.getProductId(), fantasyBookDummy.getProductId());
 			}
 
 	@Test
 	public void whenSaveFantasyBook_thenItIsPossibleToDeleteIt(){
 		
-		fantasyBookDao.save(gelatoDummy);
+		fantasyBookDao.save(fantasyBookDummy);
 		
-		fantasyBookDao.delete(gelatoDummy);
+		fantasyBookDao.delete(fantasyBookDummy);
 		
-		gelatoFound = fantasyBookDao.findOne(gelatoDummy.getProductId());
+		fantasyBookFound = fantasyBookDao.findOne(fantasyBookDummy.getProductId());
 		
-		Assert.assertNull(gelatoFound);
+		Assert.assertNull(fantasyBookFound);
 	}
 	
 	@Test
 	public void whneFantasyBookIsSaved_thenItIspossibleToFetchItById(){
 		
-		gelatoSaved =fantasyBookDao.save(gelatoDummy);
+		fantasyBookSaved =fantasyBookDao.save(fantasyBookDummy);
 		
-		Long gleatoSavedId = gelatoSaved.getProductId();
+		Long fantasyBookSavedId = fantasyBookSaved.getProductId();
 		
-		gelatoFound = (FantasyBook)fantasyBookDao.findByProductId(gleatoSavedId);
+		fantasyBookFound = (FantasyBook)fantasyBookDao.findByProductId(fantasyBookSavedId);
 		}
 
 }

@@ -12,10 +12,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
-//@PrimaryKeyJoinColumn(name = "offerId")
 public class Offer implements Serializable {
-	
 	
 	
 	 @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -23,7 +20,7 @@ public class Offer implements Serializable {
 	 
 	 @Id
 	 @NotNull
-	 @Column(unique = true, updatable = false, name = "MOVIE_ID")
+	 @Column(unique = true, updatable = false, name = "OFFER_ID")
 	 private Long offerId;
 
 	public List<Product> getProducts() {

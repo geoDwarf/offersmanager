@@ -76,6 +76,11 @@ public class OffersManagerController {
 		 response.setStatus(HttpStatus.OK.value());
 	}
 	
+	@RequestMapping(value="/getOffer/{offerId}", method = RequestMethod.GET)
+	public Offer getOffer(@PathVariable("offerId") Long offerId) {
+        return offerServiceDefault.getOffer(offerId);
+    }
+
 
 	@RequestMapping(value="/saveGelato", method = RequestMethod.POST)
 	public void saveGelato(@Valid @RequestBody Gelato gelato, HttpServletResponse response){
@@ -131,10 +136,12 @@ public class OffersManagerController {
 		offerServiceDefault.saveOffer(offer);
 		response.setStatus(HttpStatus.CREATED.value());	
 	}		
-		
 	
-	@RequestMapping(value="/getOffer/{offerId}", method = RequestMethod.GET)
-	public Offer getOffer(@PathVariable("offerId") Long offerId) {
-        return offerServiceDefault.getOffer(offerId);
-    }
-}
+	@RequestMapping(value="/deleteOffer/{offerId}", method = RequestMethod.DELETE)
+	public void deleteOffer(@PathVariable("offerId") Long  offerId, HttpServletResponse response)
+	{
+		offerServiceDefault.deleteOffer(offerId);
+		 response.setStatus(HttpStatus.OK.value());
+	}
+}	
+	

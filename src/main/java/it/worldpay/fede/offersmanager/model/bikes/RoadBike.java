@@ -13,8 +13,6 @@ public class RoadBike extends Bike {
 	@Column
 	private double weight;
 	
-	
-	
 	public double getWeight() {
 		return weight;
 	}

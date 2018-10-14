@@ -16,12 +16,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import it.worldpay.fede.offersmanager.dao.OfferDao;
+import it.worldpay.fede.offersmanager.dao.offer.OfferDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
-import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
-import it.worldpay.fede.offersmanager.model.Offer;
+import it.worldpay.fede.offersmanager.errors.exception.DuplicateResourceException;
+import it.worldpay.fede.offersmanager.errors.exception.ProductExpiredException;
+import it.worldpay.fede.offersmanager.errors.exception.ResourceNotFoundException;
+import it.worldpay.fede.offersmanager.model.offer.Offer;
+import it.worldpay.fede.offersmanager.services.offer.OfferServiceDefault;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class OfferServiceTest {

@@ -6,14 +6,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import it.worldpay.fede.offersmanager.dao.FantasyBookDao;
-import it.worldpay.fede.offersmanager.dao.GelatoDao;
-import it.worldpay.fede.offersmanager.dao.HandBookDao;
-import it.worldpay.fede.offersmanager.dao.MountainBikeDao;
-import it.worldpay.fede.offersmanager.dao.OfferDao;
-import it.worldpay.fede.offersmanager.dao.PastaDao;
-import it.worldpay.fede.offersmanager.dao.PizzaDao;
-import it.worldpay.fede.offersmanager.dao.RoadBikeDao;
+import it.worldpay.fede.offersmanager.dao.offer.OfferDao;
+import it.worldpay.fede.offersmanager.dao.product.bike.MountainBikeDao;
+import it.worldpay.fede.offersmanager.dao.product.bike.RoadBikeDao;
+import it.worldpay.fede.offersmanager.dao.product.book.FantasyBookDao;
+import it.worldpay.fede.offersmanager.dao.product.book.HandBookDao;
+import it.worldpay.fede.offersmanager.dao.product.food.GelatoDao;
+import it.worldpay.fede.offersmanager.dao.product.food.PastaDao;
+import it.worldpay.fede.offersmanager.dao.product.food.PizzaDao;
+import it.worldpay.fede.offersmanager.init.DataBaseInitializer;
 
 
 @SpringBootApplication

@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import it.worldpay.fede.offersmanager.dao.product.food.PastaDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactory;
-import it.worldpay.fede.offersmanager.model.food.Pasta;
+import it.worldpay.fede.offersmanager.model.product.food.Pasta;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)

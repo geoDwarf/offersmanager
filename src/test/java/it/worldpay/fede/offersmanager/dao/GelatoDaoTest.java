@@ -11,9 +11,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import it.worldpay.fede.offersmanager.dao.product.food.GelatoDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactory;
-import it.worldpay.fede.offersmanager.model.food.Gelato;
-import it.worldpay.fede.offersmanager.model.food.Gelato.Flavor;
+import it.worldpay.fede.offersmanager.model.product.food.Gelato;
+import it.worldpay.fede.offersmanager.model.product.food.Gelato.Flavor;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)

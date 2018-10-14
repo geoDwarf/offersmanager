@@ -18,14 +18,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import it.worldpay.fede.offersmanager.dao.ProductDao;
-import it.worldpay.fede.offersmanager.dao.RoadBikeDao;
+import it.worldpay.fede.offersmanager.dao.product.ProductDao;
+import it.worldpay.fede.offersmanager.dao.product.bike.RoadBikeDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
-import it.worldpay.fede.offersmanager.errors.MissingParameterException;
-import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
-import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
+import it.worldpay.fede.offersmanager.errors.exception.DuplicateResourceException;
+import it.worldpay.fede.offersmanager.errors.exception.MissingParameterException;
+import it.worldpay.fede.offersmanager.errors.exception.ProductExpiredException;
+import it.worldpay.fede.offersmanager.errors.exception.ResourceNotFoundException;
+import it.worldpay.fede.offersmanager.model.product.bike.RoadBike;
+import it.worldpay.fede.offersmanager.services.product.bike.RoadBikeService;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 

@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import it.worldpay.fede.offersmanager.dummy.DummyFactory;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.model.food.Gelato;
+import it.worldpay.fede.offersmanager.model.product.food.Gelato;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)

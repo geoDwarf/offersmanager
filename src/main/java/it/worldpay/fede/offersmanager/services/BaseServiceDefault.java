@@ -2,10 +2,10 @@ package it.worldpay.fede.offersmanager.services;
 
 import org.springframework.stereotype.Service;
 
-import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
-import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
-import it.worldpay.fede.offersmanager.model.Product;
+import it.worldpay.fede.offersmanager.errors.exception.DuplicateResourceException;
+import it.worldpay.fede.offersmanager.errors.exception.ProductExpiredException;
+import it.worldpay.fede.offersmanager.errors.exception.ResourceNotFoundException;
+import it.worldpay.fede.offersmanager.model.product.Product;
 
 
 @Service

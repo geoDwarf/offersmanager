@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import it.worldpay.fede.offersmanager.model.Offer;
-import it.worldpay.fede.offersmanager.model.Product;
+import it.worldpay.fede.offersmanager.model.offer.Offer;
+import it.worldpay.fede.offersmanager.model.product.Product;
 
 @Component
 public interface DummyFactory {

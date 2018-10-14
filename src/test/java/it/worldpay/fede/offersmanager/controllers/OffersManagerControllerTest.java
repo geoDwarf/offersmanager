@@ -24,25 +24,26 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import it.worldpay.fede.offersmanager.controller.OffersManagerController;
 import it.worldpay.fede.offersmanager.dummy.DummyFactory;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.model.Offer;
-import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
-import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
-import it.worldpay.fede.offersmanager.model.books.FantasyBook;
-import it.worldpay.fede.offersmanager.model.books.HandBook;
-import it.worldpay.fede.offersmanager.model.food.Gelato;
-import it.worldpay.fede.offersmanager.model.food.Pasta;
-import it.worldpay.fede.offersmanager.model.food.Pizza;
+import it.worldpay.fede.offersmanager.model.offer.Offer;
+import it.worldpay.fede.offersmanager.model.product.bike.MountainBike;
+import it.worldpay.fede.offersmanager.model.product.bike.RoadBike;
+import it.worldpay.fede.offersmanager.model.product.book.FantasyBook;
+import it.worldpay.fede.offersmanager.model.product.book.HandBook;
+import it.worldpay.fede.offersmanager.model.product.food.Gelato;
+import it.worldpay.fede.offersmanager.model.product.food.Pasta;
+import it.worldpay.fede.offersmanager.model.product.food.Pizza;
 import it.worldpay.fede.offersmanager.services.BaseServiceDefault;
-import it.worldpay.fede.offersmanager.services.FantasyBookService;
-import it.worldpay.fede.offersmanager.services.GelatoService;
-import it.worldpay.fede.offersmanager.services.HandBookService;
-import it.worldpay.fede.offersmanager.services.MountainBikeService;
-import it.worldpay.fede.offersmanager.services.OfferServiceDefault;
-import it.worldpay.fede.offersmanager.services.PastaService;
-import it.worldpay.fede.offersmanager.services.PizzaService;
-import it.worldpay.fede.offersmanager.services.RoadBikeService;
+import it.worldpay.fede.offersmanager.services.offer.OfferServiceDefault;
+import it.worldpay.fede.offersmanager.services.product.bike.MountainBikeService;
+import it.worldpay.fede.offersmanager.services.product.bike.RoadBikeService;
+import it.worldpay.fede.offersmanager.services.product.book.FantasyBookService;
+import it.worldpay.fede.offersmanager.services.product.book.HandBookService;
+import it.worldpay.fede.offersmanager.services.product.food.GelatoService;
+import it.worldpay.fede.offersmanager.services.product.food.PastaService;
+import it.worldpay.fede.offersmanager.services.product.food.PizzaService;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class OffersManagerControllerTest {

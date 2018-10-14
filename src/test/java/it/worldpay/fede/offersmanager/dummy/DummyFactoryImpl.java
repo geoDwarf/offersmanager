@@ -6,15 +6,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import it.worldpay.fede.offersmanager.model.Offer;
-import it.worldpay.fede.offersmanager.model.Product;
-import it.worldpay.fede.offersmanager.model.bikes.MountainBike;
-import it.worldpay.fede.offersmanager.model.bikes.RoadBike;
-import it.worldpay.fede.offersmanager.model.books.FantasyBook;
-import it.worldpay.fede.offersmanager.model.books.HandBook;
-import it.worldpay.fede.offersmanager.model.food.Gelato;
-import it.worldpay.fede.offersmanager.model.food.Pasta;
-import it.worldpay.fede.offersmanager.model.food.Pizza;
+import it.worldpay.fede.offersmanager.model.offer.Offer;
+import it.worldpay.fede.offersmanager.model.product.Product;
+import it.worldpay.fede.offersmanager.model.product.bike.MountainBike;
+import it.worldpay.fede.offersmanager.model.product.bike.RoadBike;
+import it.worldpay.fede.offersmanager.model.product.book.FantasyBook;
+import it.worldpay.fede.offersmanager.model.product.book.HandBook;
+import it.worldpay.fede.offersmanager.model.product.food.Gelato;
+import it.worldpay.fede.offersmanager.model.product.food.Pasta;
+import it.worldpay.fede.offersmanager.model.product.food.Pizza;
 
 @Component
 public class DummyFactoryImpl implements DummyFactory{
@@ -96,8 +96,6 @@ public Product getBadRequestDummyProduct(String product){
 	}else if(product.equalsIgnoreCase("HANDBOOK")){
 			return getBadRequestDummyHandBook();
 	}else{
-		
-		
 		return null;
 	}
 }

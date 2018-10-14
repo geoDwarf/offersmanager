@@ -18,14 +18,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import it.worldpay.fede.offersmanager.dao.GelatoDao;
-import it.worldpay.fede.offersmanager.dao.ProductDao;
+import it.worldpay.fede.offersmanager.dao.product.ProductDao;
+import it.worldpay.fede.offersmanager.dao.product.food.GelatoDao;
 import it.worldpay.fede.offersmanager.dummy.DummyFactoryImpl;
-import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
-import it.worldpay.fede.offersmanager.errors.MissingParameterException;
-import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
-import it.worldpay.fede.offersmanager.model.food.Gelato;
+import it.worldpay.fede.offersmanager.errors.exception.DuplicateResourceException;
+import it.worldpay.fede.offersmanager.errors.exception.MissingParameterException;
+import it.worldpay.fede.offersmanager.errors.exception.ProductExpiredException;
+import it.worldpay.fede.offersmanager.errors.exception.ResourceNotFoundException;
+import it.worldpay.fede.offersmanager.model.product.food.Gelato;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 

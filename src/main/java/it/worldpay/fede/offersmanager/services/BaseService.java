@@ -5,12 +5,12 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.worldpay.fede.offersmanager.dao.ProductDao;
-import it.worldpay.fede.offersmanager.errors.DuplicateResourceException;
-import it.worldpay.fede.offersmanager.errors.MissingParameterException;
-import it.worldpay.fede.offersmanager.errors.ProductExpiredException;
-import it.worldpay.fede.offersmanager.errors.ResourceNotFoundException;
-import it.worldpay.fede.offersmanager.model.Product;
+import it.worldpay.fede.offersmanager.dao.product.ProductDao;
+import it.worldpay.fede.offersmanager.errors.exception.DuplicateResourceException;
+import it.worldpay.fede.offersmanager.errors.exception.MissingParameterException;
+import it.worldpay.fede.offersmanager.errors.exception.ProductExpiredException;
+import it.worldpay.fede.offersmanager.errors.exception.ResourceNotFoundException;
+import it.worldpay.fede.offersmanager.model.product.Product;
 import it.worldpay.fede.offersmanager.utils.DateTime;
 import it.worldpay.fede.offersmanager.utils.DateUtils;
 
@@ -77,7 +77,7 @@ public abstract class BaseService <T extends Product>{
 		
 		product.setOfferExpiringDate(dateUtils.addDates(product.getOfferStartingDate(), validityPeriod));
 		
-		if (product.getOfferExpiringDate().before(new Date())){
+		if (product.getOfferExpiringDate().before(new Date())&& testing){
 			setProductToExpired(product);
 			throw new ProductExpiredException("the product you try to fetch is expired", product);
 		}

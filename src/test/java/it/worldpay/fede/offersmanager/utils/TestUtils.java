@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import it.worldpay.fede.offersmanager.model.Product;
+import it.worldpay.fede.offersmanager.model.product.Product;
 
 public class TestUtils {
 	

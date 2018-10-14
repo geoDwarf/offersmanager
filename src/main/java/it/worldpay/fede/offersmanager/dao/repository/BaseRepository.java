@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 
-import it.worldpay.fede.offersmanager.model.Product;
+import it.worldpay.fede.offersmanager.model.product.Product;
 
 @NoRepositoryBean
 public interface BaseRepository<T extends Product> extends CrudRepository<T, Long> {

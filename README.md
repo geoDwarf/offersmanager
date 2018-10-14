@@ -45,9 +45,9 @@ A RESTful facade backend API for managing product offers.
 Below all the commands to clone, build and run the project with Maven and Java 8 JDK:
 
 - git clone https://github.com/geoDwarf/offersmanager
-- cd MoviesRestService
-- mvn  clean install
-- java -jar target/com-ubs-ws-movies-web-1.0.jar
+- cd offersmanager
+- mvn clean install
+- java -jar target/offers-manager-0.0.1-SNAPSHOT.jar
 - the embedded servlet container starts at http://localhost:8080
 
 ## How to test step by step via REST client 

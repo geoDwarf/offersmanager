@@ -34,36 +34,5 @@ public class GlobalExceptionHandler extends AbstractGlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> productIdDuplicated(ProductExpiredException ex) {
         return buildAndSendErrorResponse(ex, "offer on the specific product is expired",ex.getExpiredProduct(), HttpStatus.CONFLICT);
     }
-//    // HANDLING SOME NON-CUSTOM EXCEPTIONS
-//    @ExceptionHandler(ConstraintViolationException.class)
-//    public ResponseEntity<ExceptionResponse> constraintViolation(ConstraintViolationException ex) {
-//        return buildAndSendErrorResponse(ex, ERRROR_CODE_CONSTRAINT_VIOLATION, HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(UnexpectedTypeException.class)
-//    public ResponseEntity<ExceptionResponse> requestWithUnexpectedType(UnexpectedTypeException ex) {
-//        return buildAndSendErrorResponse(ex, ERROR_CODE_MALFORMED_REQUEST, HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<ExceptionResponse> requestWithInvalidArgument(MethodArgumentNotValidException ex) {
-//        return buildAndSendErrorResponse(ex, ERROR_CODE_MALFORMED_REQUEST, HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(HttpMessageNotReadableException.class)
-//    public ResponseEntity<ExceptionResponse> requestNotReadable(HttpMessageNotReadableException ex) {
-//        return buildAndSendErrorResponse(ex, ERROR_CODE_MALFORMED_REQUEST, HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(JsonParseException.class)
-//    public ResponseEntity<ExceptionResponse> requestNotParsable(JsonParseException ex) {
-//        return buildAndSendErrorResponse(ex, ERROR_CODE_MALFORMED_REQUEST, HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(TransactionSystemException.class)
-//    public ResponseEntity<ExceptionResponse> invalidRequest(TransactionSystemException ex) {
-//        return buildAndSendErrorResponse(ex, ERROR_CODE_MALFORMED_REQUEST, HttpStatus.BAD_REQUEST);
-//    }
 
-	
 }
